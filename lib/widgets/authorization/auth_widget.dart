@@ -1,4 +1,5 @@
 import 'package:english_application/widgets/Theme/app_button_style.dart';
+import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
 import 'package:flutter/material.dart';
 
 class AuthWidget extends StatefulWidget {
@@ -65,7 +66,9 @@ class __FormWidgetState extends State<_FormWidget> {
     final password = _passwordTextController.text;
     if (login == 'admin' && password == 'admin') {
       errorText = null;
-      print('go app');
+
+      Navigator.of(context).pushReplacementNamed('/main_screen');
+
     } else {
       errorText = 'Wrong login or password!';
       print('show error');
@@ -100,10 +103,10 @@ class __FormWidgetState extends State<_FormWidget> {
             style: TextStyle(
               fontSize: 17,
               color: Colors.red,
-              ),
             ),
-            SizedBox(height: 20),
-        ],    
+          ),
+          SizedBox(height: 20),
+        ],
         Text(
           'Username',
           style: textStyle,
