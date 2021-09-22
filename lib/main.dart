@@ -1,3 +1,5 @@
+import 'package:english_application/widgets/Theme/app_color.dart';
+import 'package:english_application/widgets/main_screen/gfe.dart';
 import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:english_application/widgets/authorization/auth_widget.dart';
@@ -15,25 +17,28 @@ class MyApp extends StatelessWidget {
         title: 'English words',
         theme: ThemeData(
           appBarTheme: const AppBarTheme(
-              backgroundColor: Color.fromRGBO(121, 104, 216,
-                  1)), /* 121, 104, 216, */ /* 190, 179, 239, */ /* 252, 200, 192, */ /* 173, 221, 254, */ /* 253, 160, 34, 1 */
+              backgroundColor: AppColors.mainColorApp
+          ), 
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: AppColors.mainColorApp,
+            selectedItemColor: Colors.yellow.shade50,
+            unselectedItemColor: Colors.white54,
+          ),
         ),
-        routes: {
-          /* docs routes */ /* прописывание маршрутов */
+        routes: { /* docs routes */ /* прописывание маршрутов */
           '/auth': (context) => AuthWidget(),
           '/main_screen': (context) => MainScreenWidget(),
         },
         initialRoute: '/auth',
-        onGenerateRoute: (RouteSettings settings) {
-          /* очень крутая штука, почитать */
-          return MaterialPageRoute<void>(builder: (context) {
-            return Scaffold(
-              body: Center(
-                child: Text('Произошла ошибка навигации'),
-              ),
-            );
-          });
-        }
+        // onGenerateRoute: (RouteSettings settings) { /* очень крутая штука, почитать */
+        //   return MaterialPageRoute<void>(builder: (context) { /* можно делать анимации и много возможностей */
+        //     return Scaffold(
+        //       body: Center(
+        //         child: Text('Произошла ошибка навигации'),
+        //       ),
+        //     );
+        //   });
+        // }
     );
   }
 }

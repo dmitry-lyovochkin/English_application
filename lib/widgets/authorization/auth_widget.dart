@@ -1,4 +1,5 @@
 import 'package:english_application/widgets/Theme/app_button_style.dart';
+import 'package:english_application/widgets/Theme/app_color.dart';
 import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -57,9 +58,8 @@ class _FormWidget extends StatefulWidget {
 }
 
 class __FormWidgetState extends State<_FormWidget> {
-  final _loginTextController =
-      TextEditingController(); /* уйдут в Textfield - controller */
-  final _passwordTextController = TextEditingController();
+  final _loginTextController = TextEditingController(text: 'admin'); /* уйдут в Textfield - controller */
+  final _passwordTextController = TextEditingController(text: 'admin');
   String? errorText = null;
   void _login() {
     final login = _loginTextController.text;
@@ -67,7 +67,7 @@ class __FormWidgetState extends State<_FormWidget> {
     if (login == 'admin' && password == 'admin') {
       errorText = null;
 
-      Navigator.of(context).pushReplacementNamed('/main_screen');
+      Navigator.of(context).pushNamed('/main_screen'); /* pushNamed, pushReplacementNamed */
 
     } else {
       errorText = 'Wrong login or password!';
@@ -84,10 +84,8 @@ class __FormWidgetState extends State<_FormWidget> {
   Widget build(BuildContext context) {
     final textStyle = const TextStyle(
       fontSize: 16,
-      color: Colors.black45,
+      color: Colors.black45,    
     );
-    final colorOne = const Color.fromRGBO(121, 104, 216,
-        1); /* 121, 104, 216, */ /* 190, 179, 239, */ /* 252, 200, 192, */ /* 173, 221, 254, */ /* 253, 160, 34, 1 */
     final textFieldDecoration = const InputDecoration(
       border: OutlineInputBorder(),
       contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -133,7 +131,7 @@ class __FormWidgetState extends State<_FormWidget> {
             ElevatedButton(
                 onPressed: _login,
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(colorOne),
+                  backgroundColor: MaterialStateProperty.all(AppColors.mainColorApp),
                   foregroundColor: MaterialStateProperty.all(Colors.white),
                   textStyle: MaterialStateProperty.all(
                     TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
@@ -147,7 +145,7 @@ class __FormWidgetState extends State<_FormWidget> {
                 onPressed: _signUp,
                 style: ButtonStyle(
                   // backgroundColor: MaterialStateProperty.all(color),
-                  foregroundColor: MaterialStateProperty.all(colorOne),
+                  foregroundColor: MaterialStateProperty.all(AppColors.mainColorApp),
                   textStyle: MaterialStateProperty.all(
                     TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                   ),
@@ -159,5 +157,3 @@ class __FormWidgetState extends State<_FormWidget> {
     );
   }
 }
-
-// 52
