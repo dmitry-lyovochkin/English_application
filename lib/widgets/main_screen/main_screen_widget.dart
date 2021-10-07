@@ -36,7 +36,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Tenglish'),
+        title: const Text('Tenglish'),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),

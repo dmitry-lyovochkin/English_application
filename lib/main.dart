@@ -1,11 +1,10 @@
 import 'package:english_application/widgets/Theme/app_color.dart';
-import 'package:english_application/widgets/main_screen/gfe.dart';
 import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:english_application/widgets/authorization/auth_widget.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -26,8 +25,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
         routes: { /* docs routes */ /* прописывание маршрутов */
-          '/auth': (context) => AuthWidget(),
-          '/main_screen': (context) => MainScreenWidget(),
+          '/auth': (context) => const AuthWidget(),
+          '/main_screen': (context) => const MainScreenWidget(),
         },
         initialRoute: '/auth',
         // onGenerateRoute: (RouteSettings settings) { /* очень крутая штука, почитать */

@@ -1,10 +1,9 @@
 import 'package:english_application/widgets/Theme/app_button_style.dart';
 import 'package:english_application/widgets/Theme/app_color.dart';
-import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
 import 'package:flutter/material.dart';
 
 class AuthWidget extends StatefulWidget {
-  AuthWidget({Key? key}) : super(key: key);
+  const AuthWidget({Key? key}) : super(key: key);
 
   @override
   _AuthWidgetState createState() => _AuthWidgetState();
@@ -16,10 +15,10 @@ class _AuthWidgetState extends State<AuthWidget> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Login to your account'),
+        title: const Text('Login to your account'),
       ),
       body: ListView(
-        children: [
+        children: const [
           _HeaderWidget(),
         ],
       ),
@@ -37,12 +36,12 @@ class _HeaderWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          SizedBox(height: 25),
-          _FormWidget(),
+          const SizedBox(height: 25),
+          const _FormWidget(),
           TextButton(
             style: AppButtonStyle.linkButton,
             onPressed: () {},
-            child: Text('Forgot?'),
+            child: const Text('Forgot?'),
           ),
         ],
       ),
@@ -51,7 +50,7 @@ class _HeaderWidget extends StatelessWidget {
 }
 
 class _FormWidget extends StatefulWidget {
-  _FormWidget({Key? key}) : super(key: key);
+  const _FormWidget({Key? key}) : super(key: key);
 
   @override
   __FormWidgetState createState() => __FormWidgetState();
@@ -60,7 +59,7 @@ class _FormWidget extends StatefulWidget {
 class __FormWidgetState extends State<_FormWidget> {
   final _loginTextController = TextEditingController(text: 'admin'); /* уйдут в Textfield - controller */
   final _passwordTextController = TextEditingController(text: 'admin');
-  String? errorText = null;
+  String? errorText;
   void _login() {
     final login = _loginTextController.text;
     final password = _passwordTextController.text;
@@ -82,11 +81,11 @@ class __FormWidgetState extends State<_FormWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = const TextStyle(
+    const textStyle = TextStyle(
       fontSize: 16,
       color: Colors.black45,    
     );
-    final textFieldDecoration = const InputDecoration(
+    const textFieldDecoration = InputDecoration(
       border: OutlineInputBorder(),
       contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       isCollapsed: true,
@@ -98,34 +97,34 @@ class __FormWidgetState extends State<_FormWidget> {
         if (errorText != null) ...[
           Text(
             errorText,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 17,
               color: Colors.red,
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
         ],
-        Text(
+        const Text(
           'Username',
           style: textStyle,
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         TextField(
           controller: _loginTextController,
           decoration: textFieldDecoration,
         ),
-        SizedBox(height: 20),
-        Text(
+        const SizedBox(height: 20),
+        const Text(
           'Password',
           style: textStyle,
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         TextField(
           controller: _passwordTextController,
           decoration: textFieldDecoration,
           obscureText: true,
         ),
-        SizedBox(height: 25),
+        const SizedBox(height: 25),
         Row(
           children: [
             ElevatedButton(
@@ -134,23 +133,23 @@ class __FormWidgetState extends State<_FormWidget> {
                   backgroundColor: MaterialStateProperty.all(AppColors.mainColorApp),
                   foregroundColor: MaterialStateProperty.all(Colors.white),
                   textStyle: MaterialStateProperty.all(
-                    TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                   ),
                   padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(horizontal: 15, vertical: 8)),
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 8)),
                 ),
-                child: Text('Login')),
-            SizedBox(width: 20),
+                child: const Text('Login')),
+            const SizedBox(width: 20),
             TextButton(
                 onPressed: _signUp,
                 style: ButtonStyle(
                   // backgroundColor: MaterialStateProperty.all(color),
                   foregroundColor: MaterialStateProperty.all(AppColors.mainColorApp),
                   textStyle: MaterialStateProperty.all(
-                    TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                   ),
                 ),
-                child: Text('Sign Up')),
+                child: const Text('Sign Up')),
           ],
         ),
       ],

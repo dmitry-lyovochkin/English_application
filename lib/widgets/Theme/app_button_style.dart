@@ -7,7 +7,7 @@ abstract class AppButtonStyle {
     // foregroundColor: MaterialStateProperty.all(Colors.white),
     foregroundColor: MaterialStateProperty.all(AppColors.mainColorApp),
     textStyle: MaterialStateProperty.all(
-      TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+      const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
     ),
   );
 }
