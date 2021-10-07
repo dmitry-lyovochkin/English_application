@@ -1,5 +1,6 @@
 import 'package:english_application/widgets/Theme/app_color.dart';
 import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
+import 'package:english_application/widgets/words_screen/paint_screen_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:english_application/widgets/authorization/auth_widget.dart';
 
@@ -24,20 +25,12 @@ class MyApp extends StatelessWidget {
             unselectedItemColor: Colors.white54,
           ),
         ),
+        initialRoute: '/auth',
         routes: { /* docs routes */ /* прописывание маршрутов */
           '/auth': (context) => const AuthWidget(),
           '/main_screen': (context) => const MainScreenWidget(),
+          '/paint_screen': (context) =>  PaintScreenWidget(),
         },
-        initialRoute: '/auth',
-        // onGenerateRoute: (RouteSettings settings) { /* очень крутая штука, почитать */
-        //   return MaterialPageRoute<void>(builder: (context) { /* можно делать анимации и много возможностей */
-        //     return Scaffold(
-        //       body: Center(
-        //         child: Text('Произошла ошибка навигации'),
-        //       ),
-        //     );
-        //   });
-        // }
     );
   }
 }
