@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PaintScreenWidget extends StatefulWidget {
-   PaintScreenWidget({Key? key}) : super(key: key);
+   const PaintScreenWidget({Key? key}) : super(key: key);
 
   @override
   _PaintScreenWidgetState createState() => _PaintScreenWidgetState();
@@ -11,13 +11,14 @@ class PaintScreenWidget extends StatefulWidget {
 
 class _PaintScreenWidgetState extends State<PaintScreenWidget> {
   @override
-  Widget build(BuildContext context) {
-      Navigator.of(context).pushReplacementNamed('/auth');
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('PaintScreen'),
-      ),
-    );
+  void initState() {
+    super.initState();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold();
+  }
 }
+
+

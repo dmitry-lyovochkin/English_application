@@ -1,3 +1,8 @@
+import 'package:english_application/widgets/Theme/app_color.dart';
+import 'package:english_application/widgets/main_screen/profile_page.dart';
+import 'package:english_application/widgets/main_screen/repeat_page.dart';
+import 'package:english_application/widgets/main_screen/suggestions_page.dart';
+import 'package:english_application/widgets/main_screen/words_page.dart';
 import 'package:flutter/material.dart';
 
 class MainScreenWidget extends StatefulWidget {
@@ -8,20 +13,12 @@ class MainScreenWidget extends StatefulWidget {
 }
 
 class _MainScreenWidgetState extends State<MainScreenWidget> {
-  int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Профиль',
-    ),
-    Text(
-      'Повторение',
-    ),
-    Text(
-      'Слова',
-    ),
-    Text(
-      'Предложения',
-    ),
+  int _selectedIndex = 2;
+  final screens = [
+    const ProfilePageWidget(),
+    RepeatPageWidget(),
+    WordsPageWidget(),
+    SuggestionsPageWidget(),
   ];
 
   void onSelectTub(int index) {
@@ -38,16 +35,19 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         centerTitle: true,
         title: const Text('Tenglish'),
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: screens [_selectedIndex],
       bottomNavigationBar:  BottomNavigationBar(
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey[400],
+        backgroundColor: AppColors.mainColorApp,
         type: BottomNavigationBarType.fixed,
-        iconSize: 24,
-        // backgroundColor: Colors.red,
-        items: const <BottomNavigationBarItem>[
+        iconSize: 26,
+        selectedFontSize: 15,
+        onTap: onSelectTub,
+        currentIndex: _selectedIndex,
+        items:  const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.supervised_user_circle), label: 'Профиль'),
+              icon: Icon(Icons.person), label: 'Профиль'),
           BottomNavigationBarItem(
               icon: Icon(Icons.replay_rounded), label: 'Повторение'),
           BottomNavigationBarItem(
@@ -55,8 +55,6 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
           BottomNavigationBarItem(
               icon: Icon(Icons.extension_sharp), label: 'Предложения'),
         ],
-        currentIndex: _selectedIndex,
-        onTap: onSelectTub,
       ),
     );
   }
