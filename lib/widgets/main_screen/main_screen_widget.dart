@@ -13,20 +13,57 @@ class MainScreenWidget extends StatefulWidget {
 }
 
 class _MainScreenWidgetState extends State<MainScreenWidget> {
-  int _selectedIndex = 2;
-  final screens = [
-    const ProfilePageWidget(),
-    RepeatPageWidget(),
-    WordsPageWidget(),
-    SuggestionsPageWidget(),
-  ];
+  int selectedIndex = 0;
+  // Widget _ProfilePageWidget = ProfilePageWidget();
+  // Widget _RepeatPageWidget = RepeatPageWidget();
+  // Widget _SuggestionsPageWidget = SuggestionsPageWidget();
+  
+  // final screens = [
+  //   const ProfilePageWidget(),
+  //   RepeatPageWidget(),
+  //   const WordsPageWidget(),
+  //   SuggestionsPageWidget(),
+  // ];
 
-  void onSelectTub(int index) {
-    if (_selectedIndex == index) return; /* если индекс уже равен выделенной вкладке, то по сути ничего не делаем. Так стейт не обновляем, если вкладка уже выбрана */
+  Widget getBody() {
+    if (selectedIndex == 0) {
+      return ProfilePageWidget();
+    } else if (selectedIndex == 1) {
+      return RepeatPageWidget();
+    } else if (selectedIndex == 2) {
+      return WordsPageWidget();
+    } else {
+      return SuggestionsPageWidget();
+    }
+  }
+
+  // void _onSelectTub(int index) {
+  //   Navigator.of(context).pushNamed('/paint_screen');
+  // }
+
+  void onTapHandler(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
+
+  // IndexedStack(
+  //   index: selectedIndex,
+  //   children: [
+  //     WordsPageWidget(),
+  //   ],
+  // )
+  // void onSelectTub(int index) {
+  //   if (index != 2) {
+  //     setState(() {
+  //       _selectedIndex = index;
+  //     });
+  //   } else {
+  //     Navigator.of(context).pushNamed('/main_screen/paint_screen');
+  //   }
+  // }
+
+  /* .of(context, rootNavigator: true) убирает бар */
 
   @override
   Widget build(BuildContext context) {
@@ -35,26 +72,26 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         centerTitle: true,
         title: const Text('Tenglish'),
       ),
-      body: screens [_selectedIndex],
-      bottomNavigationBar:  BottomNavigationBar(
+      // body: screens[_selectedIndex],
+      body:  getBody(), 
+      bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey[400],
         backgroundColor: AppColors.mainColorApp,
         type: BottomNavigationBarType.fixed,
         iconSize: 26,
         selectedFontSize: 15,
-        onTap: onSelectTub,
-        currentIndex: _selectedIndex,
-        items:  const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), label: 'Профиль'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.replay_rounded), label: 'Повторение'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.menu_book_rounded), label: 'Слова'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.extension_sharp), label: 'Предложения'),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Профиль'),
+          BottomNavigationBarItem(icon: Icon(Icons.replay_rounded), label: 'Повторение'),
+          BottomNavigationBarItem(icon: Icon(Icons.menu_book_rounded),label: 'Слова'),
+          BottomNavigationBarItem(icon: Icon(Icons.extension_sharp), label: 'Предложения'),
+          
         ],
+        onTap: (int index) {
+          onTapHandler(index);
+        },
+        currentIndex: selectedIndex,
       ),
     );
   }

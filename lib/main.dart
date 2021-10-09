@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         routes: { /* docs routes */ /* прописывание маршрутов */
           '/auth': (context) => const AuthWidget(),
           '/main_screen': (context) => const MainScreenWidget(),
-          '/paint_screen': (context) =>  PaintScreenWidget(),
+          // '/main_screen/paint_screen': (context) =>  const PaintScreenWidget(),
         },
     );
   }

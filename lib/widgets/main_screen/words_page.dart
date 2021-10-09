@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
 
 class WordsPageWidget extends StatefulWidget {
-  WordsPageWidget({Key? key}) : super(key: key);
+  const WordsPageWidget({Key? key}) : super(key: key);
 
+  
   @override
   _WordsPageWidgetState createState() => _WordsPageWidgetState();
 }
@@ -11,8 +13,16 @@ class _WordsPageWidgetState extends State<WordsPageWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Words', style: TextStyle(fontSize: 54))
-       )
+      appBar:  AppBar(
+        title: const Text('Tenglish1'),
+      ),
+      body: const Center(
+        child: Text(
+          'Words', 
+          style: TextStyle(
+            fontSize: 14)),
+          
+       ),
     );
   }
 }
