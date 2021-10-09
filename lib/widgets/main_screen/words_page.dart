@@ -1,30 +1,55 @@
+import 'package:english_application/widgets/Theme/app_button_style.dart';
 import 'package:flutter/material.dart';
 import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
 import 'package:flutter/services.dart';
 
-class WordsPageWidget extends StatefulWidget {
-  const WordsPageWidget({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  
   @override
-  _WordsPageWidgetState createState() => _WordsPageWidgetState();
-  
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: PaintBoard(),
+    );
+  }
 }
 
-class _WordsPageWidgetState extends State<WordsPageWidget> {
+class PaintBoard extends StatefulWidget {
+  const PaintBoard({Key? key}) : super(key: key);
+
+  @override
+  _PaintBoardState createState() => _PaintBoardState();
+}
+
+class _PaintBoardState extends State<PaintBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
-        title: const Text('Tenglish1'),
-      ),
-      body: const Center(
-        child: Text(
-          'Words', 
-          style: TextStyle(
-            fontSize: 14)),
-          
-       ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          color: Color.fromRGBO(121, 104, 216, 700),
+          child: Row(
+            children: [
+              Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                  // border: Border.all(
+                  //   color: Colors.white,
+                  //   width: 1,
+                  // )
+                  
+                )
+              )
+
+            ],
+          )
+        )
+
+      )
     );
   }
   @override
@@ -44,4 +69,3 @@ class _WordsPageWidgetState extends State<WordsPageWidget> {
     super.dispose();
   }
 }
-
