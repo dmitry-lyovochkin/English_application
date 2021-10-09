@@ -31,7 +31,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
     } else if (selectedIndex == 1) {
       return RepeatPageWidget();
     } else if (selectedIndex == 2) {
-      return WordsPageWidget();
+      return WordsPageWidget(); /* пофиксить потом, 2 раза прописываю */
     } else {
       return SuggestionsPageWidget();
     }
