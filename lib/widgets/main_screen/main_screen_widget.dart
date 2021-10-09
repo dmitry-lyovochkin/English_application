@@ -53,15 +53,15 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
   //     WordsPageWidget(),
   //   ],
   // )
-  // void onSelectTub(int index) {
-  //   if (index != 2) {
-  //     setState(() {
-  //       _selectedIndex = index;
-  //     });
-  //   } else {
-  //     Navigator.of(context).pushNamed('/main_screen/paint_screen');
-  //   }
-  // }
+  void onSelectTub(int index) {
+    if (index != 2) {
+      setState(() {
+        selectedIndex = index;
+      });
+    } else {
+      Navigator.of(context).pushNamed('/main_screen/words_page');
+    }
+  }
 
   /* .of(context, rootNavigator: true) убирает бар */
 
@@ -89,7 +89,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
           
         ],
         onTap: (int index) {
-          onTapHandler(index);
+          onSelectTub(index);
         },
         currentIndex: selectedIndex,
       ),
