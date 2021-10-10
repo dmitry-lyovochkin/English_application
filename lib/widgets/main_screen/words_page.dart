@@ -23,45 +23,70 @@ class PaintBoard extends StatefulWidget {
 }
 
 class _PaintBoardState extends State<PaintBoard> {
+  Color selectedColor = Colors.black;
+  List<Color> colors = [
+    Colors.black,
+    Colors.green,
+    Colors.blue,
+    Colors.red,
+    Colors.yellow,
+    Colors.pink,
+    Colors.purple,
+    Colors.orange,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          color: Color.fromRGBO(121, 104, 216, 700),
-          child: Row(
-            children: [
-              Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  shape: BoxShape.circle,
-                  // border: Border.all(
-                  //   color: Colors.white,
-                  //   width: 1,
-                  // )
-                  
+        bottomNavigationBar: BottomAppBar(
+            child: Container(
+                color: const Color.fromRGBO(121, 104, 216, 700),
+                padding: const EdgeInsets.all(2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: List.generate(
+                      colors.length, (index) => _useColor(colors[index])
+                  ),
                 )
-              )
-
-            ],
-          )
+            )
         )
-
-      )
     );
   }
-  @override
-    void initState(){
-      super.initState();
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeRight,
-        DeviceOrientation.landscapeLeft,
-      ]);
+
+  Widget _useColor(Color color) {
+    bool isSelected = selectedColor == color;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedColor = color;
+        });
+      },
+      child: Container(
+          height: isSelected? 35 : 25,
+          width: isSelected? 35 : 25,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+            // border: isSelected ? Border.all(
+            //   color: Colors.white,
+            //   width: 1,
+            // ) : null
+            
+          )),
+    );
   }
+
   @override
-  dispose(){
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+  }
+
+  @override
+  dispose() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
