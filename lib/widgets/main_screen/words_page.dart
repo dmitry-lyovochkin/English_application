@@ -55,18 +55,28 @@ class _PaintBoardState extends State<PaintBoard> {
 
   Widget _useColor(Color color) {
     bool isSelected = selectedColor == color;
-    return GestureDetector(
+    return GestureDetector( /* по доке */
       onTap: () {
         setState(() {
           selectedColor = color;
         });
       },
-      child: Container(
+      child: Container( /* сделать больше зону нажатия на цвет */
           height: isSelected? 35 : 25,
           width: isSelected? 35 : 25,
           decoration: BoxDecoration(
             color: color,
             shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.9),
+                // spreadRadius: 10,
+                blurRadius: 3,
+                offset: const Offset(1, 2),
+
+              )
+
+            ],
             // border: isSelected ? Border.all(
             //   color: Colors.white,
             //   width: 1,
