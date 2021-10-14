@@ -10,7 +10,7 @@ class RepeatPageWidget extends StatefulWidget {
 class _RepeatPageWidgetState extends State<RepeatPageWidget> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(child: Text('Repeat', style: TextStyle(fontSize: 54)))
     );
   }
