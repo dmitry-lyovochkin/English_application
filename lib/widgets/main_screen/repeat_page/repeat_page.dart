@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RepeatPageWidget extends StatefulWidget {
-  RepeatPageWidget({Key? key}) : super(key: key);
+  RepeatPageWidget({Key key}) : super(key: key);
 
   @override
   _RepeatPageWidgetState createState() => _RepeatPageWidgetState();

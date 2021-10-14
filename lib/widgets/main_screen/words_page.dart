@@ -1,12 +1,10 @@
 import 'dart:ui';
 
-import 'package:english_application/widgets/Theme/app_button_style.dart';
 import 'package:flutter/material.dart';
-import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
 import 'package:flutter/services.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +15,7 @@ class MyApp extends StatelessWidget {
 }
 
 class PaintBoard extends StatefulWidget {
-  const PaintBoard({Key? key}) : super(key: key);
+  const PaintBoard({Key key}) : super(key: key);
 
   @override
   _PaintBoardState createState() => _PaintBoardState();
@@ -72,11 +70,11 @@ class _PaintBoardState extends State<PaintBoard> {
                   );
                 });
               },
-              // onPanEnd: (details) {
-              //   setState(() {
-              //     drawingPoints.add(null);
-              //   });
-              // },
+              onPanEnd: (details) {
+                setState(() {
+                  drawingPoints.add(null);
+                });
+              },
               child: CustomPaint(
                 painter: _DrawingPainter(drawingPoints),
                 child: Container(
@@ -85,25 +83,43 @@ class _PaintBoardState extends State<PaintBoard> {
                 ),
               ),
             ),
-            Positioned( 
-              top: 40,
-              right: 30,
-              child: Row(
-                children: [
-                  Slider(
-                    min: 0,
-                    max: 40,
-                    value: strokeWidth, 
-                    onChanged: (val) => setState(() => strokeWidth = val),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () => setState(() => drawingPoints = []), 
-                    icon: Icon(Icons.clear), 
-                    label: Text("Clear Board"),
-                  )
-                ],
-              )
-            ),
+            Positioned(
+                top: 30,
+                right: 30,
+                child: Row(
+                  children: [
+                    // SliderTheme(
+                    //   data: const SliderThemeData(
+                    //     thumbColor: Colors.red,
+                    //     thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
+                    //   ),
+                    Slider(
+                      activeColor: const Color.fromRGBO(121, 104, 216, 100),
+                      min: 0,
+                      max: 40,
+                      // divisions: 5,
+                      label: strokeWidth.round().toString(),
+                      value: strokeWidth,
+                      onChanged: (val) => setState(() => strokeWidth = val),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () => setState(() => drawingPoints = []),
+                      icon: const Icon(Icons.cancel),
+                      label: const Text("Clear Board"),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(121, 104, 216, 100)),
+                        foregroundColor: MaterialStateProperty.all(Colors.white),
+                        textStyle: MaterialStateProperty.all(
+                          const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                        ),
+                        padding: MaterialStateProperty.all(
+                          const EdgeInsets.symmetric(horizontal: 15, vertical: 8)),
+                      ),
+                 
+                      // child: null,
+                    )
+                  ],
+                )),
           ],
         ),
         bottomNavigationBar: BottomAppBar(
@@ -133,6 +149,7 @@ class _PaintBoardState extends State<PaintBoard> {
           decoration: BoxDecoration(
             color: color,
             shape: BoxShape.circle,
+            // border: isSelected ? Border.all(color: Colors.white, width: 3) : null,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.9),
@@ -145,7 +162,6 @@ class _PaintBoardState extends State<PaintBoard> {
         ));
   }
 
-  // поворот экрана
   @override
   void initState() {
     super.initState();
@@ -170,7 +186,7 @@ class _DrawingPainter extends CustomPainter {
 
   _DrawingPainter(this.drawingPoints);
 
-  List<Offset> offsetList = [];
+  List<Offset> offsetsList = [];
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -179,16 +195,17 @@ class _DrawingPainter extends CustomPainter {
         canvas.drawLine(drawingPoints[i].offset, drawingPoints[i + 1].offset,
             drawingPoints[i].paint);
       } else if (drawingPoints[i] != null && drawingPoints[i + 1] == null) {
-        offsetList.clear();
-        offsetList.add(drawingPoints[i].offset);
+        offsetsList.clear();
+        offsetsList.add(drawingPoints[i].offset);
 
-        canvas.drawPoints(PointMode.points, offsetList, drawingPoints[i].paint);
+        canvas.drawPoints(
+            PointMode.points, offsetsList, drawingPoints[i].paint);
       }
     }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldFelegate) => true;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
 class DrawingPoint {
