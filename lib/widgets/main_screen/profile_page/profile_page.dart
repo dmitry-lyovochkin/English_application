@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProfilePageWidget extends StatefulWidget {
-  const ProfilePageWidget({Key key}) : super(key: key);
+  const ProfilePageWidget({Key? key}) : super(key: key);
 
   @override
   State<ProfilePageWidget> createState() => _ProfilePageWidgetState();

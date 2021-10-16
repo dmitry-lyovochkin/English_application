@@ -1,4 +1,5 @@
 import 'package:english_application/widgets/Theme/app_color.dart';
+import 'package:english_application/widgets/main_screen/drawing_page/drawing_page.dart';
 import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
 import 'package:english_application/widgets/main_screen/words_page.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         initialRoute: '/auth',
-        routes: { /* docs routes */ /* прописывание маршрутов */
+        routes: { 
           '/auth': (context) => const AuthWidget(),
           '/main_screen': (context) => const MainScreenWidget(),
           '/main_screen/words_page': (context) => const PaintBoard(),

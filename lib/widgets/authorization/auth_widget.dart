@@ -3,7 +3,7 @@ import 'package:english_application/widgets/Theme/app_color.dart';
 import 'package:flutter/material.dart';
 
 class AuthWidget extends StatefulWidget {
-  const AuthWidget({Key key}) : super(key: key);
+  const AuthWidget({Key? key}) : super(key: key);
 
   @override
   _AuthWidgetState createState() => _AuthWidgetState();
@@ -27,7 +27,7 @@ class _AuthWidgetState extends State<AuthWidget> {
 }
 
 class _HeaderWidget extends StatelessWidget {
-  const _HeaderWidget({Key key}) : super(key: key);
+  const _HeaderWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class _HeaderWidget extends StatelessWidget {
 }
 
 class _FormWidget extends StatefulWidget {
-  const _FormWidget({Key key}) : super(key: key);
+  const _FormWidget({Key? key}) : super(key: key);
 
   @override
   __FormWidgetState createState() => __FormWidgetState();
@@ -59,12 +59,12 @@ class _FormWidget extends StatefulWidget {
 class __FormWidgetState extends State<_FormWidget> {
   final _loginTextController = TextEditingController(text: 'admin'); /* уйдут в Textfield - controller */
   final _passwordTextController = TextEditingController(text: 'admin');
-  String errorText;
+  String? errorText;
   void _login() {
     final login = _loginTextController.text;
     final password = _passwordTextController.text;
     if (login == 'admin' && password == 'admin') {
-      errorText = null;
+      // errorText = null;
 
       Navigator.of(context).pushNamed('/main_screen'); /* pushNamed, pushReplacementNamed */
 
@@ -90,7 +90,7 @@ class __FormWidgetState extends State<_FormWidget> {
       contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       isCollapsed: true,
     );
-    final errorText = this.errorText;
+    final String? errorText = this.errorText;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class DrawingPage extends StatefulWidget {
-  const DrawingPage({Key key}) : super(key: key);
+  const DrawingPage({Key? key}) : super(key: key);
 
   @override
   _DrawingPageState createState() => _DrawingPageState();
@@ -15,7 +15,7 @@ class DrawingPage extends StatefulWidget {
 class _DrawingPageState extends State<DrawingPage> {
   final GlobalKey _globalKey = GlobalKey();
   List<DrawnLine> lines = <DrawnLine>[];
-  DrawnLine line;
+  late DrawnLine line;
   Color selectedColor = Colors.black;
   double selectedWidth = 5.0;
 
@@ -26,7 +26,7 @@ class _DrawingPageState extends State<DrawingPage> {
   Future<void> clear() async {
     setState(() {
       lines = [];
-      line = null;
+      // line = null;
     });
   }
 

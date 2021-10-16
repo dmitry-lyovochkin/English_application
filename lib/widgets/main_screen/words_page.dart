@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
 }
 
 class PaintBoard extends StatefulWidget {
-  const PaintBoard({Key key}) : super(key: key);
+  const PaintBoard({Key? key}) : super(key: key);
 
   @override
   _PaintBoardState createState() => _PaintBoardState();
@@ -24,7 +24,7 @@ class PaintBoard extends StatefulWidget {
 class _PaintBoardState extends State<PaintBoard> {
   Color selectedColor = Colors.black;
   double strokeWidth = 5;
-  List<DrawingPoint> drawingPoints = [];
+  List<DrawingPoint?> drawingPoints = [];
   List<Color> colors = [
     Colors.black,
     Colors.green,
@@ -77,7 +77,7 @@ class _PaintBoardState extends State<PaintBoard> {
               },
               child: CustomPaint(
                 painter: _DrawingPainter(drawingPoints),
-                child: Container(
+                child: SizedBox(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
                 ),
@@ -182,7 +182,7 @@ class _PaintBoardState extends State<PaintBoard> {
 }
 
 class _DrawingPainter extends CustomPainter {
-  final List<DrawingPoint> drawingPoints;
+  final List<DrawingPoint?> drawingPoints;
 
   _DrawingPainter(this.drawingPoints);
 
@@ -192,14 +192,14 @@ class _DrawingPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     for (int i = 0; i < drawingPoints.length; i++) {
       if (drawingPoints[i] != null && drawingPoints[i + 1] != null) {
-        canvas.drawLine(drawingPoints[i].offset, drawingPoints[i + 1].offset,
-            drawingPoints[i].paint);
+        canvas.drawLine(drawingPoints[i]!.offset, drawingPoints[i + 1]!.offset,
+            drawingPoints[i]!.paint);
       } else if (drawingPoints[i] != null && drawingPoints[i + 1] == null) {
         offsetsList.clear();
-        offsetsList.add(drawingPoints[i].offset);
+        offsetsList.add(drawingPoints[i]!.offset);
 
         canvas.drawPoints(
-            PointMode.points, offsetsList, drawingPoints[i].paint);
+            PointMode.points, offsetsList, drawingPoints[i]!.paint);
       }
     }
   }

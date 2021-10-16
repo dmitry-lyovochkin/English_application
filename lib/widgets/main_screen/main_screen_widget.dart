@@ -1,4 +1,5 @@
 import 'package:english_application/widgets/Theme/app_color.dart';
+import 'package:english_application/widgets/main_screen/drawing_page/drawing_page.dart';
 import 'package:english_application/widgets/main_screen/profile_page/profile_page.dart';
 import 'package:english_application/widgets/main_screen/repeat_page/repeat_page.dart';
 import 'package:english_application/widgets/main_screen/suggestion_page/suggestions_page.dart';
@@ -6,7 +7,7 @@ import 'package:english_application/widgets/main_screen/words_page.dart';
 import 'package:flutter/material.dart';
 
 class MainScreenWidget extends StatefulWidget {
-  const MainScreenWidget({Key key}) : super(key: key);
+  const MainScreenWidget({Key? key}) : super(key: key);
 
   @override
   _MainScreenWidgetState createState() => _MainScreenWidgetState();
@@ -29,11 +30,11 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
     if (selectedIndex == 0) {
       return const ProfilePageWidget();
     } else if (selectedIndex == 1) {
-      return RepeatPageWidget();
+      return const RepeatPageWidget();
     } else if (selectedIndex == 2) {
       return const PaintBoard(); /* пофиксить потом, 2 раза прописываю */
     } else {
-      return SuggestionsPageWidget();
+      return const SuggestionsPageWidget();
     }
   }
 
