@@ -1,6 +1,9 @@
 import 'package:english_application/widgets/Theme/app_button_style.dart';
 import 'package:english_application/widgets/Theme/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
 
 class AuthWidget extends StatefulWidget {
   const AuthWidget({Key? key}) : super(key: key);
