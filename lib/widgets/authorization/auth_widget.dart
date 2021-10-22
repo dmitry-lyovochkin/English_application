@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
+
+
 class AuthWidget extends StatefulWidget {
   const AuthWidget({Key? key}) : super(key: key);
 
@@ -51,6 +53,8 @@ class _HeaderWidget extends StatelessWidget {
     );
   }
 }
+
+
 
 class _FormWidget extends StatefulWidget {
   const _FormWidget({Key? key}) : super(key: key);

@@ -1,5 +1,4 @@
 import 'package:english_application/widgets/Theme/app_color.dart';
-import 'package:english_application/widgets/main_screen/drawing_page/drawing_page.dart';
 import 'package:english_application/widgets/main_screen/profile_page/profile_page.dart';
 import 'package:english_application/widgets/main_screen/repeat_page/repeat_page.dart';
 import 'package:english_application/widgets/main_screen/suggestion_page/suggestions_page.dart';
