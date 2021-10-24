@@ -1,4 +1,5 @@
 import 'package:english_application/widgets/Theme/app_color.dart';
+import 'package:english_application/widgets/auth_firebase/login_screen.dart';
 import 'package:english_application/widgets/main_screen/drawing_page/drawing_page.dart';
 import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
 import 'package:english_application/widgets/main_screen/words_page.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/auth',
         routes: { 
-          '/auth': (context) => const AuthWidget(),
+          '/auth': (context) => const LoginScreenWidget(),
           '/main_screen': (context) => const MainScreenWidget(),
           '/main_screen/words_page': (context) => const PaintBoard(),
         },
