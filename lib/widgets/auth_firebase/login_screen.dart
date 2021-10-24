@@ -1,5 +1,6 @@
 import 'package:english_application/widgets/Theme/app_button_style.dart';
 import 'package:english_application/widgets/Theme/app_color.dart';
+import 'package:english_application/widgets/auth_firebase/registration_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreenWidget extends StatefulWidget {
@@ -87,15 +88,17 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                       emailField,
                       const SizedBox(height: 10),
                       passwordField,
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 20),
                       loginButton,
                       const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          const Text("Don't have an account?"),
+                          const Text("Don't have an account? "),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push<Widget>(context, MaterialPageRoute(builder: (context) => const RegistrationWidget()));
+                            },
                             child: const Text(
                               "SignUp", 
                               style: TextStyle(
