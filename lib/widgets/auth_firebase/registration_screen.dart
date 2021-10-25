@@ -10,7 +10,6 @@ class RegistrationWidget extends StatefulWidget {
 }
 
 class _RegistrationWidgetState extends State<RegistrationWidget> {
-
   final _formKey = GlobalKey<FormState>();
 
   final firstNameEditingController = new TextEditingController();
@@ -64,12 +63,12 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.mail),
-          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Email",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+        prefixIcon: const Icon(Icons.mail),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Email",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
       ),
     );
 
@@ -107,7 +106,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
           )),
     );
 
-  final registrationButton = Material(
+    final registrationButton = Material(
         elevation: 5,
         borderRadius: BorderRadius.circular(30),
         color: AppColors.mainColorApp,
@@ -124,8 +123,24 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
             ),
           ),
         ));
-  return Scaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: SizedBox(
+            height: 20,
+            child: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  size: 30,
+                  color: AppColors.mainColorApp,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                }),
+          ),
+        ),
         body: Center(
             child: SingleChildScrollView(
           child: Container(
@@ -157,16 +172,18 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                           const Text("Have an account? "),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push<Widget>(context, MaterialPageRoute(builder: (context) => const LoginScreenWidget()));
+                              Navigator.push<Widget>(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const LoginScreenWidget()));
                             },
-                            child: const Text(
-                              "SignOn", 
-                              style: TextStyle(
-                                color: AppColors.mainColorApp,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 15,
-                              )
-                            ),
+                            child: const Text("SignOn",
+                                style: TextStyle(
+                                  color: AppColors.mainColorApp,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 15,
+                                )),
                           )
                         ],
                       )
@@ -177,4 +194,3 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
         )));
   }
 }
-
