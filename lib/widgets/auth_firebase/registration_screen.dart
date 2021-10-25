@@ -178,12 +178,14 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                       builder: (context) =>
                                           const LoginScreenWidget()));
                             },
-                            child: const Text("SignOn",
+                            child: const Text(
+                              "Login",
                                 style: TextStyle(
                                   color: AppColors.mainColorApp,
                                   fontWeight: FontWeight.w800,
                                   fontSize: 15,
-                                )),
+                                ),
+                            ),
                           )
                         ],
                       )

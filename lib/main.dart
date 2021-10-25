@@ -27,12 +27,12 @@ class MyApp extends StatelessWidget {
             unselectedItemColor: Colors.white54,
           ),
         ),
-        initialRoute: '/auth',
         routes: { 
           '/auth': (context) => const LoginScreenWidget(),
           '/main_screen': (context) => const MainScreenWidget(),
           '/main_screen/words_page': (context) => const PaintBoard(),
         },
+        initialRoute: '/auth',
     );
   }
 }
