@@ -5,6 +5,7 @@ import 'package:english_application/widgets/main_screen/main_screen_widget.dart'
 import 'package:english_application/widgets/main_screen/words_page.dart';
 import 'package:flutter/material.dart';
 import 'package:english_application/widgets/authorization/auth_widget.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   runApp(const MyApp());
