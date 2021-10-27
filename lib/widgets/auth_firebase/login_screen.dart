@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreenWidget extends StatefulWidget {
   const LoginScreenWidget({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
       validator: (value) {
         /* firebase validator */
         if (value!.isEmpty) {
-          return ("Please Enter Your Email");
+          return ("Пожалуйста, введите свой email");
         }
         // reg expression for email validator
         if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
@@ -61,10 +62,10 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
       validator: (value) {
         RegExp regex = new RegExp(r'^.{6,}$');
         if (value!.isEmpty) {
-          return ("Password is required for ligin");
+          return ("Password is required for login");
         }
         if (!regex.hasMatch(value)) {
-          return ("Minimum 6 character");
+          return ("Минимум 6 символов");
         }
       },
       onSaved: (value) {
@@ -91,7 +92,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
             signIn(emailController.text, passwordController.text);
           },
           child: const Text(
-            "Login",
+            "Вход",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,
@@ -123,7 +124,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          const Text("Don't have an account? "),
+                          const Text("Нет аккаунта? "),
                           GestureDetector(
                             onTap: () {
                               Navigator.push<Widget>(
@@ -132,7 +133,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                       builder: (context) =>
                                           const RegistrationWidget()));
                             },
-                            child: const Text("Registration",
+                            child: const Text("Регистрация",
                                 style: TextStyle(
                                   color: AppColors.mainColorApp,
                                   fontWeight: FontWeight.w800,
@@ -163,4 +164,5 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
       }
     }
   }
+
 

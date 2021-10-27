@@ -1,4 +1,5 @@
 import 'package:english_application/widgets/Theme/app_color.dart';
+import 'package:english_application/widgets/auth2/auth1.dart';
 import 'package:english_application/widgets/auth_firebase/login_screen.dart';
 import 'package:english_application/widgets/main_screen/drawing_page/drawing_page.dart';
 import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
@@ -7,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:english_application/widgets/authorization/auth_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp();
+   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         routes: { 
-          '/auth': (context) => const LoginScreenWidget(),
+          '/auth': (context) => const AuthApp(),
           '/main_screen': (context) => const MainScreenWidget(),
           '/main_screen/words_page': (context) => const PaintBoard(),
         },
