@@ -14,6 +14,8 @@ class _AuthAppState extends State<AuthApp> {
   final passwordController = TextEditingController();
   /* for validation */
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  String errorMessage = '';
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,39 +32,83 @@ class _AuthAppState extends State<AuthApp> {
           key: _key,
           child: Center(
             child: Column(children: [
-              TextFormField(controller: emailController, validator: validateEmail),
-              TextField(controller: passwordController, obscureText: true),
+              TextFormField(
+                  controller: emailController, validator: validateEmail),
+              TextFormField(
+                  controller: passwordController,
+                  obscureText: true,
+                  validator: validatePassword),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Center(
+                  child: Text(errorMessage, style: TextStyle(color: Colors.red)),
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
-                      child: const Text('Sign Up'),
-                      onPressed: () async {
-                        await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                          email: emailController.text,
-                          password: passwordController.text,
-                        );
-                        setState(() {});
-                      }),
+                      child: isLoading
+                          ? CircularProgressIndicator(color: Colors.white)
+                          : Text('Sign Up'),
+                      onPressed: user != null
+                          ? null
+                          : () async {
+                              setState(() {
+                                isLoading = true;
+                                errorMessage = '';
+                              });
+                              if (_key.currentState!.validate()) {
+                                try {
+                                  await FirebaseAuth.instance
+                                      .createUserWithEmailAndPassword(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                  );
+                                } on FirebaseAuthException catch (error) {
+                                  errorMessage = error.message!;
+                                }
+                                setState(() => isLoading = false);
+                              }
+                            }),
                   ElevatedButton(
-                      child: const Text('Sign In'),
-                      onPressed: () async {
-                        if (_key.currentState!.validate()) {
-                          await FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
-                            email: emailController.text,
-                            password: passwordController.text,
-                          );
-                          setState(() {});
-                        }
-                      }),
+                      child: isLoading
+                          ? CircularProgressIndicator(color: Colors.white)
+                          : Text('Sign In'),
+                      onPressed: user != null
+                          ? null
+                          : () async {
+                              setState(() => isLoading = true);
+                              if (_key.currentState!.validate()) {
+                                try {
+                                  await FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                  );
+                                  errorMessage = '';
+                                } on FirebaseAuthException catch (error) {
+                                  errorMessage = error.message!;
+                                }
+                                setState(() => isLoading = false);
+                              }
+                            }),
                   ElevatedButton(
-                      child: const Text('Log Out'),
-                      onPressed: () async {
-                        await FirebaseAuth.instance.signOut();
-                        setState(() {});
-                      }),
+                      child: isLoading
+                          ? CircularProgressIndicator(color: Colors.white)
+                          : Text('Log Out'),
+                      onPressed: user == null
+                          ? null
+                          : () async {
+                              setState(() => isLoading = true);
+                              try {
+                                await FirebaseAuth.instance.signOut();
+                                errorMessage = '';
+                              } on FirebaseAuthException catch (error) {
+                                errorMessage = error.message!;
+                              }
+                              setState(() => isLoading = false);
+                            }),
                 ],
               )
             ]),
@@ -78,5 +124,27 @@ String? validateEmail(String? formEmail) {
   if (formEmail == null || formEmail.isEmpty) {
     return "Email adress is required";
   }
+
+  String pattern = r'\w+@\w+\.\w+';
+  RegExp regex = RegExp(pattern);
+  if (!regex.hasMatch(formEmail)) {
+    return "Invalid Email adress format";
+  }
+
+  return null;
+}
+
+String? validatePassword(String? formPassword) {
+  if (formPassword == null || formPassword.isEmpty) {
+    return "Password is required";
+  }
+
+  String pattern =
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+  RegExp regex = RegExp(pattern);
+  if (!regex.hasMatch(formPassword)) {
+    return "Password must be at least 8 characters, include an uppercase letter, number and symbol";
+  }
+
   return null;
 }
