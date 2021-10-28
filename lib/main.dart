@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         routes: { 
-          '/auth': (context) => const AuthApp(),
+          '/auth': (context) => const LoginScreenWidget(),
           '/main_screen': (context) => const MainScreenWidget(),
           '/main_screen/words_page': (context) => const PaintBoard(),
         },

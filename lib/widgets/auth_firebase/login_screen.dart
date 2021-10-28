@@ -15,67 +15,75 @@ class LoginScreenWidget extends StatefulWidget {
 }
 
 class _LoginScreenWidgetState extends State<LoginScreenWidget> {
-  final formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
-  final TextEditingController emailController = new TextEditingController();
-  final TextEditingController passwordController = new TextEditingController();
-
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
   // firebase
   final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
+  
     final emailField = TextFormField(
+      cursorColor: AppColors.mainColorApp,
       autofocus: false,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
-      validator: (value) {
-        /* firebase validator */
-        if (value!.isEmpty) {
-          return ("Пожалуйста, введите свой email");
-        }
-        // reg expression for email validator
-        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
-          return ("Please Enter a valid email");
-        }
-        return null;
-      },
+      validator: validateEmail,
       onSaved: (value) {
         emailController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.mail),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(
+            width: 1.7,
+            color: AppColors.mainColorApp,
+          )
+        ),
+          prefixIcon: const Icon(Icons.mail, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Email",
+          labelText: "Email",
+          labelStyle: const TextStyle(
+            color: Colors.grey,
+          ),
+          // hintText: "Email",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
+            
           )),
     );
 
     final passwordField = TextFormField(
+      cursorColor: AppColors.mainColorApp,
       autofocus: false,
       controller: passwordController,
-      obscureText: true,
-      /* скроет пароль */
+      obscureText: true, /* скроет пароль */
 
-      validator: (value) {
-        RegExp regex = new RegExp(r'^.{6,}$');
-        if (value!.isEmpty) {
-          return ("Password is required for login");
-        }
-        if (!regex.hasMatch(value)) {
-          return ("Минимум 6 символов");
-        }
-      },
+      validator: validatePassword,
       onSaved: (value) {
         passwordController.text = value!;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.vpn_key),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              width: 1.7,
+              color: AppColors.mainColorApp,
+            )
+          ),
+          prefixIcon: const Icon(Icons.vpn_key, color: Colors.grey),
+          labelText: "Password",
+          labelStyle: const TextStyle(
+            color: Colors.grey,
+          ),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Password",
+          
+          // hintText: "Password",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           )),
@@ -110,7 +118,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
               /* обернул в padding, чтоб все три поля уравнять по центру с одинаковыми отступами */
               padding: const EdgeInsets.all(36.0),
               child: Form(
-                  key: formKey,
+                  key: _key,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,11 +135,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                           const Text("Нет аккаунта? "),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push<Widget>(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const RegistrationWidget()));
+                              Navigator.push<Widget>(context, MaterialPageRoute(builder: (context) =>const RegistrationWidget()));
                             },
                             child: const Text("Регистрация",
                                 style: TextStyle(
@@ -151,7 +155,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
 
   // login
   void signIn(String email, String password) async {
-    if (formKey.currentState!.validate()) {
+    if (_key.currentState!.validate()) {
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((uid) => {
@@ -164,5 +168,35 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
       }
     }
   }
+
+// validation
+String? validateEmail(String? formEmail) {
+  if (formEmail == null || formEmail.isEmpty) {
+    return "Email adress is required";
+  }
+
+  String pattern = r'\w+@\w+\.\w+';
+  RegExp regex = RegExp(pattern);
+  if (!regex.hasMatch(formEmail)) {
+    return "Invalid Email adress format";
+  }
+
+  return null;
+}
+
+String? validatePassword(String? formPassword) {
+  if (formPassword == null || formPassword.isEmpty) {
+    return "Password is required";
+  }
+
+  String pattern =
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+  RegExp regex = RegExp(pattern);
+  if (!regex.hasMatch(formPassword)) {
+    return "Password must be at least 8 characters, include an uppercase letter, number and symbol";
+  }
+
+  return null;
+}
 
 
