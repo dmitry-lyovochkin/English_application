@@ -267,3 +267,5 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
         )));
   }
 }
+
+// Сделать, чтоб по нажатию скрывалась клавиатура
