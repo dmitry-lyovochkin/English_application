@@ -33,12 +33,11 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              width: 1.7,
-              color: AppColors.mainColorApp,
-            )
-          ),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                width: 1.7,
+                color: AppColors.mainColorApp,
+              )),
           prefixIcon: const Icon(Icons.account_circle, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           labelText: "Имя",
@@ -62,12 +61,11 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              width: 1.7,
-              color: AppColors.mainColorApp,
-            )
-          ),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                width: 1.7,
+                color: AppColors.mainColorApp,
+              )),
           prefixIcon: const Icon(Icons.account_circle, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           labelText: "Фамилия",
@@ -91,18 +89,17 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            width: 1.7,
-            color: AppColors.mainColorApp,
-          )
-        ),
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              width: 1.7,
+              color: AppColors.mainColorApp,
+            )),
         prefixIcon: const Icon(Icons.mail, color: Colors.grey),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: "Email",
-          labelStyle: const TextStyle(
-            color: Colors.grey,
-          ),
+        labelStyle: const TextStyle(
+          color: Colors.grey,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -118,15 +115,24 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
         passwordController.text = value!;
       },
       textInputAction: TextInputAction.next,
-      validator: validatePassword,
+      validator: (value) {
+        RegExp regexp = RegExp(
+            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[(!@#\$&*~)]).{6,}$'); /* добавил символы ( ) и 6 знаков*/
+        if (value!.isEmpty) {
+          return "Введите пароль";
+        }
+        if (!regexp.hasMatch(value)) {
+          return ("Пароль должен быть не менее 6 символов. Одна заглавная буква, число и символ(Пример: Vignesh123!)");
+        }
+          return null;
+      },
       decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              width: 1.7,
-              color: AppColors.mainColorApp,
-            )
-          ),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                width: 1.7,
+                color: AppColors.mainColorApp,
+              )),
           prefixIcon: const Icon(Icons.vpn_key, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           labelText: "Пароль",
@@ -147,15 +153,19 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
         confirmPasswordController.text = value!;
       },
       textInputAction: TextInputAction.next,
-      validator: validateConfirmPassword,
+      validator: (value) {
+        if (confirmPasswordController.text.length > 6 && passwordController.text != value) {
+          return "Пароли не совпадают";
+        }
+        return null;
+      },
       decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              width: 1.7,
-              color: AppColors.mainColorApp,
-            )
-          ),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                width: 1.7,
+                color: AppColors.mainColorApp,
+              )),
           prefixIcon: const Icon(Icons.vpn_key, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           labelText: "Подтвердите пароль",
@@ -185,28 +195,29 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
           ),
         ));
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: SizedBox(
-          height: 20,
-          child: IconButton(
-              icon: const Icon(
-                Icons.arrow_back,
-                size: 30,
-                color: AppColors.mainColorApp,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              }),
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: SizedBox(
+            height: 20,
+            child: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  size: 30,
+                  color: AppColors.mainColorApp,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                }),
+          ),
         ),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
+        body: Center(
+            child: SingleChildScrollView(
           child: Container(
             color: Colors.white,
-            child: Padding( /* обернул в padding, чтоб все три поля уравнять по центру с одинаковыми отступами */
+            child: Padding(
+              /* обернул в padding, чтоб все три поля уравнять по центру с одинаковыми отступами */
               padding: const EdgeInsets.all(36.0),
               child: Form(
                   key: _formKey,
@@ -232,15 +243,19 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                           const Text("Есть аккаунт? "),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push<Widget>(context, MaterialPageRoute(builder: (context) => const LoginScreenWidget()));
+                              Navigator.push<Widget>(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const LoginScreenWidget()));
                             },
                             child: const Text(
                               "Вход",
-                                style: TextStyle(
-                                  color: AppColors.mainColorApp,
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 15,
-                                ),
+                              style: TextStyle(
+                                color: AppColors.mainColorApp,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
                             ),
                           )
                         ],
@@ -249,9 +264,6 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                   )),
             ),
           ),
-        )
-      )
-    );
+        )));
   }
 }
-

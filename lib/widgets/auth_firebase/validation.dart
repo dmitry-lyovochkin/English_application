@@ -1,10 +1,13 @@
+import 'package:english_application/widgets/auth_firebase/registration_screen.dart';
+
 // validation
 String? validateEmail(String? formEmail) {
   if (formEmail == null || formEmail.isEmpty) {
     return "Введите Email";
   }
 
-  String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  String pattern =
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   RegExp regex = RegExp(pattern);
   if (!regex.hasMatch(formEmail)) {
     return "Неверный формат Email";
@@ -27,14 +30,13 @@ String? validatePassword(String? formPassword) {
   return null;
 }
 
-
-
 String? validateFirstName(String? formFirstName) {
   if (formFirstName == null || formFirstName.isEmpty) {
     return "Введите Email";
   }
 
-  String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  String pattern =
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   RegExp regex = RegExp(pattern);
   if (!regex.hasMatch(formFirstName)) {
     return "Неверный формат Email";
@@ -48,7 +50,8 @@ String? validateSecondName(String? formSecondName) {
     return "Введите пароль";
   }
 
-  String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$';
+  String pattern =
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$';
   RegExp regex = RegExp(pattern);
   if (!regex.hasMatch(formSecondName)) {
     return "Пароль должен быть не менее 6 символов. Одна заглавная буква, число и символ(Пример: Vignesh123!)";
@@ -57,7 +60,6 @@ String? validateSecondName(String? formSecondName) {
   return null;
 }
 
-
 String? validateConfirmPassword(String? formConfirmPassword) {
   if (formConfirmPassword == null || formConfirmPassword.isEmpty) {
     return "Введите пароль";
@@ -65,9 +67,9 @@ String? validateConfirmPassword(String? formConfirmPassword) {
 
   String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$';
   RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(formConfirmPassword)) {
-    return "Пароль должен быть не менее 6 символов. Одна заглавная буква, число и символ(Пример: Vignesh123!)";
+  // if (formConfirmPassword.length > 6 && formPassword.isEmpty != regex) {
+    return "Пароли не совпадают";
   }
 
-  return null;
-}
+  // return null;
+// }

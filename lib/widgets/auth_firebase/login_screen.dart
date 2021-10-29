@@ -26,7 +26,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
-  
+
     final emailField = TextFormField(
       cursorColor: AppColors.mainColorApp,
       autofocus: false,
@@ -38,13 +38,12 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            width: 1.7,
-            color: AppColors.mainColorApp,
-          )
-        ),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                width: 1.7,
+                color: AppColors.mainColorApp,
+              )),
           prefixIcon: const Icon(Icons.mail, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           labelText: "Email",
@@ -54,7 +53,6 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
           // hintText: "Email",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            
           )),
     );
 
@@ -62,28 +60,45 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
       cursorColor: AppColors.mainColorApp,
       autofocus: false,
       controller: passwordController,
-      obscureText: true, /* скроет пароль */
+      obscureText: true,
+      /* скроет пароль */
 
-      validator: validatePassword,
+      validator: (value) {
+        RegExp regexp = RegExp(
+            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[(!@#\$&*~)]).{6,}$'); /* добавил символы ( ) и 6 знаков*/
+      //    r'^
+      //      (?=.*[A-Z])       // should contain at least one upper case
+      //      (?=.*[a-z])       // should contain at least one lower case
+      //      (?=.*?[0-9])      // should contain at least one digit
+      //      (?=.*?[!@#\$&*~]) // should contain at least one Special character
+      //      .{8,}             // Must be at least 8 characters in length  
+      //    $
+        if (value!.isEmpty) {
+          return "Введите пароль";
+        }
+        if (!regexp.hasMatch(value)) {
+          return ("Пароль должен быть не менее 6 символов. Одна заглавная буква, число и символ(Пример: Vignesh123!)");
+        }
+          return null;
+      },
       onSaved: (value) {
         passwordController.text = value!;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              width: 1.7,
-              color: AppColors.mainColorApp,
-            )
-          ),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                width: 1.7,
+                color: AppColors.mainColorApp,
+              )),
           prefixIcon: const Icon(Icons.vpn_key, color: Colors.grey),
           labelText: "Пароль",
           labelStyle: const TextStyle(
             color: Colors.grey,
           ),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          
+
           // hintText: "Password",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -136,7 +151,11 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                           const Text("Нет аккаунта? "),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push<Widget>(context, MaterialPageRoute(builder: (context) =>const RegistrationWidget()));
+                              Navigator.push<Widget>(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RegistrationWidget()));
                             },
                             child: const Text("Регистрация",
                                 style: TextStyle(
@@ -161,14 +180,11 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
           .signInWithEmailAndPassword(email: email, password: password)
           .then((uid) => {
                 Fluttertoast.showToast(msg: "Login Successful"),
-                Navigator.of(context).pushReplacement(MaterialPageRoute<Widget>(builder: (context) => const MainScreenWidget())),
-              }
-          );
-        //   .catchError((e) {
-        // Fluttertoast.showToast(msg: e!.message);
-      }
+                Navigator.of(context).pushReplacement(MaterialPageRoute<Widget>(
+                    builder: (context) => const MainScreenWidget())),
+              });
+      //   .catchError((e) {
+      // Fluttertoast.showToast(msg: e!.message);
     }
   }
-
-
-
+}
