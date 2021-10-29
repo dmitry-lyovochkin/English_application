@@ -12,11 +12,11 @@ class RegistrationWidget extends StatefulWidget {
 class _RegistrationWidgetState extends State<RegistrationWidget> {
   final _formKey = GlobalKey<FormState>();
 
-  final firstNameEditingController = new TextEditingController();
-  final secondNameEditingController = new TextEditingController();
-  final emailEditingController = new TextEditingController();
-  final passwordEditingController = new TextEditingController();
-  final confirmPasswordEditingController = new TextEditingController();
+  final firstNameEditingController = TextEditingController();
+  final secondNameEditingController = TextEditingController();
+  final emailEditingController = TextEditingController();
+  final passwordEditingController = TextEditingController();
+  final confirmPasswordEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +29,19 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.account_circle),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              width: 1.7,
+              color: AppColors.mainColorApp,
+            )
+          ),
+          prefixIcon: const Icon(Icons.account_circle, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "First Name",
+          labelText: "First Name",
+          labelStyle: const TextStyle(
+            color: Colors.grey,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           )),
@@ -46,9 +56,19 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.account_circle),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              width: 1.7,
+              color: AppColors.mainColorApp,
+            )
+          ),
+          prefixIcon: const Icon(Icons.account_circle, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Second Name",
+          labelText: "Second Name",
+          labelStyle: const TextStyle(
+            color: Colors.grey,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           )),
@@ -63,9 +83,19 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.mail),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(
+            width: 1.7,
+            color: AppColors.mainColorApp,
+          )
+        ),
+        prefixIcon: const Icon(Icons.mail, color: Colors.grey),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Email",
+        labelText: "Email",
+          labelStyle: const TextStyle(
+            color: Colors.grey,
+          ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -81,9 +111,19 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.vpn_key),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              width: 1.7,
+              color: AppColors.mainColorApp,
+            )
+          ),
+          prefixIcon: const Icon(Icons.vpn_key, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Password",
+          labelText: "Password",
+          labelStyle: const TextStyle(
+            color: Colors.grey,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           )),
@@ -98,9 +138,19 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.vpn_key),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              width: 1.7,
+              color: AppColors.mainColorApp,
+            )
+          ),
+          prefixIcon: const Icon(Icons.vpn_key, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Confirm Password",
+          labelText: "Confirm Password",
+          labelStyle: const TextStyle(
+            color: Colors.grey,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           )),
