@@ -1,5 +1,6 @@
 import 'package:english_application/widgets/Theme/app_color.dart';
 import 'package:english_application/widgets/auth_firebase/login_screen.dart';
+import 'package:english_application/widgets/auth_firebase/validation.dart';
 import 'package:flutter/material.dart';
 
 class RegistrationWidget extends StatefulWidget {
@@ -10,22 +11,24 @@ class RegistrationWidget extends StatefulWidget {
 }
 
 class _RegistrationWidgetState extends State<RegistrationWidget> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final firstNameEditingController = TextEditingController();
-  final secondNameEditingController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final secondNameController = TextEditingController();
   final emailEditingController = TextEditingController();
-  final passwordEditingController = TextEditingController();
-  final confirmPasswordEditingController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final firstNameField = TextFormField(
+      cursorColor: AppColors.mainColorApp,
       autofocus: false,
-      controller: firstNameEditingController,
+      controller: firstNameController,
       keyboardType: TextInputType.name,
+      validator: validateFirstName,
       onSaved: (value) {
-        firstNameEditingController.text = value!;
+        firstNameController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -38,7 +41,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
           ),
           prefixIcon: const Icon(Icons.account_circle, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          labelText: "First Name",
+          labelText: "Имя",
           labelStyle: const TextStyle(
             color: Colors.grey,
           ),
@@ -48,11 +51,13 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
     );
 
     final secondNameField = TextFormField(
+      cursorColor: AppColors.mainColorApp,
       autofocus: false,
-      controller: secondNameEditingController,
+      controller: secondNameController,
       keyboardType: TextInputType.name,
+      validator: validateSecondName,
       onSaved: (value) {
-        secondNameEditingController.text = value!;
+        secondNameController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -65,7 +70,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
           ),
           prefixIcon: const Icon(Icons.account_circle, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          labelText: "Second Name",
+          labelText: "Фамилия",
           labelStyle: const TextStyle(
             color: Colors.grey,
           ),
@@ -75,9 +80,11 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
     );
 
     final emailField = TextFormField(
+      cursorColor: AppColors.mainColorApp,
       autofocus: false,
       controller: emailEditingController,
       keyboardType: TextInputType.emailAddress,
+      validator: validateEmail,
       onSaved: (value) {
         emailEditingController.text = value!;
       },
@@ -103,13 +110,15 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
     );
 
     final passwordField = TextFormField(
+      cursorColor: AppColors.mainColorApp,
       autofocus: false,
-      controller: passwordEditingController,
+      controller: passwordController,
       obscureText: true,
       onSaved: (value) {
-        passwordEditingController.text = value!;
+        passwordController.text = value!;
       },
       textInputAction: TextInputAction.next,
+      validator: validatePassword,
       decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -120,7 +129,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
           ),
           prefixIcon: const Icon(Icons.vpn_key, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          labelText: "Password",
+          labelText: "Пароль",
           labelStyle: const TextStyle(
             color: Colors.grey,
           ),
@@ -130,13 +139,15 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
     );
 
     final confirmPasswordField = TextFormField(
+      cursorColor: AppColors.mainColorApp,
       autofocus: false,
-      controller: confirmPasswordEditingController,
+      controller: confirmPasswordController,
       obscureText: true,
       onSaved: (value) {
-        confirmPasswordEditingController.text = value!;
+        confirmPasswordController.text = value!;
       },
       textInputAction: TextInputAction.next,
+      validator: validateConfirmPassword,
       decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -147,7 +158,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
           ),
           prefixIcon: const Icon(Icons.vpn_key, color: Colors.grey),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          labelText: "Confirm Password",
+          labelText: "Подтвердите пароль",
           labelStyle: const TextStyle(
             color: Colors.grey,
           ),
@@ -165,7 +176,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {},
           child: const Text(
-            "Registration",
+            "Регистрация",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,
@@ -174,29 +185,28 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
           ),
         ));
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: SizedBox(
-            height: 20,
-            child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                  size: 30,
-                  color: AppColors.mainColorApp,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                }),
-          ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: SizedBox(
+          height: 20,
+          child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                size: 30,
+                color: AppColors.mainColorApp,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
         ),
-        body: Center(
-            child: SingleChildScrollView(
+      ),
+      body: Center(
+        child: SingleChildScrollView(
           child: Container(
             color: Colors.white,
-            child: Padding(
-              /* обернул в padding, чтоб все три поля уравнять по центру с одинаковыми отступами */
+            child: Padding( /* обернул в padding, чтоб все три поля уравнять по центру с одинаковыми отступами */
               padding: const EdgeInsets.all(36.0),
               child: Form(
                   key: _formKey,
@@ -219,17 +229,13 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          const Text("Have an account? "),
+                          const Text("Есть аккаунт? "),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push<Widget>(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const LoginScreenWidget()));
+                              Navigator.push<Widget>(context, MaterialPageRoute(builder: (context) => const LoginScreenWidget()));
                             },
                             child: const Text(
-                              "Login",
+                              "Вход",
                                 style: TextStyle(
                                   color: AppColors.mainColorApp,
                                   fontWeight: FontWeight.w800,
@@ -243,6 +249,9 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                   )),
             ),
           ),
-        )));
+        )
+      )
+    );
   }
 }
+

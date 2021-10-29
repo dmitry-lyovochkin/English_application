@@ -1,5 +1,6 @@
 import 'package:english_application/widgets/Theme/app_color.dart';
 import 'package:english_application/widgets/auth_firebase/registration_screen.dart';
+import 'package:english_application/widgets/auth_firebase/validation.dart';
 import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +78,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
             )
           ),
           prefixIcon: const Icon(Icons.vpn_key, color: Colors.grey),
-          labelText: "Password",
+          labelText: "Пароль",
           labelStyle: const TextStyle(
             color: Colors.grey,
           ),
@@ -160,43 +161,14 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
           .signInWithEmailAndPassword(email: email, password: password)
           .then((uid) => {
                 Fluttertoast.showToast(msg: "Login Successful"),
-                Navigator.of(context).pushReplacement(MaterialPageRoute<Widget>(
-                    builder: (context) => const MainScreenWidget())),
-              });
+                Navigator.of(context).pushReplacement(MaterialPageRoute<Widget>(builder: (context) => const MainScreenWidget())),
+              }
+          );
         //   .catchError((e) {
         // Fluttertoast.showToast(msg: e!.message);
       }
     }
   }
 
-// validation
-String? validateEmail(String? formEmail) {
-  if (formEmail == null || formEmail.isEmpty) {
-    return "Email adress is required";
-  }
-
-  String pattern = r'\w+@\w+\.\w+';
-  RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(formEmail)) {
-    return "Invalid Email adress format";
-  }
-
-  return null;
-}
-
-String? validatePassword(String? formPassword) {
-  if (formPassword == null || formPassword.isEmpty) {
-    return "Password is required";
-  }
-
-  String pattern =
-      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-  RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(formPassword)) {
-    return "Password must be at least 8 characters, include an uppercase letter, number and symbol";
-  }
-
-  return null;
-}
 
 
