@@ -32,44 +32,32 @@ String? validatePassword(String? formPassword) {
 
 String? validateFirstName(String? formFirstName) {
   if (formFirstName == null || formFirstName.isEmpty) {
-    return "Введите Email";
+    return "Введите Имя";
   }
 
-  String pattern =
-      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  String pattern = '[a-zA-Z]';
   RegExp regex = RegExp(pattern);
   if (!regex.hasMatch(formFirstName)) {
-    return "Неверный формат Email";
+    return "Некорректное Имя";
   }
+
+  // не знаю нужно ли давать здесь на меньше 3 символов. Есть русские имена вроде Ян
 
   return null;
 }
 
 String? validateSecondName(String? formSecondName) {
   if (formSecondName == null || formSecondName.isEmpty) {
-    return "Введите пароль";
+    return "Введите Фамилию";
   }
 
-  String pattern =
-      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$';
+  String pattern = '[a-zA-Z]';
   RegExp regex = RegExp(pattern);
   if (!regex.hasMatch(formSecondName)) {
-    return "Пароль должен быть не менее 6 символов. Одна заглавная буква, число и символ(Пример: Vignesh123!)";
+    return "Некорректная Фамилия";
   }
 
   return null;
 }
 
-String? validateConfirmPassword(String? formConfirmPassword) {
-  if (formConfirmPassword == null || formConfirmPassword.isEmpty) {
-    return "Введите пароль";
-  }
 
-  String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$';
-  RegExp regex = RegExp(pattern);
-  // if (formConfirmPassword.length > 6 && formPassword.isEmpty != regex) {
-    return "Пароли не совпадают";
-  }
-
-  // return null;
-// }

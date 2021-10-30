@@ -22,11 +22,10 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   // firebase
   final auth = FirebaseAuth.instance;
+  
 
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
-
     final emailField = TextFormField(
       cursorColor: AppColors.mainColorApp,
       autofocus: false,
@@ -55,6 +54,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
             borderRadius: BorderRadius.circular(10),
           )),
     );
+    
 
     final passwordField = TextFormField(
       cursorColor: AppColors.mainColorApp,
@@ -66,20 +66,20 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
       validator: (value) {
         RegExp regexp = RegExp(
             r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[(!@#\$&*~)]).{6,}$'); /* добавил символы ( ) и 6 знаков*/
-      //    r'^
-      //      (?=.*[A-Z])       // should contain at least one upper case
-      //      (?=.*[a-z])       // should contain at least one lower case
-      //      (?=.*?[0-9])      // should contain at least one digit
-      //      (?=.*?[!@#\$&*~]) // should contain at least one Special character
-      //      .{8,}             // Must be at least 8 characters in length  
-      //    $
+        //    r'^
+        //      (?=.*[A-Z])       // should contain at least one upper case
+        //      (?=.*[a-z])       // should contain at least one lower case
+        //      (?=.*?[0-9])      // should contain at least one digit
+        //      (?=.*?[!@#\$&*~]) // should contain at least one Special character
+        //      .{8,}             // Must be at least 8 characters in length
+        //    $
         if (value!.isEmpty) {
           return "Введите пароль";
         }
         if (!regexp.hasMatch(value)) {
           return ("Пароль должен быть не менее 6 символов. Одна заглавная буква, число и символ(Пример: Vignesh123!)");
         }
-          return null;
+        return null;
       },
       onSaved: (value) {
         passwordController.text = value!;
@@ -171,7 +171,9 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
             ),
           ),
         )));
+        
   }
+  
 
   // login
   void signIn(String email, String password) async {
@@ -179,12 +181,11 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((uid) => {
-                Fluttertoast.showToast(msg: "Login Successful"),
+                Fluttertoast.showToast(msg: "Успешная авторизация"),
                 Navigator.of(context).pushReplacement(MaterialPageRoute<Widget>(
                     builder: (context) => const MainScreenWidget())),
-              });
-      //   .catchError((e) {
-      // Fluttertoast.showToast(msg: e!.message);
+          }
+          );
     }
   }
 }

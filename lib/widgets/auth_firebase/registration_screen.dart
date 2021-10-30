@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:english_application/widgets/Theme/app_color.dart';
 import 'package:english_application/widgets/auth_firebase/login_screen.dart';
 import 'package:english_application/widgets/auth_firebase/validation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegistrationWidget extends StatefulWidget {
   const RegistrationWidget({Key? key}) : super(key: key);
@@ -12,6 +16,8 @@ class RegistrationWidget extends StatefulWidget {
 
 class _RegistrationWidgetState extends State<RegistrationWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final _auth = FirebaseAuth.instance;
 
   final firstNameController = TextEditingController();
   final secondNameController = TextEditingController();
@@ -124,7 +130,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
         if (!regexp.hasMatch(value)) {
           return ("Пароль должен быть не менее 6 символов. Одна заглавная буква, число и символ(Пример: Vignesh123!)");
         }
-          return null;
+        return null;
       },
       decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
@@ -154,7 +160,8 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
       },
       textInputAction: TextInputAction.next,
       validator: (value) {
-        if (confirmPasswordController.text.length > 6 && passwordController.text != value) {
+        if (confirmPasswordController.text.length > 6 &&
+            passwordController.text != value) {
           return "Пароли не совпадают";
         }
         return null;
@@ -266,6 +273,27 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
           ),
         )));
   }
-}
 
-// Сделать, чтоб по нажатию скрывалась клавиатура
+  void registration(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
+          // .then((value) => {postDetailsToFirestore()})
+          // .catchError((e) {
+        // Fluttertoast.showToast(msg: e!.message.toString());
+      }
+    }
+  }
+
+  // postDetailsToFirestore() async {
+  //   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  //   User? user = _auth.currentUser;
+
+  //   UserModel userModel = UserModel();
+
+  // }
+
+
+
+// Сделать, чтоб по нажатию на пустое поле скрывалась клавиатура
+
