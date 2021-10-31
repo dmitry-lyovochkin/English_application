@@ -5,8 +5,8 @@ import 'package:english_application/widgets/main_screen/main_screen_widget.dart'
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreenWidget extends StatefulWidget {
   const LoginScreenWidget({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
 
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   // firebase
-  final auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   
 
   @override
@@ -60,19 +60,10 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
       cursorColor: AppColors.mainColorApp,
       autofocus: false,
       controller: passwordController,
-      obscureText: true,
-      /* скроет пароль */
-
+      obscureText: true, /* скроет пароль */
       validator: (value) {
         RegExp regexp = RegExp(
             r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[(!@#\$&*~)]).{6,}$'); /* добавил символы ( ) и 6 знаков*/
-        //    r'^
-        //      (?=.*[A-Z])       // should contain at least one upper case
-        //      (?=.*[a-z])       // should contain at least one lower case
-        //      (?=.*?[0-9])      // should contain at least one digit
-        //      (?=.*?[!@#\$&*~]) // should contain at least one Special character
-        //      .{8,}             // Must be at least 8 characters in length
-        //    $
         if (value!.isEmpty) {
           return "Введите пароль";
         }
@@ -112,9 +103,13 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
         child: MaterialButton(
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
-          onPressed: () {
-            signIn(emailController.text, passwordController.text);
-          },
+          onPressed: () async {
+                          if (_key.currentState!.validate()) {
+                            setState(() {
+                             _signInWithEmailAndPassword();
+                            });
+                          }
+                        },
           child: const Text(
             "Вход",
             textAlign: TextAlign.center,
@@ -175,17 +170,35 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
   }
   
 
-  // login
-  void signIn(String email, String password) async {
-    if (_key.currentState!.validate()) {
-      await auth
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((uid) => {
-                Fluttertoast.showToast(msg: "Успешная авторизация"),
-                Navigator.of(context).pushReplacement(MaterialPageRoute<Widget>(
-                    builder: (context) => const MainScreenWidget())),
-          }
-          );
+  // Firebase Логика Вход
+  void _signInWithEmailAndPassword() async{
+    try{
+      final User? user = (await _auth.signInWithEmailAndPassword(
+          email: emailController.text.trim(), 
+          password: passwordController.text.trim())).user;
+        if(user!=null){
+          setState(() {
+            Fluttertoast.showToast(msg: "Успешная авторизация");
+            Navigator.push<Widget>(context, MaterialPageRoute(builder: (context) => const MainScreenWidget()),);
+          });
+        }
+
+    }catch(e){
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
+  // Лучше по доке
+// try {
+//   UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+//     email: "barry.allen@example.com",
+//     password: "SuperSecretPassword!"
+//   );
+// } on FirebaseAuthException catch (e) {
+//   if (e.code == 'user-not-found') {
+//     print('No user found for that email.');
+//   } else if (e.code == 'wrong-password') {
+//     print('Wrong password provided for that user.');
+//   }
+// }
+
 }

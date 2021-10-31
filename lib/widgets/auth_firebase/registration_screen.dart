@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:english_application/widgets/Theme/app_color.dart';
 import 'package:english_application/widgets/auth_firebase/login_screen.dart';
 import 'package:english_application/widgets/auth_firebase/validation.dart';
+import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,22 +20,22 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
 
   final _auth = FirebaseAuth.instance;
 
-  final firstNameController = TextEditingController();
-  final secondNameController = TextEditingController();
-  final emailEditingController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _secondNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final firstNameField = TextFormField(
       cursorColor: AppColors.mainColorApp,
       autofocus: false,
-      controller: firstNameController,
+      controller: _firstNameController,
       keyboardType: TextInputType.name,
       validator: validateFirstName,
       onSaved: (value) {
-        firstNameController.text = value!;
+        _firstNameController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -58,11 +59,11 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
     final secondNameField = TextFormField(
       cursorColor: AppColors.mainColorApp,
       autofocus: false,
-      controller: secondNameController,
+      controller: _secondNameController,
       keyboardType: TextInputType.name,
       validator: validateSecondName,
       onSaved: (value) {
-        secondNameController.text = value!;
+        _secondNameController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -86,11 +87,11 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
     final emailField = TextFormField(
       cursorColor: AppColors.mainColorApp,
       autofocus: false,
-      controller: emailEditingController,
+      controller: _emailController,
       keyboardType: TextInputType.emailAddress,
       validator: validateEmail,
       onSaved: (value) {
-        emailEditingController.text = value!;
+        _emailController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -115,10 +116,10 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
     final passwordField = TextFormField(
       cursorColor: AppColors.mainColorApp,
       autofocus: false,
-      controller: passwordController,
+      controller: _passwordController,
       obscureText: true,
       onSaved: (value) {
-        passwordController.text = value!;
+        _passwordController.text = value!;
       },
       textInputAction: TextInputAction.next,
       validator: (value) {
@@ -153,15 +154,15 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
     final confirmPasswordField = TextFormField(
       cursorColor: AppColors.mainColorApp,
       autofocus: false,
-      controller: confirmPasswordController,
+      controller: _confirmPasswordController,
       obscureText: true,
       onSaved: (value) {
-        confirmPasswordController.text = value!;
+        _confirmPasswordController.text = value!;
       },
       textInputAction: TextInputAction.next,
       validator: (value) {
-        if (confirmPasswordController.text.length > 6 &&
-            passwordController.text != value) {
+        if (_confirmPasswordController.text.length > 6 &&
+            _passwordController.text != value) {
           return "Пароли не совпадают";
         }
         return null;
@@ -214,9 +215,12 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                   size: 30,
                   color: AppColors.mainColorApp,
                 ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                }),
+                onPressed: ()  async {
+                      if (_formKey.currentState!.validate()) {
+                          registration();
+                      }
+                      
+                    })
           ),
         ),
         body: Center(
@@ -274,26 +278,36 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
         )));
   }
 
-  void registration(String email, String password) async {
-    if (_formKey.currentState!.validate()) {
-      await _auth
-          .createUserWithEmailAndPassword(email: email, password: password);
-          // .then((value) => {postDetailsToFirestore()})
-          // .catchError((e) {
-        // Fluttertoast.showToast(msg: e!.message.toString());
-      }
-    }
+  @override
+  void dispose()  {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
-  // postDetailsToFirestore() async {
-  //   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-  //   User? user = _auth.currentUser;
-
-  //   UserModel userModel = UserModel();
-
-  // }
-
-
+   void registration()async{
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+    String confirmpassword = _confirmPasswordController.text.trim();
+    if(password == confirmpassword) {
+      try {
+        final User? user = (await _auth.createUserWithEmailAndPassword(
+            email: email, password: password)).user;
+        setState(() {
+          if (user != null) {
+            Fluttertoast.showToast(msg: "Пользователь создан");
+            Navigator.push<Widget>(context, MaterialPageRoute(builder: (context) => const MainScreenWidget()),);
+          }
+        });
+      } catch (e) {
+        Fluttertoast.showToast(msg: e.toString());
+      }
+    }
+    else{
+      Fluttertoast.showToast(msg: "Passwords don't match");
+    }
+   }
 
 // Сделать, чтоб по нажатию на пустое поле скрывалась клавиатура
 
+}
