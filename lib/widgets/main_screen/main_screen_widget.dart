@@ -69,7 +69,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
+        // centerTitle: true,
         title: const Text('Tenglish'),
       ),
       // body: screens[_selectedIndex],

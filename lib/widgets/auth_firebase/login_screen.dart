@@ -22,7 +22,6 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   // firebase
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +53,13 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
             borderRadius: BorderRadius.circular(10),
           )),
     );
-    
 
     final passwordField = TextFormField(
       cursorColor: AppColors.mainColorApp,
       autofocus: false,
       controller: passwordController,
-      obscureText: true, /* скроет пароль */
+      // obscureText: true,
+      /* скроет пароль */
       validator: (value) {
         RegExp regexp = RegExp(
             r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[(!@#\$&*~)]).{6,}$'); /* добавил символы ( ) и 6 знаков*/
@@ -77,6 +76,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
+      errorMaxLines: 3,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(
@@ -104,12 +104,10 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () async {
-                          if (_key.currentState!.validate()) {
-                            setState(() {
-                             _signInWithEmailAndPassword();
-                            });
-                          }
-                        },
+            if (_key.currentState!.validate()) {
+              _signIn();
+            }
+          },
           child: const Text(
             "Вход",
             textAlign: TextAlign.center,
@@ -166,24 +164,22 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
             ),
           ),
         )));
-        
   }
-  
 
   // Firebase Логика Вход
-  void _signInWithEmailAndPassword() async{
-    try{
-      final User? user = (await _auth.signInWithEmailAndPassword(
-          email: emailController.text.trim(), 
-          password: passwordController.text.trim())).user;
-        if(user!=null){
-          setState(() {
-            Fluttertoast.showToast(msg: "Успешная авторизация");
-            Navigator.push<Widget>(context, MaterialPageRoute(builder: (context) => const MainScreenWidget()),);
-          });
-        }
-
-    }catch(e){
+  void _signIn() async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+      setState(() {
+        Fluttertoast.showToast(msg: "Успешная авторизация");
+        Navigator.push<Widget>(
+          context,
+          MaterialPageRoute(builder: (context) => const MainScreenWidget()),
+        );
+      });
+    } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
     }
   }

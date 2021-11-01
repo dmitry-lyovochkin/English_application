@@ -134,6 +134,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
         return null;
       },
       decoration: InputDecoration(
+        errorMaxLines: 3,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(
@@ -161,8 +162,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
       },
       textInputAction: TextInputAction.next,
       validator: (value) {
-        if (_confirmPasswordController.text.length > 6 &&
-            _passwordController.text != value) {
+        if (value != _passwordController.text) {
           return "Пароли не совпадают";
         }
         return null;
@@ -192,7 +192,11 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
         child: MaterialButton(
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
-          onPressed: () {},
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              _registration();
+            }
+          },
           child: const Text(
             "Регистрация",
             textAlign: TextAlign.center,
@@ -208,20 +212,16 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: SizedBox(
-            height: 20,
-            child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                  size: 30,
-                  color: AppColors.mainColorApp,
-                ),
-                onPressed: ()  async {
-                      if (_formKey.currentState!.validate()) {
-                          registration();
-                      }
-                      
-                    })
-          ),
+              height: 20,
+              child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    size: 30,
+                    color: AppColors.mainColorApp,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  })),
         ),
         body: Center(
             child: SingleChildScrollView(
@@ -278,36 +278,31 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
         )));
   }
 
-  @override
-  void dispose()  {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose()  {
+  //   _emailController.dispose();
+  //   _passwordController.dispose();
+  //   super.dispose();
+  // }
 
-   void registration()async{
+  void _registration() async {
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
     String confirmpassword = _confirmPasswordController.text.trim();
-    if(password == confirmpassword) {
-      try {
-        final User? user = (await _auth.createUserWithEmailAndPassword(
-            email: email, password: password)).user;
+    if (password == confirmpassword) {
+        UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+            email: email, password: password);
+        
         setState(() {
-          if (user != null) {
-            Fluttertoast.showToast(msg: "Пользователь создан");
-            Navigator.push<Widget>(context, MaterialPageRoute(builder: (context) => const MainScreenWidget()),);
-          }
+          Fluttertoast.showToast(msg: "Пользователь создан");
+          Navigator.push<Widget>(
+            context,
+            MaterialPageRoute(builder: (context) => const MainScreenWidget()),
+          );
         });
-      } catch (e) {
-        Fluttertoast.showToast(msg: e.toString());
-      }
-    }
-    else{
-      Fluttertoast.showToast(msg: "Passwords don't match");
-    }
-   }
+      }}
+  }
 
 // Сделать, чтоб по нажатию на пустое поле скрывалась клавиатура
 
-}
+
