@@ -206,76 +206,81 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
             ),
           ),
         ));
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: SizedBox(
-              height: 20,
-              child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    size: 30,
-                    color: AppColors.mainColorApp,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  })),
-        ),
-        body: Center(
-            child: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-            child: Padding(
-              /* обернул в padding, чтоб все три поля уравнять по центру с одинаковыми отступами */
-              padding: const EdgeInsets.all(36.0),
-              child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      firstNameField,
-                      const SizedBox(height: 10),
-                      secondNameField,
-                      const SizedBox(height: 10),
-                      emailField,
-                      const SizedBox(height: 10),
-                      passwordField,
-                      const SizedBox(height: 10),
-                      confirmPasswordField,
-                      const SizedBox(height: 20),
-                      registrationButton,
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Text("Есть аккаунт? "),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push<Widget>(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const LoginScreenWidget()));
-                            },
-                            child: const Text(
-                              "Вход",
-                              style: TextStyle(
-                                color: AppColors.mainColorApp,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 15,
-                              ),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  )),
-            ),
+    return GestureDetector( /* Обернул Scaffold в GestureDetector, чтоб скрывать клавиатуру по клику на пустое место */
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: SizedBox(
+                height: 20,
+                child: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      size: 30,
+                      color: AppColors.mainColorApp,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    })),
           ),
-        )));
+          body: Center(
+              child: SingleChildScrollView(
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                /* обернул в padding, чтоб все три поля уравнять по центру с одинаковыми отступами */
+                padding: const EdgeInsets.all(36.0),
+                child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        firstNameField,
+                        const SizedBox(height: 10),
+                        secondNameField,
+                        const SizedBox(height: 10),
+                        emailField,
+                        const SizedBox(height: 10),
+                        passwordField,
+                        const SizedBox(height: 10),
+                        confirmPasswordField,
+                        const SizedBox(height: 20),
+                        registrationButton,
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Text("Есть аккаунт? "),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push<Widget>(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginScreenWidget()));
+                              },
+                              child: const Text(
+                                "Вход",
+                                style: TextStyle(
+                                  color: AppColors.mainColorApp,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    )),
+              ),
+            ),
+          ))),
+    );
   }
 
   // @override

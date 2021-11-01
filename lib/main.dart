@@ -1,11 +1,8 @@
 import 'package:english_application/widgets/Theme/app_color.dart';
-import 'package:english_application/widgets/auth2/auth1.dart';
 import 'package:english_application/widgets/auth_firebase/login_screen.dart';
-import 'package:english_application/widgets/main_screen/drawing_page/drawing_page.dart';
 import 'package:english_application/widgets/main_screen/main_screen_widget.dart';
 import 'package:english_application/widgets/main_screen/words_page.dart';
 import 'package:flutter/material.dart';
-import 'package:english_application/widgets/authorization/auth_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {

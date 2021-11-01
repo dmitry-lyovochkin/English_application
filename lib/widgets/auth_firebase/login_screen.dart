@@ -119,51 +119,56 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
         ));
     return Scaffold(
         backgroundColor: Colors.white,
-        body: Center(
-            child: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-            child: Padding(
-              /* обернул в padding, чтоб все три поля уравнять по центру с одинаковыми отступами */
-              padding: const EdgeInsets.all(36.0),
-              child: Form(
-                  key: _key,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      emailField,
-                      const SizedBox(height: 10),
-                      passwordField,
-                      const SizedBox(height: 20),
-                      loginButton,
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Text("Нет аккаунта? "),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push<Widget>(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const RegistrationWidget()));
-                            },
-                            child: const Text("Регистрация",
-                                style: TextStyle(
-                                  color: AppColors.mainColorApp,
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 15,
-                                )),
-                          )
-                        ],
-                      )
-                    ],
-                  )),
+        body: GestureDetector( /* Обернул Center в GestureDetector, чтоб скрывать клавиатуру по клику на пустое место */
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Center(
+              child: SingleChildScrollView(
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                /* обернул в padding, чтоб все три поля уравнять по центру с одинаковыми отступами */
+                padding: const EdgeInsets.all(36.0),
+                child: Form(
+                    key: _key,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        emailField,
+                        const SizedBox(height: 10),
+                        passwordField,
+                        const SizedBox(height: 20),
+                        loginButton,
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Text("Нет аккаунта? "),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push<Widget>(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const RegistrationWidget()));
+                              },
+                              child: const Text("Регистрация",
+                                  style: TextStyle(
+                                    color: AppColors.mainColorApp,
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 15,
+                                  )),
+                            )
+                          ],
+                        )
+                      ],
+                    )),
+              ),
             ),
-          ),
-        )));
+          )),
+        ));
   }
 
   // Firebase Логика Вход
