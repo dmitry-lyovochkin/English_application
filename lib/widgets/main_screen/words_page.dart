@@ -88,16 +88,10 @@ class _PaintBoardState extends State<PaintBoard> {
                 right: 30,
                 child: Row(
                   children: [
-                    // SliderTheme(
-                    //   data: const SliderThemeData(
-                    //     thumbColor: Colors.red,
-                    //     thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
-                    //   ),
                     Slider(
                       activeColor: const Color.fromRGBO(121, 104, 216, 100),
                       min: 0,
                       max: 40,
-                      // divisions: 5,
                       label: strokeWidth.round().toString(),
                       value: strokeWidth,
                       onChanged: (val) => setState(() => strokeWidth = val),
@@ -115,8 +109,6 @@ class _PaintBoardState extends State<PaintBoard> {
                         padding: MaterialStateProperty.all(
                           const EdgeInsets.symmetric(horizontal: 15, vertical: 8)),
                       ),
-                 
-                      // child: null,
                     )
                   ],
                 )),
@@ -136,7 +128,6 @@ class _PaintBoardState extends State<PaintBoard> {
   Widget _useColor(Color color) {
     bool isSelected = selectedColor == color;
     return GestureDetector(
-        /* по доке */
         onTap: () {
           setState(() {
             selectedColor = color;
@@ -149,11 +140,9 @@ class _PaintBoardState extends State<PaintBoard> {
           decoration: BoxDecoration(
             color: color,
             shape: BoxShape.circle,
-            // border: isSelected ? Border.all(color: Colors.white, width: 3) : null,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.9),
-                // spreadRadius: 10,
                 blurRadius: 3,
                 offset: const Offset(1, 2),
               )

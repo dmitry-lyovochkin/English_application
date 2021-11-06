@@ -58,8 +58,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
       cursorColor: AppColors.mainColorApp,
       autofocus: false,
       controller: passwordController,
-      // obscureText: true,
-      /* скроет пароль */
+      obscureText: true, /* скроет пароль */
       validator: (value) {
         RegExp regexp = RegExp(
             r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[(!@#\$&*~)]).{6,}$'); /* добавил символы ( ) и 6 знаков*/
@@ -95,7 +94,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
             borderRadius: BorderRadius.circular(10),
           )),
     );
-
+// g123GH456)
     final loginButton = Material(
         elevation: 5,
         borderRadius: BorderRadius.circular(30),
@@ -189,22 +188,10 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
       Fluttertoast.showToast(msg: e.toString());
     }
   }
-  // Лучше по доке
-// try {
-//   UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-//     email: "barry.allen@example.com",
-//     password: "SuperSecretPassword!"
-//   );
-// } on FirebaseAuthException catch (e) {
-//   if (e.code == 'user-not-found') {
-//     print('No user found for that email.');
-//   } else if (e.code == 'wrong-password') {
-//     print('Wrong password provided for that user.');
-//   }
-// }
-
 }
 
 // вроде все окей. Но нужно будет переписать с архитектурой. 
 // + нужно отслеживать вход пользователя, чтоб показывать ему разные экраны(не вход и регистрацию, если авторизирован). Делается через Bloc Cuibit
 // еще нужно будет добавить обработку ошибок с firebase. Неверный пароль, почта уже используется и тому подобные ошибки 
+// не работает переход по стрелке клавиатуры на следующее поле при вводе email
+// Крашится, если такой емаил уже используется и пользователь создан

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:english_application/widgets/Theme/app_color.dart';
 import 'package:english_application/widgets/auth_firebase/login_screen.dart';
 import 'package:english_application/widgets/auth_firebase/validation.dart';
@@ -308,6 +306,5 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
       }}
   }
 
-// Сделать, чтоб по нажатию на пустое поле скрывалась клавиатура
 
 

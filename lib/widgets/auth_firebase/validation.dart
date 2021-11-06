@@ -1,5 +1,3 @@
-import 'package:english_application/widgets/auth_firebase/registration_screen.dart';
-
 // validation
 String? validateEmail(String? formEmail) {
   if (formEmail == null || formEmail.isEmpty) {
