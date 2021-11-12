@@ -4,6 +4,7 @@ import 'package:english_application/widgets/main_screen/main_screen_widget.dart'
 import 'package:english_application/widgets/main_screen/words_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
    WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
           '/main_screen/words_page': (context) => const PaintBoard(),
         },
         initialRoute: '/auth',
+        
     );
   }
 }
