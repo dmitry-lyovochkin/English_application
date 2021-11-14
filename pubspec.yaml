@@ -17,11 +17,10 @@ dependencies:
   firebase_auth_oauth: ^1.1.0
   firebase_core: ^1.7.0
   flow_builder: ^0.0.6
-  
-  
   flutter:
     sdk: flutter
   flutter_bloc: ^7.3.3
+  flutter_signin_button: ^2.0.0
   fluttertoast: ^8.0.8
   font_awesome_flutter: ^9.2.0
   formz: ^0.4.1
