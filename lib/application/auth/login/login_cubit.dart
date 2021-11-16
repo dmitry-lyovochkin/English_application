@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:english_application/domain/auth_models/email.dart';
+import 'package:english_application/domain/auth_models/password.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_oauth/firebase_auth_oauth.dart';
@@ -6,8 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:formz/formz.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:bloc_login/domain/auth_models/email.dart';
-import 'package:bloc_login/domain/auth_models/password.dart';
 
 part 'login_state.dart';
 
@@ -41,7 +41,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> loginWithCredentials() async {
-    emit(state.copywidth(status: FormzStatus.submissionSuccess));
+    emit(state.copyWidth(status: FormzStatus.submissionSuccess));
     try {
       await _auth.signInWithEmailAndPassword(
           email: state.email.value, password: state.password.value);
@@ -68,16 +68,16 @@ class LoginCubit extends Cubit<LoginState> {
         emit(state.copyWidth(status: FormzStatus.submissionSuccess));
       });
     } on FirebaseAuthException catch (e) {
-      emit(state.copuWidth(
+      emit(state.copyWidth(
           status: FormzStatus.submissionFailure, exceptionError: e.message));
     }
   }
 
   Future signWithTwitter() async {
-    emit(state.copywidth(status: FormzStatus.submissionInProgress));
+    emit(state.copyWidth(status: FormzStatus.submissionInProgress));
     try {
       await performLogin("twitter.com", ["user:email"], {"lang": "en"});
-      emit(state.copywidth(status: FormzStatus.submissionSuccess));
+      emit(state.copyWidth(status: FormzStatus.submissionSuccess));
     } on FirebaseAuthException catch (e) {
       emit(state.copyWidth(
           status: FormzStatus.submissionFailure, exceptionError: e.message));

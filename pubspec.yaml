@@ -9,6 +9,8 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  authentication_repository:
+      path: packages/authentication_repository
   cloud_firestore: ^3.1.0
   cubit: ^0.1.2
   cupertino_icons: ^1.0.3
@@ -23,18 +25,25 @@ dependencies:
   flutter_signin_button: ^2.0.0
   fluttertoast: ^8.0.8
   font_awesome_flutter: ^9.2.0
+  form_inputs:
+    path: packages/form_inputs
   formz: ^0.4.1
+  google_fonts: ^2.1.0
   google_sign_in: ^5.2.0
   meta: ^1.7.0
   pedantic: ^1.11.1
   very_good_analysis: ^2.4.0
 
+
+
 dev_dependencies:
-  flutter_lints: ^1.0.4
+  bloc_test: ^8.5.0
   flutter_test:
     sdk: flutter
   mocktail: ^0.2.0
 
 flutter:
-
   uses-material-design: true
+  assets:
+    - assets/
+  

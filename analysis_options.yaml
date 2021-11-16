@@ -1,15 +1,4 @@
-
-include: package:flutter_lints/flutter.yaml
-
-analyzer:
-  strong-mode: 
-    implicit-casts: false
-    implicit-dynamic: false
-
+include: package:very_good_analysis/analysis_options.2.3.0.yaml
 linter:
   rules:
-    - prefer_const_constructors
-    - prefer_const_declarations
-    - avoid_print
-    - use_key_in_widget_constructors
-    - always_use_package_imports
+    public_member_api_docs: false
