@@ -24,20 +24,20 @@
 //         theme: ThemeData(
 //           appBarTheme: const AppBarTheme(
 //               backgroundColor: AppColors.mainColorApp
-//           ), 
+//           ),
 //           bottomNavigationBarTheme: BottomNavigationBarThemeData(
 //             backgroundColor: AppColors.mainColorApp,
 //             selectedItemColor: Colors.yellow.shade50,
 //             unselectedItemColor: Colors.white54,
 //           ),
 //         ),
-//         routes: { 
+//         routes: {
 //           '/auth': (context) => const LoginScreenWidget(),
 //           '/main_screen': (context) => const MainScreenWidget(),
 //           '/main_screen/words_page': (context) => const PaintBoard(),
 //         },
 //         initialRoute: '/auth',
-        
+
 //     );
 //   }
 // }
@@ -45,6 +45,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:english_application/app/app.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 Future<void> main() async {
