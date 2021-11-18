@@ -1,4 +1,4 @@
-import 'package:english_application/widgets/Theme/app_color.dart';
+import 'package:english_application/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:english_application/login/login.dart';
@@ -39,9 +39,9 @@ class LoginForm extends StatelessWidget {
               const SizedBox(height: 8),
               _LoginButton(),
               const SizedBox(height: 8),
-              _GoogleLoginButton(),
-              const SizedBox(height: 8),
               _SignUpButton(),
+              const SizedBox(height: 8),
+              _GoogleLoginButton(),
             ],
           ),
         ),
@@ -69,9 +69,9 @@ class _EmailInput extends StatelessWidget {
                 )),
             labelText: 'Email',
             helperText: '',
-            errorText: state.email.invalid ? 'invalid email' : null,
+            errorText: state.email.invalid ? 'Неверный email' : null,
             prefixIcon: const Icon(Icons.mail, color: Colors.grey),
-            // contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+            contentPadding: const EdgeInsets.fromLTRB(20, 25, 20, 15),
           ),
         );
       },
@@ -94,13 +94,14 @@ class _PasswordInput extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: const BorderSide(
-                    width: 1.7,
+                    width: 1.5,
                     color: AppColors.mainColorApp,
                   )),
               labelText: 'Пароль',
               helperText: '',
-              errorText: state.password.invalid ? 'invalid password' : null,
+              errorText: state.password.invalid ? 'Неверный пароль' : null,
               prefixIcon: const Icon(Icons.vpn_key, color: Colors.grey),
+              contentPadding: const EdgeInsets.fromLTRB(20, 25, 20, 15),
             ));
       },
     );
@@ -124,7 +125,10 @@ class _LoginButton extends StatelessWidget {
                   primary: AppColors.mainColorApp,
                   elevation: 9,
                   // minWidth: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.fromLTRB(90, 10, 90, 10),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12, 
+                    horizontal: 90
+                  ),
                 ),
                 onPressed: state.status.isValidated
                     ? () => context.read<LoginCubit>().logInWithCredentials()
@@ -206,7 +210,10 @@ class _SignUpButton extends StatelessWidget {
         primary: AppColors.mainColorApp,
         elevation: 9,
         // minWidth: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.fromLTRB(21, 10, 21, 10),
+        padding: const EdgeInsets.symmetric(
+          vertical: 12, 
+          horizontal: 20
+        ),
       ),
       onPressed: () => Navigator.of(context).push<void>(SignUpPage.route()),
       child: const Text(

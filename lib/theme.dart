@@ -7,10 +7,15 @@ final theme = ThemeData(
   primaryColorLight: const Color(0xFFB2EBF2),
   primaryColor: const Color(0xFF00BCD4),
   colorScheme: const ColorScheme.light(secondary: Color(0xFF009688)),
-  scaffoldBackgroundColor: const Color(0xFFE0F2F1),
+  scaffoldBackgroundColor: const Color(0xFFE0F7FA), /* 0xFFE8F5E9 */ /* 0xFFE0F2F1 */
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(15),
     ),
   ),
 );
+
+abstract class AppColors {
+  static const mainColorApp = Color.fromRGBO(121, 104, 216, 1); /* 121, 104, 216, */ /* 190, 179, 239, */ /* 252, 200, 192, */ /* 173, 221, 254, */ /* 253, 160, 34, 1 */
+}
+// цвета кнопок сюда перекинуть
