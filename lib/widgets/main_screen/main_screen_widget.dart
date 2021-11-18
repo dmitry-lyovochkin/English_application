@@ -14,16 +14,6 @@ class MainScreenWidget extends StatefulWidget {
 
 class _MainScreenWidgetState extends State<MainScreenWidget> {
   int selectedIndex = 0;
-  // Widget _ProfilePageWidget = ProfilePageWidget();
-  // Widget _RepeatPageWidget = RepeatPageWidget();
-  // Widget _SuggestionsPageWidget = SuggestionsPageWidget();
-  
-  // final screens = [
-  //   const ProfilePageWidget(),
-  //   RepeatPageWidget(),
-  //   const WordsPageWidget(),
-  //   SuggestionsPageWidget(),
-  // ];
 
   Widget getBody() {
     if (selectedIndex == 0) {

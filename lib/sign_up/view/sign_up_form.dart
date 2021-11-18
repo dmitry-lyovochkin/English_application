@@ -47,7 +47,7 @@ class SignUpForm extends StatelessWidget {
     );
   }
 }
-
+// Добавить под имя ключ и прочую логику
 class _NameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
