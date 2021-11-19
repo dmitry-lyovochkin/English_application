@@ -32,21 +32,24 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _onItemTapped(int index) {
+  void onTapHandler(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-  // void _onSelectTub(int index) {
-  //   if () {
-  //     setState(() {
-  //       _selectedIndex = index;
-  //     });
-  //   } else {
-  //     Navigator.of(context).push<void>(WordsPageWidget.route()),
-  //   }
-  // }
+  void onSelectTub(int index) {
+    if (index != 2) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    } else {
+      Navigator.push<Widget>(
+              context,
+              MaterialPageRoute(builder: (context) => const PaintBoard()),
+            );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +95,7 @@ class _HomePageState extends State<HomePage> {
           
         ],
         currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        onTap: onSelectTub,
       ),
     );
   }

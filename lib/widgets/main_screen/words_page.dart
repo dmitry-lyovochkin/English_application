@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:english_application/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -83,6 +84,19 @@ class _PaintBoardState extends State<PaintBoard> {
                 ),
               ),
             ),
+            // Нужно будет разделить на логику и внешку
+            Positioned(
+              top: 30,
+              left: 15,
+              child: IconButton(
+                color: AppColors.mainColorApp,
+                key: const Key('homePage_logout_iconButton'),
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
             Positioned(
                 top: 30,
                 right: 30,
@@ -101,15 +115,19 @@ class _PaintBoardState extends State<PaintBoard> {
                       icon: const Icon(Icons.cancel),
                       label: const Text("Clear Board"),
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(121, 104, 216, 100)),
-                        foregroundColor: MaterialStateProperty.all(Colors.white),
+                        backgroundColor: MaterialStateProperty.all(
+                            const Color.fromRGBO(121, 104, 216, 100)),
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.white),
                         textStyle: MaterialStateProperty.all(
-                          const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                          const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w700),
                         ),
                         padding: MaterialStateProperty.all(
-                          const EdgeInsets.symmetric(horizontal: 15, vertical: 8)),
+                            const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 8)),
                       ),
-                    )
+                    ),
                   ],
                 )),
           ],
