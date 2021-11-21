@@ -1,5 +1,4 @@
 import 'package:english_application/app/app.dart';
-import 'package:english_application/home/home.dart';
 import 'package:english_application/theme.dart';
 import 'package:english_application/widgets/main_screen/profile_page/profile_page.dart';
 import 'package:english_application/widgets/main_screen/repeat_page/repeat_page.dart';
@@ -18,14 +17,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  int selectedIndex = 0;
 
   Widget getBody() {
-    if (_selectedIndex == 0) {
+    if (selectedIndex == 0) {
       return const ProfilePageWidget();
-    } else if (_selectedIndex == 1) {
+    } else if (selectedIndex == 1) {
       return const RepeatPageWidget();
-    } else if (_selectedIndex == 2) {
+    } else if (selectedIndex == 2) {
       return const PaintBoard(); /* пофиксить потом, 2 раза прописываю */
     } else {
       return const SuggestionsPageWidget();
@@ -34,14 +33,14 @@ class _HomePageState extends State<HomePage> {
 
   void onTapHandler(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
   void onSelectTub(int index) {
     if (index != 2) {
       setState(() {
-        _selectedIndex = index;
+        selectedIndex = index;
       });
     } else {
       Navigator.push<Widget>(
@@ -53,8 +52,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final user = context.select((AppBloc bloc) => bloc.state.user);
+    // final textTheme = Theme.of(context).textTheme;
+    // final user = context.select((AppBloc bloc) => bloc.state.user);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -68,18 +67,19 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: Align(
-        // alignment: const Alignment(0, -1 / 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const SizedBox(height: 4),
-            Text(user.email ?? '', style: textTheme.headline6),
-            const SizedBox(height: 4),
-            Text(user.name ?? '', style: textTheme.headline5),
-          ],
-        ),
-      ),
+        body:  getBody(), 
+      // body: Align(
+      //   // alignment: const Alignment(0, -1 / 3),
+      //   child: Column(
+      //     mainAxisSize: MainAxisSize.min,
+      //     children: <Widget>[
+      //       const SizedBox(height: 4),
+      //       Text(user.email ?? '', style: textTheme.headline6),
+      //       const SizedBox(height: 4),
+      //       Text(user.name ?? '', style: textTheme.headline5),
+      //     ],
+      //   ),
+      // ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey[400],
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.extension_sharp), label: 'Предложения'),
           
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: selectedIndex,
         onTap: onSelectTub,
       ),
     );

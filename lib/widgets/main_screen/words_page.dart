@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:english_application/theme.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -14,10 +16,9 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 class PaintBoard extends StatefulWidget {
   const PaintBoard({Key? key}) : super(key: key);
-
+ 
   @override
   _PaintBoardState createState() => _PaintBoardState();
 }
@@ -83,6 +84,7 @@ class _PaintBoardState extends State<PaintBoard> {
                   width: MediaQuery.of(context).size.width,
                 ),
               ),
+              
             ),
             // Нужно будет разделить на логику и внешку
             Positioned(
@@ -104,7 +106,6 @@ class _PaintBoardState extends State<PaintBoard> {
                   children: [
                     Slider(
                       activeColor: const Color.fromRGBO(121, 104, 216, 100),
-                      min: 0,
                       max: 40,
                       label: strokeWidth.round().toString(),
                       value: strokeWidth,
@@ -113,7 +114,7 @@ class _PaintBoardState extends State<PaintBoard> {
                     ElevatedButton.icon(
                       onPressed: () => setState(() => drawingPoints = []),
                       icon: const Icon(Icons.cancel),
-                      label: const Text("Clear Board"),
+                      label: const Text('Clear Board'),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
                             const Color.fromRGBO(121, 104, 216, 100)),
@@ -141,10 +142,11 @@ class _PaintBoardState extends State<PaintBoard> {
                   children: List.generate(
                       colors.length, (index) => _useColor(colors[index])),
                 ))));
+                
   }
 
   Widget _useColor(Color color) {
-    bool isSelected = selectedColor == color;
+    final isSelected = selectedColor == color;
     return GestureDetector(
         onTap: () {
           setState(() {
@@ -189,21 +191,22 @@ class _PaintBoardState extends State<PaintBoard> {
 }
 
 class _DrawingPainter extends CustomPainter {
+  _DrawingPainter(this.drawingPoints);
+  
   final List<DrawingPoint?> drawingPoints;
 
-  _DrawingPainter(this.drawingPoints);
 
   List<Offset> offsetsList = [];
 
   @override
   void paint(Canvas canvas, Size size) {
-    for (int i = 0; i < drawingPoints.length; i++) {
+    for (var i = 0; i < drawingPoints.length; i++) {
       if (drawingPoints[i] != null && drawingPoints[i + 1] != null) {
         canvas.drawLine(drawingPoints[i]!.offset, drawingPoints[i + 1]!.offset,
             drawingPoints[i]!.paint);
+        offsetsList.add(drawingPoints[i]!.offset);
       } else if (drawingPoints[i] != null && drawingPoints[i + 1] == null) {
         offsetsList.clear();
-        offsetsList.add(drawingPoints[i]!.offset);
 
         canvas.drawPoints(
             PointMode.points, offsetsList, drawingPoints[i]!.paint);
@@ -216,8 +219,32 @@ class _DrawingPainter extends CustomPainter {
 }
 
 class DrawingPoint {
+  DrawingPoint(
+    this.offset, 
+    this.paint
+  );
   Offset offset;
   Paint paint;
 
-  DrawingPoint(this.offset, this.paint);
 }
+
+
+
+
+
+
+
+
+// firebase. Потом разделить на логику 
+
+// firebase_storage.FirebaseStorage storage =
+//   firebase_storage.FirebaseStorage.instance;
+
+// Future<void> listExample() async {
+//   final result = await firebase_storage
+//       .FirebaseStorage.instance
+//       .ref()
+//       .list(const firebase_storage.ListOptions(maxResults: 10));
+//   // ...
+// }
+

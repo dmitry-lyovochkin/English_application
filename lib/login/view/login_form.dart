@@ -1,12 +1,10 @@
+import 'package:english_application/login/login.dart';
+import 'package:english_application/sign_up/sign_up.dart';
 import 'package:english_application/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:english_application/login/login.dart';
-import 'package:english_application/sign_up/sign_up.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({Key? key}) : super(key: key);

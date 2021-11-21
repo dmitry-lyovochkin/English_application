@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class SuggestionsPageWidget extends StatefulWidget {
   const SuggestionsPageWidget({Key? key}) : super(key: key);
 
