@@ -12,6 +12,7 @@ dependencies:
   authentication_repository:
     path: packages/authentication_repository
   cached_network_image: ^3.1.0+1
+  carousel_slider: ^4.0.0
   cloud_firestore: ^3.1.0
   cubit: ^0.1.2
   cupertino_icons: ^1.0.3
