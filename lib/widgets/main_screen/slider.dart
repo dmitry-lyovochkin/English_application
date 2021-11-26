@@ -78,6 +78,7 @@ import 'package:english_application/theme.dart';
 import 'package:flutter/material.dart';
 
 final List<String> imgList = [
+  // 'https://firebasestorage.googleapis.com/v0/b/english-app-9b2d0.appspot.com/o/ExamplePac%2Fdread1.png?alt=media&token=aea4bfdd-cadd-46ba-a94d-0993a4bf7d1b',
   'https://firebasestorage.googleapis.com/v0/b/english-app-9b2d0.appspot.com/o/ExamplePac%2Fdrought.jpg?alt=media&token=5da7e5cc-ec0a-4eb0-9386-caaa0ffdeada',
   'https://firebasestorage.googleapis.com/v0/b/english-app-9b2d0.appspot.com/o/ExamplePac%2Ffine.jpg?alt=media&token=280debb3-f6c1-4c9b-aaa3-1bb4eb0d6a4e',
   'https://firebasestorage.googleapis.com/v0/b/english-app-9b2d0.appspot.com/o/ExamplePac%2Fgoal.jpg?alt=media&token=2677924e-0296-4cb2-8938-ef6f16bacafd',
@@ -106,7 +107,7 @@ class CarouselDemo1 extends StatelessWidget {
           // themeMode: ThemeMode.values.toList()[value as int],
           debugShowCheckedModeBanner: false,
           routes: {
-            '/': (ctx) =>  const ManuallyControlledSlider(),
+            '/': (ctx) => const ManuallyControlledSlider(),
           },
         );
       },
@@ -116,52 +117,45 @@ class CarouselDemo1 extends StatelessWidget {
 }
 
 final List<Widget> imageSliders = imgList
-    .map((item) => Center(
+    .map(
+      (item) => Center(
         child: ClipRRect(
             child: Center(
-              child: Stack(
-                children: <Widget>[
-                  Image.network(
-                    item, 
-                    fit: BoxFit.cover, 
-                    height: 340, 
-                    width: 650
+          child: Stack(
+            children: <Widget>[
+              Image.network(item, fit: BoxFit.cover, height: 260, width: 500),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                // child: Container(
+                //   decoration: const BoxDecoration(
+                //     gradient: LinearGradient(
+                //       colors: [
+                //         Color.fromARGB(200, 0, 0, 0),
+                //         Color.fromARGB(0, 0, 0, 0)
+                //       ],
+                //       begin: Alignment.bottomCenter,
+                //       end: Alignment.topCenter,
+                //     ),
+                //   ),
+                // padding: const EdgeInsets.symmetric(
+                //     vertical: 10, horizontal: 20),
+                child: Text(
+                  '"Слово". ${imgList.indexOf(item)}',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 10,
+                    fontWeight: FontWeight.normal,
                   ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    // child: Container(
-                    //   decoration: const BoxDecoration(
-                    //     gradient: LinearGradient(
-                    //       colors: [
-                    //         Color.fromARGB(200, 0, 0, 0),
-                    //         Color.fromARGB(0, 0, 0, 0)
-                    //       ],
-                    //       begin: Alignment.bottomCenter,
-                    //       end: Alignment.topCenter,
-                    //     ),
-                    //   ),
-                      // padding: const EdgeInsets.symmetric(
-                      //     vertical: 10, horizontal: 20),
-                      child: Text(
-                        '"Слово". ${imgList.indexOf(item)}',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 10,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ),
-                
-                ],
+                ),
               ),
-            )),
+            ],
+          ),
+        )),
       ),
     )
     .toList();
-
-
 
 class ManuallyControlledSlider extends StatefulWidget {
   const ManuallyControlledSlider({Key? key}) : super(key: key);
@@ -183,58 +177,37 @@ class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(title: Text('Manually controlled slider')),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              CarouselSlider(
-                items: imageSliders,
-                options: CarouselOptions(
-                  enlargeCenterPage: true, 
-                  viewportFraction: 1,
-                  height: 400
-                  
-                ),
-                carouselController: _controller,
+      // appBar: AppBar(title: Text('Manually controlled slider')),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            CarouselSlider(
+              items: imageSliders,
+              options: CarouselOptions(
+                enlargeCenterPage: true, 
+                viewportFraction: 1, 
+                height: 400
               ),
-              Padding(
-                padding:  const EdgeInsets.symmetric(
-                  vertical: 5, 
-                  horizontal: 5,
+              carouselController: _controller,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  onPressed: _controller.previousPage,
+                  icon: const Icon(Icons.arrow_back),
+                  color: AppColors.mainColorApp,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Flexible(
-                      child: IconButton(
-                        onPressed: _controller.previousPage,
-                        icon: const Icon(Icons.arrow_back),
-                        color: AppColors.mainColorApp,
-                      ),
-                    ),
-                    Flexible(
-                      child: IconButton(
-                        onPressed: _controller.nextPage,
-                        icon: const Icon(Icons.arrow_forward),
-                        color: AppColors.mainColorApp,
-                      ),
-                    ),
-                    ...Iterable<int>.generate(imgList.length).map(
-                      (int pageIndex) => Flexible(
-                        child: ElevatedButton(
-                          
-                          onPressed: () => _controller.animateToPage(pageIndex),
-                          child: Text('$pageIndex'),
-                        ),
-                      ),
-                    ),
-                  ],
+                IconButton(
+                  onPressed: _controller.nextPage,
+                  icon: const Icon(Icons.arrow_forward),
+                  color: AppColors.mainColorApp,
                 ),
-              )
-            ],
-          ),
-        ));
+              ],
+            ),
+          ]
+        ),
+      ),
+    );
   }
 }
-
-

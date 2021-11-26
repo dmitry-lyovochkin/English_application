@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     } else if (selectedIndex == 2) {
       return const PaintBoard(); /* пофиксить потом, 2 раза прописываю */
     } else {
-      return  const CarouselDemo2();
+      return  const MainPage1();
     }
   }
 
