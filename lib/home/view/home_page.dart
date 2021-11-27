@@ -2,8 +2,6 @@ import 'package:english_application/app/app.dart';
 import 'package:english_application/theme.dart';
 import 'package:english_application/widgets/main_screen/profile_page/profile_page.dart';
 import 'package:english_application/widgets/main_screen/repeat_page/repeat_page.dart';
-import 'package:english_application/widgets/main_screen/slider.dart';
-import 'package:english_application/widgets/main_screen/suggestion_page/suggestions_page.dart';
 import 'package:english_application/widgets/main_screen/words_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,12 +21,12 @@ class _HomePageState extends State<HomePage> {
   Widget getBody() {
     if (selectedIndex == 0) {
       return const ProfilePageWidget();
-    } else if (selectedIndex == 1) {
-      return const RepeatPageWidget();
-    } else if (selectedIndex == 2) {
-      return const PaintBoard(); /* пофиксить потом, 2 раза прописываю */
+    // } else if (selectedIndex == 1) {
+    //   return const MainPage1();
+    // } else if (selectedIndex == 2) {
+    //   return const PaintBoard(); /* пофиксить потом, 2 раза прописываю */
     } else {
-      return  const MainPage1();
+      return  const MainPage2();
     }
   }
 
@@ -92,7 +90,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Профиль'),
           BottomNavigationBarItem(icon: Icon(Icons.replay_rounded), label: 'Повторение'),
           BottomNavigationBarItem(icon: Icon(Icons.menu_book_rounded),label: 'Слова'),
-          BottomNavigationBarItem(icon: Icon(Icons.extension_sharp), label: 'Предложения'),
+          // BottomNavigationBarItem(icon: Icon(Icons.extension_sharp), label: 'Предложения'),
           
         ],
         currentIndex: selectedIndex,

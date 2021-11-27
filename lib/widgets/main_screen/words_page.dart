@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:english_application/theme.dart';
+import 'package:english_application/widgets/main_screen/repeat_page/repeat_page.dart';
 import 'package:english_application/widgets/main_screen/slider.dart';
-import 'package:english_application/widgets/main_screen/suggestion_page/suggestions_page.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,9 +47,7 @@ class _PaintBoardState extends State<PaintBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
-
           children: [
-          const CarouselDemo1(),
             GestureDetector(
               onPanStart: (details) {
                 setState(() {
@@ -84,6 +82,7 @@ class _PaintBoardState extends State<PaintBoard> {
                   drawingPoints.add(null);
                 });
               },
+
               child: CustomPaint(
                 painter: _DrawingPainter(drawingPoints),
                 child: SizedBox(
@@ -93,6 +92,7 @@ class _PaintBoardState extends State<PaintBoard> {
               ),
             ),
             // Нужно будет разделить на логику и внешку
+              const MainPage2(),
             Positioned(
               top: 30,
               left: 15,
