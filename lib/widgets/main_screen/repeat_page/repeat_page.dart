@@ -304,7 +304,9 @@
 // }
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:english_application/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MainPage2 extends StatefulWidget {
   const MainPage2({Key? key}) : super(key: key);
@@ -336,7 +338,7 @@ class _MainPageState extends State<MainPage2> {
           children: [
             buildImageSlider(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 40),
+              padding: const EdgeInsets.fromLTRB(4, 150, 4, 0),
               child: buildButtons(),
             )
           ],
@@ -344,11 +346,23 @@ class _MainPageState extends State<MainPage2> {
       ),
     );
   }
+  @override
+  void initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIMode(
+        SystemUiMode.manual, overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    super.dispose();
+  }
 
   Widget buildImageSlider() => CarouselSlider.builder(
         carouselController: controller,
         options: CarouselOptions(
-            height: 200,
+            height: 360,
             initialPage: 0,
             /* какая картинка будет отображаться */
             viewportFraction: 1,
@@ -364,8 +378,7 @@ class _MainPageState extends State<MainPage2> {
 
   Widget buildImage(String urlImage, int index) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 52),
-      color: Colors.grey,
+      margin: const EdgeInsets.symmetric(horizontal: 60, vertical: 0),
       width: double.infinity,
       child: Image.network(
         urlImage,
@@ -378,26 +391,15 @@ class _MainPageState extends State<MainPage2> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        TextButton(
-          style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-          ),
+        IconButton(
           onPressed: previous,
-          child: const Icon(
-            Icons.arrow_back_ios,
-            size: 22
-          ),
+          icon: const Icon(Icons.arrow_back_ios_rounded),
+          color: AppColors.mainColorApp,
         ),
-        if (stretch) const Spacer() else const SizedBox(width: 30),
-        TextButton(
-          style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-          ),
+        IconButton(
           onPressed: next,
-          child: const Icon(
-            Icons.arrow_forward_ios,
-            size: 22
-          ),
+          icon: const Icon(Icons.arrow_forward_ios_rounded),
+          color: AppColors.mainColorApp,
         ),
       ]
     );

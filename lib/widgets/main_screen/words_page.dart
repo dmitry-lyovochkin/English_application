@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: PaintBoard(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -94,8 +95,8 @@ class _PaintBoardState extends State<PaintBoard> {
             // Нужно будет разделить на логику и внешку
               const MainPage2(),
             Positioned(
-              top: 30,
-              left: 15,
+              top: 10,
+              left: 10,
               child: IconButton(
                 color: AppColors.mainColorApp,
                 key: const Key('homePage_logout_iconButton'),
@@ -106,8 +107,8 @@ class _PaintBoardState extends State<PaintBoard> {
               ),
             ),
             Positioned(
-                top: 30,
-                right: 30,
+                top: 10,
+                right: 10,
                 child: Row(
                   children: [
                     Slider(

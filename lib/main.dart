@@ -1,11 +1,6 @@
-
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:english_application/app/app.dart';
-import 'package:english_application/home/view/home_page.dart';
-import 'package:english_application/login/view/login_page.dart';
-import 'package:english_application/theme.dart';
-import 'package:english_application/widgets/main_screen/words_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,7 +11,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   final authenticationRepository = AuthenticationRepository();
   await authenticationRepository.user.first;
-  runApp(App (authenticationRepository: authenticationRepository));
+  runApp(App(authenticationRepository: authenticationRepository));
 }
 
 
