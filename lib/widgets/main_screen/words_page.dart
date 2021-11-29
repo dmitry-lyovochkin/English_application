@@ -9,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -31,7 +30,8 @@ class PaintBoard extends StatefulWidget {
 
 class _PaintBoardState extends State<PaintBoard> {
   Color selectedColor = Colors.black;
-  double strokeWidth = 5;
+  double strokeWidth = 10;
+  final opacity = 0.1;
   List<DrawingPoint?> drawingPoints = [];
   List<Color> colors = [
     Colors.black,
@@ -48,58 +48,61 @@ class _PaintBoardState extends State<PaintBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
+          alignment: AlignmentDirectional.center,
           children: [
-            GestureDetector(
-              onPanStart: (details) {
-                setState(() {
-                  drawingPoints.add(
-                    DrawingPoint(
-                      details.localPosition,
-                      Paint()
-                        ..color = selectedColor
-                        ..isAntiAlias = true
-                        ..strokeWidth = strokeWidth
-                        ..strokeCap = StrokeCap.round,
+              const MainPage2(),
+              GestureDetector(
+                onPanStart: (details) {
+                  setState(() {
+                    drawingPoints.add(
+                      DrawingPoint(
+                        details.localPosition,
+                        Paint()
+                          ..color = selectedColor.withOpacity(opacity)
+                          ..isAntiAlias = true
+                          ..strokeWidth = strokeWidth
+                          ..strokeCap = StrokeCap.round,
+                      ),
+                    );
+                  });
+                },
+                onPanUpdate: (details) {
+                  setState(() {
+                    drawingPoints.add(
+                      DrawingPoint(
+                        details.localPosition,
+                        Paint()
+                          ..color = selectedColor.withOpacity(opacity)
+                          ..isAntiAlias = true
+                          ..strokeWidth = strokeWidth
+                          ..strokeCap = StrokeCap.round,
+                      ),
+                    );
+                  });
+                },
+                onPanEnd: (details) {
+                  setState(() {
+                    drawingPoints.add(null);
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: CustomPaint(
+                    painter: _DrawingPainter(drawingPoints),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
                     ),
-                  );
-                });
-              },
-              onPanUpdate: (details) {
-                setState(() {
-                  drawingPoints.add(
-                    DrawingPoint(
-                      details.localPosition,
-                      Paint()
-                        ..color = selectedColor
-                        ..isAntiAlias = true
-                        ..strokeWidth = strokeWidth
-                        ..strokeCap = StrokeCap.round,
-                    ),
-                  );
-                });
-              },
-              onPanEnd: (details) {
-                setState(() {
-                  drawingPoints.add(null);
-                });
-              },
-
-              child: CustomPaint(
-                painter: _DrawingPainter(drawingPoints),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
+                  ),
                 ),
               ),
-            ),
+            
             // Нужно будет разделить на логику и внешку
-              const MainPage2(),
             Positioned(
               top: 10,
               left: 10,
               child: IconButton(
                 color: AppColors.mainColorApp,
-                key: const Key('homePage_logout_iconButton'),
                 icon: const Icon(Icons.reply),
                 onPressed: () {
                   Navigator.pop(context);
@@ -113,7 +116,7 @@ class _PaintBoardState extends State<PaintBoard> {
                   children: [
                     Slider(
                       activeColor: const Color.fromRGBO(121, 104, 216, 100),
-                      max: 40,
+                      max: 30,
                       label: strokeWidth.round().toString(),
                       value: strokeWidth,
                       onChanged: (val) => setState(() => strokeWidth = val),
@@ -125,8 +128,8 @@ class _PaintBoardState extends State<PaintBoard> {
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
                             const Color.fromRGBO(255, 255, 255, 255)),
-                        foregroundColor:
-                            MaterialStateProperty.all(const Color.fromRGBO(121, 104, 216, 100)),
+                        foregroundColor: MaterialStateProperty.all(
+                            const Color.fromRGBO(121, 104, 216, 100)),
                         textStyle: MaterialStateProperty.all(
                           const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w700),
@@ -136,6 +139,13 @@ class _PaintBoardState extends State<PaintBoard> {
                                 horizontal: 10, vertical: 5)),
                       ),
                     ),
+                    IconButton(
+                color: AppColors.mainColorApp,
+                icon: const Icon(Icons.reply),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
                   ],
                 )),
           ],
@@ -162,15 +172,15 @@ class _PaintBoardState extends State<PaintBoard> {
         child: Container(
           /* сделать больше зону нажатия на цвет */
           height: isSelected ? 35 : 25,
-          width: isSelected ? 35 : 25,
+          width: isSelected ? 31 : 25,
           decoration: BoxDecoration(
             color: color,
             shape: BoxShape.circle,
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
-                color: Colors.black.withOpacity(0.9),
+                color: Colors.black,
                 blurRadius: 3,
-                offset: const Offset(1, 2),
+                offset: Offset(1, 2),
               )
             ],
           ),
@@ -229,16 +239,7 @@ class DrawingPoint {
   Paint paint;
 }
 
+
 // firebase. Потом разделить на логику
 
-// firebase_storage.FirebaseStorage storage =
-//   firebase_storage.FirebaseStorage.instance;
-
-// Future<void> listExample() async {
-//   final result = await firebase_storage
-//       .FirebaseStorage.instance
-//       .ref()
-//       .list(const firebase_storage.ListOptions(maxResults: 10));
-//   // ...
-// }
 
