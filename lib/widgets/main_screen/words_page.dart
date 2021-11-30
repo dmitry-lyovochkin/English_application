@@ -50,7 +50,7 @@ class _PaintBoardState extends State<PaintBoard> {
         body: Stack(
           alignment: AlignmentDirectional.center,
           children: [
-              const MainPage2(),
+              const MainPage3(),
               GestureDetector(
                 onPanStart: (details) {
                   setState(() {
@@ -99,19 +99,8 @@ class _PaintBoardState extends State<PaintBoard> {
             
             // Нужно будет разделить на логику и внешку
             Positioned(
-              top: 10,
-              left: 10,
-              child: IconButton(
-                color: AppColors.mainColorApp,
-                icon: const Icon(Icons.reply),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
-            Positioned(
                 top: 10,
-                right: 10,
+                right: 15,
                 child: Row(
                   children: [
                     Slider(
@@ -124,7 +113,7 @@ class _PaintBoardState extends State<PaintBoard> {
                     TextButton.icon(
                       onPressed: () => setState(() => drawingPoints = []),
                       icon: const Icon(Icons.cancel),
-                      label: const Text('Clear Board'),
+                      label: const Text('Очистить'),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
                             const Color.fromRGBO(255, 255, 255, 255)),
@@ -134,21 +123,59 @@ class _PaintBoardState extends State<PaintBoard> {
                           const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w700),
                         ),
-                        padding: MaterialStateProperty.all(
-                            const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5)),
+                        // padding: MaterialStateProperty.all(
+                        //     const EdgeInsets.symmetric(
+                        //         horizontal: 10, vertical: 10)),
                       ),
                     ),
-                    IconButton(
+                  ],
+                )),
+            Positioned(
+              top: 10,
+              left: 10,
+              child: IconButton(
                 color: AppColors.mainColorApp,
                 icon: const Icon(Icons.reply),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
-                  ],
-                )),
-          ],
+            ),
+            // Positioned(
+            //   top: 50,
+            //   right: 70,
+            //   child: ElevatedButton(
+            //     style: ButtonStyle(
+            //       backgroundColor: MaterialStateProperty.all(
+            //           const Color.fromRGBO(101, 110, 110, 110)),
+            //       // foregroundColor: MaterialStateProperty.all(
+            //       //     const Color.fromRGBO(121, 104, 216, 100)),
+            //       textStyle: MaterialStateProperty.all(
+            //         const TextStyle(
+            //             fontSize: 16, fontWeight: FontWeight.w700),
+            //       ),
+            //     ), onPressed: () {  },
+            //     child: const Text('Заучено'),
+            //   ),
+            // ),
+            Positioned(
+              top: 50,
+              right: 70,
+              child: OutlinedButton(
+                onPressed: () {
+                  print('Received click');
+                },
+                child: const Text('Сохранить'),
+            )),
+            Positioned(
+              top: 10,
+              right: 540,
+              child: OutlinedButton(
+                onPressed: () {
+                  print('Received click');
+                },
+                child: const Text('Аудио'),
+            ))],
         ),
         bottomNavigationBar: BottomAppBar(
             child: Container(
@@ -160,7 +187,7 @@ class _PaintBoardState extends State<PaintBoard> {
                       colors.length, (index) => _useColor(colors[index])),
                 ))));
   }
-
+  
   Widget _useColor(Color color) {
     final isSelected = selectedColor == color;
     return GestureDetector(

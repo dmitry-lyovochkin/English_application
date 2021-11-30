@@ -213,16 +213,18 @@
 // }
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:english_application/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class MainPage1 extends StatefulWidget {
-  const MainPage1({Key? key}) : super(key: key);
+class MainPage3 extends StatefulWidget {
+  const MainPage3({Key? key}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage1> {
+class _MainPageState extends State<MainPage3> {
   final controller = CarouselController();
   int activateIndex = 0;
   final urlImages = [
@@ -244,17 +246,34 @@ class _MainPageState extends State<MainPage1> {
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             buildImageSlider(),
-            buildButtons()
+            Padding(
+              padding: const EdgeInsets.fromLTRB(4, 150, 4, 0),
+              child: buildButtons(),
+            )
           ],
         ),
       ),
     );
   }
 
+  @override
+  void initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.bottom]);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    super.dispose();
+  }
+
   Widget buildImageSlider() => CarouselSlider.builder(
         carouselController: controller,
         options: CarouselOptions(
-            height: 300,
+            height: 360,
             initialPage: 0,
             /* какая картинка будет отображаться */
             viewportFraction: 1,
@@ -270,8 +289,8 @@ class _MainPageState extends State<MainPage1> {
 
   Widget buildImage(String urlImage, int index) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 52),
-      color: Colors.grey,
+      margin: const EdgeInsets.symmetric(horizontal: 60, vertical: 0),
+      // padding: EdgeInsets.symmetric(horizontal: 60, vertical: 0),
       width: double.infinity,
       child: Image.network(
         urlImage,
@@ -281,32 +300,18 @@ class _MainPageState extends State<MainPage1> {
   }
 
   Widget buildButtons({bool stretch = false}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TextButton(
-          style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-          ),
-          onPressed: previous,
-          child: const Icon(
-            Icons.arrow_back_ios,
-            size: 22
-          ),
-        ),
-        if (stretch) const Spacer() else const SizedBox(width: 30),
-        TextButton(
-          style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-          ),
-          onPressed: next,
-          child: const Icon(
-            Icons.arrow_forward_ios,
-            size: 22
-          ),
-        ),
-      ]
-    );
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      IconButton(
+        onPressed: previous,
+        icon: const Icon(Icons.arrow_back_ios_rounded),
+        color: AppColors.mainColorApp,
+      ),
+      IconButton(
+        onPressed: next,
+        icon: const Icon(Icons.arrow_forward_ios_rounded),
+        color: AppColors.mainColorApp,
+      ),
+    ]);
   }
 
   void previous() => controller.previousPage();
