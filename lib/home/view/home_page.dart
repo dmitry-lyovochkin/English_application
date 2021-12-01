@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     // } else if (selectedIndex == 2) {
     //   return const PaintBoard(); /* пофиксить потом, 2 раза прописываю */
     } else {
-      return  const MainPage2();
+      return  const MainPage4();
     }
   }
 

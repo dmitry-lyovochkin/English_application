@@ -48,55 +48,56 @@ class _PaintBoardState extends State<PaintBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
-          alignment: AlignmentDirectional.center,
+          // alignment: AlignmentDirectional.center,
           children: [
-              const MainPage3(),
-              GestureDetector(
-                onPanStart: (details) {
-                  setState(() {
-                    drawingPoints.add(
-                      DrawingPoint(
-                        details.localPosition,
-                        Paint()
-                          ..color = selectedColor.withOpacity(opacity)
-                          ..isAntiAlias = true
-                          ..strokeWidth = strokeWidth
-                          ..strokeCap = StrokeCap.round,
-                      ),
-                    );
-                  });
-                },
-                onPanUpdate: (details) {
-                  setState(() {
-                    drawingPoints.add(
-                      DrawingPoint(
-                        details.localPosition,
-                        Paint()
-                          ..color = selectedColor.withOpacity(opacity)
-                          ..isAntiAlias = true
-                          ..strokeWidth = strokeWidth
-                          ..strokeCap = StrokeCap.round,
-                      ),
-                    );
-                  });
-                },
-                onPanEnd: (details) {
-                  setState(() {
-                    drawingPoints.add(null);
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: CustomPaint(
-                    painter: _DrawingPainter(drawingPoints),
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
+            const MainPage3(),
+            GestureDetector(
+              onPanStart: (details) {
+                setState(() {
+                  drawingPoints.add(
+                    DrawingPoint(
+                      details.localPosition,
+                      Paint()
+                        ..color = selectedColor.withOpacity(opacity)
+                        ..isAntiAlias = true
+                        ..strokeWidth = strokeWidth
+                        ..strokeCap = StrokeCap.round,
                     ),
+                  );
+                });
+              },
+              onPanUpdate: (details) {
+                setState(() {
+                  drawingPoints.add(
+                    DrawingPoint(
+                      details.localPosition,
+                      Paint()
+                        ..color = selectedColor.withOpacity(opacity)
+                        ..isAntiAlias = true
+                        ..strokeWidth = strokeWidth
+                        ..strokeCap = StrokeCap.round,
+                    ),
+                  );
+                });
+              },
+              onPanEnd: (details) {
+                setState(() {
+                  drawingPoints.add(null);
+                });
+              },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: CustomPaint(
+                  painter: _DrawingPainter(drawingPoints),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
                   ),
                 ),
               ),
-            
+            ),
+
             // Нужно будет разделить на логику и внешку
             Positioned(
                 top: 10,
@@ -159,23 +160,24 @@ class _PaintBoardState extends State<PaintBoard> {
             //   ),
             // ),
             Positioned(
-              top: 50,
-              right: 70,
-              child: OutlinedButton(
-                onPressed: () {
-                  print('Received click');
-                },
-                child: const Text('Сохранить'),
-            )),
+                top: 50,
+                right: 70,
+                child: OutlinedButton(
+                  onPressed: () {
+                    print('Received click');
+                  },
+                  child: const Text('Сохранить'),
+                )),
             Positioned(
-              top: 10,
-              right: 540,
-              child: OutlinedButton(
-                onPressed: () {
-                  print('Received click');
-                },
-                child: const Text('Аудио'),
-            ))],
+                top: 10,
+                right: 540,
+                child: OutlinedButton(
+                  onPressed: () {
+                    print('Received click');
+                  },
+                  child: const Text('Аудио'),
+                ))
+          ],
         ),
         bottomNavigationBar: BottomAppBar(
             child: Container(
@@ -187,7 +189,7 @@ class _PaintBoardState extends State<PaintBoard> {
                       colors.length, (index) => _useColor(colors[index])),
                 ))));
   }
-  
+
   Widget _useColor(Color color) {
     final isSelected = selectedColor == color;
     return GestureDetector(
@@ -266,7 +268,4 @@ class DrawingPoint {
   Paint paint;
 }
 
-
 // firebase. Потом разделить на логику
-
-

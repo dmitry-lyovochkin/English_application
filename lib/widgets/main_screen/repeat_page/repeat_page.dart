@@ -308,14 +308,14 @@ import 'package:english_application/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MainPage2 extends StatefulWidget {
-  const MainPage2({Key? key}) : super(key: key);
+class MainPage4 extends StatefulWidget {
+  const MainPage4({Key? key}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage2> {
+class _MainPageState extends State<MainPage4> {
   final controller = CarouselController();
   int activateIndex = 0;
   final urlImages = [
@@ -336,26 +336,29 @@ class _MainPageState extends State<MainPage2> {
         child: Stack(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const FoneBcc(),
             buildImageSlider(),
             Padding(
               padding: const EdgeInsets.fromLTRB(4, 150, 4, 0),
               child: buildButtons(),
-            )
+            ),
           ],
         ),
       ),
     );
   }
+
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.bottom]);
     super.initState();
   }
 
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIMode(
-        SystemUiMode.manual, overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
     super.dispose();
   }
 
@@ -379,6 +382,7 @@ class _MainPageState extends State<MainPage2> {
   Widget buildImage(String urlImage, int index) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 60, vertical: 0),
+      // padding: EdgeInsets.symmetric(horizontal: 60, vertical: 0),
       width: double.infinity,
       child: Image.network(
         urlImage,
@@ -388,24 +392,34 @@ class _MainPageState extends State<MainPage2> {
   }
 
   Widget buildButtons({bool stretch = false}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-          onPressed: previous,
-          icon: const Icon(Icons.arrow_back_ios_rounded),
-          color: AppColors.mainColorApp,
-        ),
-        IconButton(
-          onPressed: next,
-          icon: const Icon(Icons.arrow_forward_ios_rounded),
-          color: AppColors.mainColorApp,
-        ),
-      ]
-    );
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      IconButton(
+        onPressed: previous,
+        icon: const Icon(Icons.arrow_back_ios_rounded),
+        color: AppColors.mainColorApp,
+      ),
+      IconButton(
+        onPressed: next,
+        icon: const Icon(Icons.arrow_forward_ios_rounded),
+        color: AppColors.mainColorApp,
+      ),
+    ]);
   }
 
   void previous() => controller.previousPage();
 
   void next() => controller.nextPage();
+}
+
+
+class FoneBcc extends StatelessWidget {
+  const FoneBcc({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(color: Colors.white),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 34),
+    );
+  }
 }
