@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:english_application/my_icons_icons.dart';
 import 'package:english_application/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 
 class MainPage3 extends StatefulWidget {
@@ -31,7 +33,7 @@ class _MainPageState extends State<MainPage3> {
         child: Stack(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // const FoneBc(),
+            const FoneBc(),
             buildImageSlider(),
             Padding(
               padding: const EdgeInsets.fromLTRB(4, 150, 4, 0),
@@ -60,7 +62,7 @@ class _MainPageState extends State<MainPage3> {
   Widget buildImageSlider() => CarouselSlider.builder(
         carouselController: controller,
         options: CarouselOptions(
-            height: 500,
+            height: 372,
             initialPage: 0,
             /* какая картинка будет отображаться */
             viewportFraction: 1,
@@ -76,7 +78,7 @@ class _MainPageState extends State<MainPage3> {
 
   Widget buildImage(String urlImage, int index) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 70, vertical: 0),
+      margin: const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
       // padding: EdgeInsets.symmetric(horizontal: 60, vertical: 0),
       width: double.infinity,
       child: Image.network(
@@ -95,7 +97,7 @@ class _MainPageState extends State<MainPage3> {
       ),
       IconButton(
         onPressed: next,
-        icon: const Icon(Icons.arrow_forward_ios_rounded),
+        icon: const Icon(MyIcons.right),
         color: AppColors.mainColorApp,
       ),
     ]);
@@ -112,7 +114,9 @@ class FoneBc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(color: Colors.white),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(25))),
       margin: const EdgeInsets.all(10),
     );
   }

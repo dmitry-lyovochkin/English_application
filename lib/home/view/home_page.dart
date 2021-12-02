@@ -67,18 +67,6 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
         body:  getBody(), 
-      // body: Align(
-      //   // alignment: const Alignment(0, -1 / 3),
-      //   child: Column(
-      //     mainAxisSize: MainAxisSize.min,
-      //     children: <Widget>[
-      //       const SizedBox(height: 4),
-      //       Text(user.email ?? '', style: textTheme.headline6),
-      //       const SizedBox(height: 4),
-      //       Text(user.name ?? '', style: textTheme.headline5),
-      //     ],
-      //   ),
-      // ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey[400],

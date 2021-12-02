@@ -142,23 +142,6 @@ class _PaintBoardState extends State<PaintBoard> {
                 },
               ),
             ),
-            // Positioned(
-            //   top: 50,
-            //   right: 70,
-            //   child: ElevatedButton(
-            //     style: ButtonStyle(
-            //       backgroundColor: MaterialStateProperty.all(
-            //           const Color.fromRGBO(101, 110, 110, 110)),
-            //       // foregroundColor: MaterialStateProperty.all(
-            //       //     const Color.fromRGBO(121, 104, 216, 100)),
-            //       textStyle: MaterialStateProperty.all(
-            //         const TextStyle(
-            //             fontSize: 16, fontWeight: FontWeight.w700),
-            //       ),
-            //     ), onPressed: () {  },
-            //     child: const Text('Заучено'),
-            //   ),
-            // ),
             Positioned(
                 top: 50,
                 right: 70,
