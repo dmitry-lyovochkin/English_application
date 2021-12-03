@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:english_application/my_icons_icons.dart';
+import 'package:english_application/theme.dart';
 import 'package:english_application/theme.dart';
 import 'package:english_application/widgets/main_screen/repeat_page/repeat_page.dart';
 import 'package:english_application/widgets/main_screen/slider.dart';
@@ -8,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+
+import '../../theme.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -134,32 +138,100 @@ class _PaintBoardState extends State<PaintBoard> {
             Positioned(
               top: 10,
               left: 10,
-              child: IconButton(
-                color: AppColors.mainColorApp,
-                icon: const Icon(Icons.reply),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  // minimumSize: const Size(55, 45),
+                  primary: ButtonColor.buttonColor,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 13, 
+                    horizontal: 13,
+                  ),
+                ),
+                child: Row(
+                  children: const [
+                    Icon(MyIcons.home),
+                  ],
+                )
+              )
+            ),
+            Positioned(
+              top: 50,
+              right: 70,
+              child: ElevatedButton.icon(
+                icon: const Icon(MyIcons.tick_circle),
+                label: const Text('Сохранить'),
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  padding: const EdgeInsets.all(13),
+                  primary: ButtonColor.buttonColor,
+                  onPrimary: Colors.white
+                ),
+              )
+            ),
+            Positioned(
+              top: 100,
+              right: 540,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 13, 
+                    horizontal: 13,
+                  ),
+                  primary: Colors.white,
+                  onPrimary: ButtonColor.buttonColor
+                ),
+                child: const Icon(MyIcons.voice),
+              )
+            ),
+            Positioned(
+              top: 200,
+              right: 540,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 13, 
+                    horizontal: 13,
+                  ),
+                  primary: Colors.white,
+                  onPrimary: ButtonColor.buttonColor
+                ),
+                child: const Icon(MyIcons.vector),
               ),
             ),
             Positioned(
-                top: 50,
-                right: 70,
-                child: OutlinedButton(
-                  onPressed: () {
-                    print('Received click');
-                  },
-                  child: const Text('Сохранить'),
-                )),
-            Positioned(
-                top: 10,
-                right: 540,
-                child: OutlinedButton(
-                  onPressed: () {
-                    print('Received click');
-                  },
-                  child: const Text('Аудио'),
-                ))
+              top: 300,
+              right: 540,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 13, 
+                    horizontal: 13,
+                  ),
+                  primary: Colors.white,
+                  onPrimary: ButtonColor.buttonColor
+                ),
+                child: const Icon(MyIcons.vector),
+              ),
+            )
           ],
         ),
         bottomNavigationBar: BottomAppBar(

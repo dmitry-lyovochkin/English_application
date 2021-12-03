@@ -92,13 +92,13 @@ class _MainPageState extends State<MainPage3> {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       IconButton(
         onPressed: previous,
-        icon: const Icon(Icons.arrow_back_ios_rounded),
-        color: AppColors.mainColorApp,
+        icon: const Icon(MyIcons.left),
+        color: ButtonColor.buttonColor,
       ),
       IconButton(
         onPressed: next,
         icon: const Icon(MyIcons.right),
-        color: AppColors.mainColorApp,
+        color: ButtonColor.buttonColor,
       ),
     ]);
   }
