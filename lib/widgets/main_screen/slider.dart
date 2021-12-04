@@ -36,7 +36,7 @@ class _MainPageState extends State<MainPage3> {
             const FoneBc(),
             buildImageSlider(),
             Padding(
-              padding: const EdgeInsets.fromLTRB(4, 150, 4, 0),
+              padding: const EdgeInsets.fromLTRB(4, 170, 4, 0),
               child: buildButtons(),
             ),
           ],

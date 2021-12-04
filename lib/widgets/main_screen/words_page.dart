@@ -11,8 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-import '../../theme.dart';
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -52,197 +50,190 @@ class _PaintBoardState extends State<PaintBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
-          // alignment: AlignmentDirectional.center,
+            // alignment: AlignmentDirectional.center,
           children: [
-            const MainPage3(),
-            GestureDetector(
-              onPanStart: (details) {
-                setState(() {
-                  drawingPoints.add(
-                    DrawingPoint(
-                      details.localPosition,
-                      Paint()
-                        ..color = selectedColor.withOpacity(opacity)
-                        ..isAntiAlias = true
-                        ..strokeWidth = strokeWidth
-                        ..strokeCap = StrokeCap.round,
-                    ),
-                  );
-                });
-              },
-              onPanUpdate: (details) {
-                setState(() {
-                  drawingPoints.add(
-                    DrawingPoint(
-                      details.localPosition,
-                      Paint()
-                        ..color = selectedColor.withOpacity(opacity)
-                        ..isAntiAlias = true
-                        ..strokeWidth = strokeWidth
-                        ..strokeCap = StrokeCap.round,
-                    ),
-                  );
-                });
-              },
-              onPanEnd: (details) {
-                setState(() {
-                  drawingPoints.add(null);
-                });
-              },
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: CustomPaint(
-                  painter: _DrawingPainter(drawingPoints),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
+          const MainPage3(),
+          GestureDetector(
+            onPanStart: (details) {
+              setState(() {
+                drawingPoints.add(
+                  DrawingPoint(
+                    details.localPosition,
+                    Paint()
+                      ..color = selectedColor.withOpacity(opacity)
+                      ..isAntiAlias = true
+                      ..strokeWidth = strokeWidth
+                      ..strokeCap = StrokeCap.round,
                   ),
+                );
+              });
+            },
+            onPanUpdate: (details) {
+              setState(() {
+                drawingPoints.add(
+                  DrawingPoint(
+                    details.localPosition,
+                    Paint()
+                      ..color = selectedColor.withOpacity(opacity)
+                      ..isAntiAlias = true
+                      ..strokeWidth = strokeWidth
+                      ..strokeCap = StrokeCap.round,
+                  ),
+                );
+              });
+            },
+            onPanEnd: (details) {
+              setState(() {
+                drawingPoints.add(null);
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: CustomPaint(
+                painter: _DrawingPainter(drawingPoints),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
                 ),
               ),
             ),
+          ),
 
-            // Нужно будет разделить на логику и внешку
-            Positioned(
-                top: 10,
-                right: 15,
-                child: Row(
-                  children: [
-                    Slider(
-                      activeColor: const Color.fromRGBO(121, 104, 216, 100),
-                      max: 30,
-                      label: strokeWidth.round().toString(),
-                      value: strokeWidth,
-                      onChanged: (val) => setState(() => strokeWidth = val),
-                    ),
-                    TextButton.icon(
-                      onPressed: () => setState(() => drawingPoints = []),
-                      icon: const Icon(Icons.cancel),
-                      label: const Text('Очистить'),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            const Color.fromRGBO(255, 255, 255, 255)),
-                        foregroundColor: MaterialStateProperty.all(
-                            const Color.fromRGBO(121, 104, 216, 100)),
-                        textStyle: MaterialStateProperty.all(
-                          const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w700),
-                        ),
-                        // padding: MaterialStateProperty.all(
-                        //     const EdgeInsets.symmetric(
-                        //         horizontal: 10, vertical: 10)),
-                      ),
-                    ),
-                  ],
-                )),
-            Positioned(
-              top: 10,
-              left: 10,
+          // Нужно будет разделить на логику и внешку
+          Positioned(
+              top: 5,
+              left: 5,
               child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    // minimumSize: const Size(55, 45),
+                    primary: ButtonColor.buttonColor,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 13,
+                      horizontal: 13,
+                    ),
                   ),
-                  // minimumSize: const Size(55, 45),
-                  primary: ButtonColor.buttonColor,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 13, 
-                    horizontal: 13,
-                  ),
-                ),
-                child: Row(
-                  children: const [
-                    Icon(MyIcons.home),
-                  ],
-                )
-              )
-            ),
-            Positioned(
-              top: 50,
-              right: 70,
+                  child: Row(
+                    children: const [
+                      Icon(MyIcons.home),
+                    ],
+                  ))),
+          Positioned(
+              top: 5,
+              right: 5,
               child: ElevatedButton.icon(
                 icon: const Icon(MyIcons.tick_circle),
                 label: const Text('Сохранить'),
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding: const EdgeInsets.all(13),
-                  primary: ButtonColor.buttonColor,
-                  onPrimary: Colors.white
-                ),
-              )
-            ),
-            Positioned(
-              top: 100,
-              right: 540,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    padding: const EdgeInsets.all(13),
+                    primary: ButtonColor.buttonColor,
+                    onPrimary: Colors.white),
+              )),
+          // Positioned(
+          //   bottom: 20,
+          //   right: 70,
+          //   child: ElevatedButton(
+          //     onPressed: () {},
+          //     style: ElevatedButton.styleFrom(
+          //         shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(16),
+          //         ),
+          //         padding: const EdgeInsets.symmetric(
+          //           vertical: 13,
+          //           horizontal: 13,
+          //         ),
+          //         primary: Colors.white,
+          //         onPrimary: ButtonColor.buttonColor),
+          //     child: const Icon(MyIcons.vector),
+          //   ),
+          // ),
+          Positioned(
+              bottom: 20,
+              left: 20,
               child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 13, 
-                    horizontal: 13,
-                  ),
-                  primary: Colors.white,
-                  onPrimary: ButtonColor.buttonColor
-                ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 13,
+                      horizontal: 13,
+                    ),
+                    primary: Colors.white,
+                    onPrimary: ButtonColor.buttonColor),
                 child: const Icon(MyIcons.voice),
               )
-            ),
-            Positioned(
-              top: 200,
-              right: 540,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
+          ),
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
                   padding: const EdgeInsets.symmetric(
-                    vertical: 13, 
+                    vertical: 13,
                     horizontal: 13,
                   ),
                   primary: Colors.white,
-                  onPrimary: ButtonColor.buttonColor
-                ),
-                child: const Icon(MyIcons.vector),
-              ),
+                  onPrimary: ButtonColor.buttonColor),
+              child: const Icon(MyIcons.vector__1_),
             ),
-            Positioned(
-              top: 300,
-              right: 540,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 13, 
-                    horizontal: 13,
-                  ),
-                  primary: Colors.white,
-                  onPrimary: ButtonColor.buttonColor
-                ),
-                child: const Icon(MyIcons.vector),
-              ),
-            )
-          ],
-        ),
-        bottomNavigationBar: BottomAppBar(
+          ),
+          Positioned(
+            bottom: 20,
+            right: 95,
             child: Container(
-                color: const Color.fromRGBO(121, 104, 216, 700),
-                padding: const EdgeInsets.all(2),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: List.generate(
-                      colors.length, (index) => _useColor(colors[index])),
-                ))));
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+              decoration: const BoxDecoration(
+                  color: Color.fromRGBO(231, 243, 253, 0.8),
+                  borderRadius: BorderRadius.all(Radius.circular(16))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Slider(
+                    activeColor: const Color.fromRGBO(46, 124, 189, 0.5),
+                    inactiveColor: const Color.fromRGBO(46, 124, 189, 0.2),
+                    max: 30,
+                    label: strokeWidth.round().toString(),
+                    value: strokeWidth,
+                    onChanged: (val) => setState(() => strokeWidth = val),
+                  ),
+                  // const SizedBox(width:),
+                  ...List.generate(colors.length, (index) => _useColor(colors[index])),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 13,
+                          horizontal: 13,
+                        ),
+                        primary: Colors.white,
+                        onPrimary: ButtonColor.buttonColor),
+                    child: const Icon(MyIcons.vector),
+                  ),
+                ]
+              )
+            )
+          )
+        ]
+      )
+    );
   }
 
   Widget _useColor(Color color) {
@@ -324,3 +315,20 @@ class DrawingPoint {
 }
 
 // firebase. Потом разделить на логику
+// class ColorPick extends StatelessWidget {
+//   const ColorPick({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       color: const Color.fromRGBO(121, 104, 216, 700),
+//       padding: const EdgeInsets.all(2),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//         // children: List.generate(
+//           // colors.length, (index) => _useColor(colors[index])
+//         ),
+//       // )
+//     );
+//   }
+// }
