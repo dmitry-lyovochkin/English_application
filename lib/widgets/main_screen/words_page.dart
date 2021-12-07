@@ -52,9 +52,8 @@ class _PaintBoardState extends State<PaintBoard> {
     return Scaffold(
         body: Stack(
             // alignment: AlignmentDirectional.center,
-            children: [
+          children: [
           const MainPage3(),
-              const ButtonsExample(),
           GestureDetector(
             onPanStart: (details) {
               setState(() {
@@ -100,6 +99,7 @@ class _PaintBoardState extends State<PaintBoard> {
               ),
             ),
           ),
+          // const ButtonsExample(),
 
           // Нужно будет разделить на логику и внешку
           // Positioned(

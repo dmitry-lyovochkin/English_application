@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:english_application/my_icons_icons.dart';
 import 'package:english_application/theme.dart';
+import 'package:english_application/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
@@ -31,14 +32,13 @@ class _MainPageState extends State<MainPage3> {
     return Scaffold(
       body: Center(
         child: Stack(
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const FoneBc(),
             buildImageSlider(),
             Padding(
               padding: const EdgeInsets.fromLTRB(4, 170, 4, 0),
               child: buildButtons(),
             ),
+            const ButtonsExample(),
           ],
         ),
       ),
@@ -88,18 +88,20 @@ class _MainPageState extends State<MainPage3> {
     );
   }
 
-  Widget buildButtons({bool stretch = false}) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      IconButton(
-        onPressed: previous,
-        icon: const Icon(MyIcons.left),
-        color: ButtonColor.buttonColor,
-      ),
-      IconButton(
-        onPressed: next,
-        icon: const Icon(MyIcons.right),
-        color: ButtonColor.buttonColor,
-      ),
+  Widget buildButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+      children: [
+        IconButton(
+          onPressed: previous,
+          icon: const Icon(MyIcons.left),
+          color: ButtonColor.buttonColor,
+        ),
+        IconButton(
+          onPressed: next,
+          icon: const Icon(MyIcons.right),
+          color: ButtonColor.buttonColor,
+        ),
     ]);
   }
 
@@ -108,16 +110,4 @@ class _MainPageState extends State<MainPage3> {
   void next() => controller.nextPage();
 }
 
-class FoneBc extends StatelessWidget {
-  const FoneBc({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(25))),
-      margin: const EdgeInsets.all(10),
-    );
-  }
-}
