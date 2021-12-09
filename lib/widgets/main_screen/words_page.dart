@@ -2,15 +2,9 @@ import 'dart:ui';
 
 import 'package:english_application/my_icons_icons.dart';
 import 'package:english_application/theme.dart';
-import 'package:english_application/theme.dart';
-import 'package:english_application/widgets/main_screen/repeat_page/repeat_page.dart';
 import 'package:english_application/widgets/main_screen/slider.dart';
-import 'package:english_application/widgets/widgets.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -19,7 +13,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: PaintBoard(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -51,7 +44,6 @@ class _PaintBoardState extends State<PaintBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
-            // alignment: AlignmentDirectional.center,
           children: [
           const MainPage3(),
           GestureDetector(
@@ -99,7 +91,6 @@ class _PaintBoardState extends State<PaintBoard> {
               ),
             ),
           ),
-          // const ButtonsExample(),
 
           // Нужно будет разделить на логику и внешку
           Positioned(
@@ -111,7 +102,6 @@ class _PaintBoardState extends State<PaintBoard> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    // minimumSize: const Size(55, 45),
                     primary: ButtonColor.buttonColor,
                     padding: const EdgeInsets.symmetric(
                       vertical: 14,
@@ -138,24 +128,6 @@ class _PaintBoardState extends State<PaintBoard> {
                     primary: ButtonColor.buttonColor,
                     onPrimary: Colors.white),
               )),
-          // Positioned(
-          //   bottom: 20,
-          //   right: 70,
-          //   child: ElevatedButton(
-          //     onPressed: () {},
-          //     style: ElevatedButton.styleFrom(
-          //         shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(16),
-          //         ),
-          //         padding: const EdgeInsets.symmetric(
-          //           vertical: 13,
-          //           horizontal: 13,
-          //         ),
-          //         primary: Colors.white,
-          //         onPrimary: ButtonColor.buttonColor),
-          //     child: const Icon(MyIcons.vector),
-          //   ),
-          // ),
           Positioned(
               bottom: 20,
               left: 20,
@@ -178,7 +150,7 @@ class _PaintBoardState extends State<PaintBoard> {
             bottom: 20,
             right: 20,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () => setState(() => drawingPoints = []),
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -189,9 +161,50 @@ class _PaintBoardState extends State<PaintBoard> {
                   ),
                   primary: Colors.white,
                   onPrimary: ButtonColor.buttonColor),
-              child: const Icon(MyIcons.vector__1_),
+              child: const Icon(MyIcons.vector_1_),
             ),
           ),
+          Positioned(
+            bottom: 20,
+            right: 95,
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+              decoration: const BoxDecoration(
+                  color: Color.fromRGBO(231, 243, 253, 0.8),
+                  borderRadius: BorderRadius.all(Radius.circular(16))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Slider(
+                    activeColor: const Color.fromRGBO(46, 124, 189, 0.5),
+                    inactiveColor: const Color.fromRGBO(46, 124, 189, 0.2),
+                    max: 30,
+                    label: strokeWidth.round().toString(),
+                    value: strokeWidth,
+                    onChanged: (val) => setState(() => strokeWidth = val),
+                  ),
+                  ...List.generate(colors.length, (index) => _useColor(colors[index])),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 13,
+                          horizontal: 13,
+                        ),
+                        primary: Colors.white,
+                        onPrimary: ButtonColor.buttonColor),
+                    child: const Icon(MyIcons.vector),
+                  ),
+                ]
+              )
+            )
+          )
+          
         ]));
   }
 
@@ -204,7 +217,6 @@ class _PaintBoardState extends State<PaintBoard> {
           });
         },
         child: Container(
-          /* сделать больше зону нажатия на цвет */
           height: isSelected ? 35 : 25,
           width: isSelected ? 31 : 25,
           decoration: BoxDecoration(
@@ -272,22 +284,3 @@ class DrawingPoint {
   Offset offset;
   Paint paint;
 }
-
-// firebase. Потом разделить на логику
-// class ColorPick extends StatelessWidget {
-//   const ColorPick({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       color: const Color.fromRGBO(121, 104, 216, 700),
-//       padding: const EdgeInsets.all(2),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//         // children: List.generate(
-//           // colors.length, (index) => _useColor(colors[index])
-//         ),
-//       // )
-//     );
-//   }
-// }

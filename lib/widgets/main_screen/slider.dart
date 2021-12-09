@@ -1,9 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:english_application/my_icons_icons.dart';
 import 'package:english_application/theme.dart';
-import 'package:english_application/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 
 class MainPage3 extends StatefulWidget {
@@ -29,16 +27,19 @@ class _MainPageState extends State<MainPage3> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return Container(
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(25))),
+      margin: const EdgeInsets.all(10),
+      child: Center(
         child: Stack(
           children: [
             buildImageSlider(),
             Padding(
-              padding: const EdgeInsets.fromLTRB(4, 170, 4, 0),
+              padding: const EdgeInsets.fromLTRB(0, 170, 4, 0),
               child: buildButtons(),
             ),
-            const ButtonsExample(),
           ],
         ),
       ),
@@ -64,9 +65,7 @@ class _MainPageState extends State<MainPage3> {
         options: CarouselOptions(
             height: 372,
             initialPage: 0,
-            /* какая картинка будет отображаться */
             viewportFraction: 1,
-            // enlargeCenterPage: true увеличит текущее фото, анимация
             enableInfiniteScroll: false /* стоп на прокрутку */
             ),
         itemCount: urlImages.length,
@@ -79,7 +78,6 @@ class _MainPageState extends State<MainPage3> {
   Widget buildImage(String urlImage, int index) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
-      // padding: EdgeInsets.symmetric(horizontal: 60, vertical: 0),
       width: double.infinity,
       child: Image.network(
         urlImage,

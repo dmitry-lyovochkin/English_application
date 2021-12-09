@@ -8,7 +8,7 @@ class Sketcher extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
+    final paint = Paint()
       ..color = Colors.redAccent
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5.0;

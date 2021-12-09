@@ -1,9 +1,7 @@
-import 'package:english_application/login/cubit/login_cubit.dart';
+import 'package:english_application/sign_up/cubit/sign_up_cubit.dart';
 import 'package:english_application/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:english_application/sign_up/sign_up.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:formz/formz.dart';
 
 class SignUpForm extends StatelessWidget {

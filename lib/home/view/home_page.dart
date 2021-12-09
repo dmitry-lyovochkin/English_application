@@ -21,10 +21,6 @@ class _HomePageState extends State<HomePage> {
   Widget getBody() {
     if (selectedIndex == 0) {
       return const ProfilePageWidget();
-    // } else if (selectedIndex == 1) {
-    //   return const MainPage1();
-    // } else if (selectedIndex == 2) {
-    //   return const PaintBoard(); /* пофиксить потом, 2 раза прописываю */
     } else {
       return  const MainPage4();
     }
@@ -51,8 +47,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final textTheme = Theme.of(context).textTheme;
-    // final user = context.select((AppBloc bloc) => bloc.state.user);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -78,7 +72,6 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Профиль'),
           BottomNavigationBarItem(icon: Icon(Icons.replay_rounded), label: 'Повторение'),
           BottomNavigationBarItem(icon: Icon(Icons.menu_book_rounded),label: 'Слова'),
-          // BottomNavigationBarItem(icon: Icon(Icons.extension_sharp), label: 'Предложения'),
           
         ],
         currentIndex: selectedIndex,

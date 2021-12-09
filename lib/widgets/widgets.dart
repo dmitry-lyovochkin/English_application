@@ -101,7 +101,7 @@ class ButtonsExample extends StatelessWidget {
                   ),
                   primary: Colors.white,
                   onPrimary: ButtonColor.buttonColor),
-              child: const Icon(MyIcons.vector__1_),
+              child: const Icon(MyIcons.vector_1_),
             ),
           ),
        ]));
