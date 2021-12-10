@@ -25,13 +25,14 @@ class _MainPageState extends State<MainPage3> {
     'https://firebasestorage.googleapis.com/v0/b/english-app-9b2d0.appspot.com/o/ExamplePac%2Fsloppy.jpg?alt=media&token=a6151045-1655-4a89-8e7c-20a608cfc886',
     'https://firebasestorage.googleapis.com/v0/b/english-app-9b2d0.appspot.com/o/ExamplePac%2Fwall.jpg?alt=media&token=fa41d6f8-3eea-4137-9aae-da9646a79656',
   ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          color: Colors.white,
+          color: Colors.red,
           borderRadius: BorderRadius.all(Radius.circular(25))),
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(5),
       child: Center(
         child: Stack(
           children: [
@@ -63,7 +64,7 @@ class _MainPageState extends State<MainPage3> {
   Widget buildImageSlider() => CarouselSlider.builder(
         carouselController: controller,
         options: CarouselOptions(
-            height: 372,
+            height: 400,
             initialPage: 0,
             viewportFraction: 1,
             enableInfiniteScroll: false /* стоп на прокрутку */
@@ -77,7 +78,7 @@ class _MainPageState extends State<MainPage3> {
 
   Widget buildImage(String urlImage, int index) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
+      padding: const EdgeInsets.fromLTRB(4, 4, 4, 56),
       width: double.infinity,
       child: Image.network(
         urlImage,

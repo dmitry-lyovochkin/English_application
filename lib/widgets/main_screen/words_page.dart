@@ -129,7 +129,7 @@ class _PaintBoardState extends State<PaintBoard> {
                     onPrimary: Colors.white),
               )),
           Positioned(
-              bottom: 20,
+              bottom: 10,
               left: 20,
               child: ElevatedButton(
                 onPressed: () {},
@@ -147,7 +147,7 @@ class _PaintBoardState extends State<PaintBoard> {
               )
           ),
           Positioned(
-            bottom: 20,
+            bottom: 10,
             right: 20,
             child: ElevatedButton(
               onPressed: () => setState(() => drawingPoints = []),
@@ -165,7 +165,7 @@ class _PaintBoardState extends State<PaintBoard> {
             ),
           ),
           Positioned(
-            bottom: 20,
+            bottom: 10,
             right: 95,
             child: Container(
               padding:
