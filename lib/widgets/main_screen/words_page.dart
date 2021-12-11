@@ -110,14 +110,17 @@ class _PaintBoardState extends State<PaintBoard> {
                   ),
                   child: Row(
                     children: const [
-                      Icon(MyIcons.home),
+                      Icon(MyIcons.home, size: 27),
                     ],
                   ))),
           Positioned(
               top: 5,
               right: 5,
               child: ElevatedButton.icon(
-                icon: const Icon(MyIcons.tick_circle),
+                icon: const Icon(
+                  MyIcons.tick_circle, 
+                  size: 27,
+                ),
                 label: const Text('Сохранить'),
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
@@ -130,7 +133,7 @@ class _PaintBoardState extends State<PaintBoard> {
               )),
           Positioned(
               bottom: 10,
-              left: 20,
+              left: 10,
               child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
@@ -143,12 +146,12 @@ class _PaintBoardState extends State<PaintBoard> {
                     ),
                     primary: Colors.white,
                     onPrimary: ButtonColor.buttonColor),
-                child: const Icon(MyIcons.voice),
+                child: const Icon(MyIcons.voice, size: 27),
               )
           ),
           Positioned(
             bottom: 10,
-            right: 20,
+            right: 10,
             child: ElevatedButton(
               onPressed: () => setState(() => drawingPoints = []),
               style: ElevatedButton.styleFrom(
@@ -161,15 +164,15 @@ class _PaintBoardState extends State<PaintBoard> {
                   ),
                   primary: Colors.white,
                   onPrimary: ButtonColor.buttonColor),
-              child: const Icon(MyIcons.vector_1_),
+              child: const Icon(MyIcons.vector_1_, size: 27),
             ),
           ),
           Positioned(
             bottom: 10,
-            right: 95,
+            right: 85,
             child: Container(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                  const EdgeInsets.symmetric(horizontal: 22, vertical: 0),
               decoration: const BoxDecoration(
                   color: Color.fromRGBO(231, 243, 253, 0.8),
                   borderRadius: BorderRadius.all(Radius.circular(16))),
@@ -185,7 +188,7 @@ class _PaintBoardState extends State<PaintBoard> {
                     onChanged: (val) => setState(() => strokeWidth = val),
                   ),
                   ...List.generate(colors.length, (index) => _useColor(colors[index])),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 5),
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -198,14 +201,15 @@ class _PaintBoardState extends State<PaintBoard> {
                         ),
                         primary: Colors.white,
                         onPrimary: ButtonColor.buttonColor),
-                    child: const Icon(MyIcons.vector),
+                    child: const Icon(MyIcons.vector, size: 27),
                   ),
                 ]
               )
             )
           )
-          
-        ]));
+        ]
+        )
+    );
   }
 
   Widget _useColor(Color color) {

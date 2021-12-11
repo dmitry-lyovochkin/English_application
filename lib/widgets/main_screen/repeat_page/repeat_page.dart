@@ -76,7 +76,7 @@ class _MainPageState extends State<MainPage4> {
 
   Widget buildImage(String urlImage, int index) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 60, vertical: 0),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
       // padding: EdgeInsets.symmetric(horizontal: 60, vertical: 0),
       width: double.infinity,
       child: Image.network(

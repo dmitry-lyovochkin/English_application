@@ -30,9 +30,9 @@ class _MainPageState extends State<MainPage3> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          color: Colors.red,
+          color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(25))),
-      margin: const EdgeInsets.all(5),
+      margin: const EdgeInsets.all(10),
       child: Center(
         child: Stack(
           children: [
@@ -64,7 +64,7 @@ class _MainPageState extends State<MainPage3> {
   Widget buildImageSlider() => CarouselSlider.builder(
         carouselController: controller,
         options: CarouselOptions(
-            height: 400,
+            height: 550,
             initialPage: 0,
             viewportFraction: 1,
             enableInfiniteScroll: false /* стоп на прокрутку */
@@ -78,11 +78,12 @@ class _MainPageState extends State<MainPage3> {
 
   Widget buildImage(String urlImage, int index) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(4, 4, 4, 56),
-      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(4, 4, 4, 58),
+      // width: double.infinity,
       child: Image.network(
         urlImage,
         fit: BoxFit.cover,
+        width: 520, /* даёт позиционирование картинки */
       ),
     );
   }
