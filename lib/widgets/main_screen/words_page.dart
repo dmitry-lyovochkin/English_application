@@ -97,7 +97,9 @@ class _PaintBoardState extends State<PaintBoard> {
               top: 5,
               left: 5,
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () { 
+                    Navigator.pop(context);
+                  },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -132,8 +134,8 @@ class _PaintBoardState extends State<PaintBoard> {
                     onPrimary: Colors.white),
               )),
           Positioned(
-              bottom: 10,
-              left: 10,
+              bottom: 15,
+              left: 15,
               child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
@@ -150,8 +152,8 @@ class _PaintBoardState extends State<PaintBoard> {
               )
           ),
           Positioned(
-            bottom: 10,
-            right: 10,
+            bottom: 15,
+            right: 15,
             child: ElevatedButton(
               onPressed: () => setState(() => drawingPoints = []),
               style: ElevatedButton.styleFrom(
@@ -168,7 +170,7 @@ class _PaintBoardState extends State<PaintBoard> {
             ),
           ),
           Positioned(
-            bottom: 10,
+            bottom: 15,
             right: 85,
             child: Container(
               padding:
