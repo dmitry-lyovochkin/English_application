@@ -14,7 +14,7 @@ class DrawingPage extends StatefulWidget {
 class _DrawingPageState extends State<DrawingPage> {
   final GlobalKey _globalKey = GlobalKey();
   List<DrawnLine> lines = <DrawnLine>[];
-  late DrawnLine line;
+  DrawnLine? line;
   Color selectedColor = Colors.black;
   double selectedWidth = 5;
 
@@ -25,7 +25,7 @@ class _DrawingPageState extends State<DrawingPage> {
   Future<void> clear() async {
     setState(() {
       lines = [];
-      // line = null;
+      line = null;
     });
   }
 
@@ -61,7 +61,7 @@ class _DrawingPageState extends State<DrawingPage> {
             builder: (context, snapshot) {
               return CustomPaint(
                 painter: Sketcher(
-                  lines: [line],
+                  lines: [line!],
                 ),
               );
             },
@@ -95,22 +95,22 @@ class _DrawingPageState extends State<DrawingPage> {
   }
 
   void onPanStart(DragStartDetails details) {
-    // RenderBox box = context.findRenderObject();
-    // Offset point = box.globalToLocal(details.globalPosition);
-    // line = DrawnLine([point], selectedColor, selectedWidth);
+    final box = context.findRenderObject() as RenderBox;
+    final point = box.globalToLocal(details.globalPosition);
+    line = DrawnLine([point], selectedColor, selectedWidth);
   }
 
   void onPanUpdate(DragUpdateDetails details) {
-    // RenderBox box = context.findRenderObject();
-    // Offset point = box.globalToLocal(details.globalPosition);
+    final box = context.findRenderObject() as RenderBox;
+    final point = box.globalToLocal(details.globalPosition);
 
-    // List<Offset> path = List.from(line.path)..add(point);
-    // line = DrawnLine(path, selectedColor, selectedWidth);
-    currentLineStreamController.add(line);
+    final path = List<Offset>.from(line!.path)..add(point);
+    line = DrawnLine(path, selectedColor, selectedWidth);
+    currentLineStreamController.add(line!);
   }
 
   void onPanEnd(DragEndDetails details) {
-    lines = List.from(lines)..add(line);
+    lines = List.from(lines)..add(line!);
 
     linesStreamController.add(lines);
   }

@@ -43,50 +43,53 @@ class _PaintBoardState extends State<PaintBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-          children: [
+      body: Stack(
+        children: [
           const MainPage3(),
-          GestureDetector(
-            onPanStart: (details) {
-              setState(() {
-                drawingPoints.add(
-                  DrawingPoint(
-                    details.localPosition,
-                    Paint()
-                      ..color = selectedColor.withOpacity(opacity)
-                      ..isAntiAlias = true
-                      ..strokeWidth = strokeWidth
-                      ..strokeCap = StrokeCap.round,
+          Padding(
+            padding: const EdgeInsets.all(30),
+            child: GestureDetector(
+              onPanStart: (details) {
+                setState(() {
+                  drawingPoints.add(
+                    DrawingPoint(
+                      details.localPosition,
+                      Paint()
+                        ..color = selectedColor.withOpacity(opacity)
+                        ..isAntiAlias = true
+                        ..strokeWidth = strokeWidth
+                        ..strokeCap = StrokeCap.round,
+                    ),
+                  );
+                });
+              },
+              onPanUpdate: (details) {
+                setState(() {
+                  drawingPoints.add(
+                    DrawingPoint(
+                      details.localPosition,
+                      Paint()
+                        ..color = selectedColor.withOpacity(opacity)
+                        ..isAntiAlias = true
+                        ..strokeWidth = strokeWidth
+                        ..strokeCap = StrokeCap.round,
+                    ),
+                  );
+                });
+              },
+              onPanEnd: (details) {
+                setState(() {
+                  drawingPoints.add(null);
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: CustomPaint(
+                  painter: _DrawingPainter(drawingPoints),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
                   ),
-                );
-              });
-            },
-            onPanUpdate: (details) {
-              setState(() {
-                drawingPoints.add(
-                  DrawingPoint(
-                    details.localPosition,
-                    Paint()
-                      ..color = selectedColor.withOpacity(opacity)
-                      ..isAntiAlias = true
-                      ..strokeWidth = strokeWidth
-                      ..strokeCap = StrokeCap.round,
-                  ),
-                );
-              });
-            },
-            onPanEnd: (details) {
-              setState(() {
-                drawingPoints.add(null);
-              });
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: CustomPaint(
-                painter: _DrawingPainter(drawingPoints),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
                 ),
               ),
             ),
@@ -97,7 +100,7 @@ class _PaintBoardState extends State<PaintBoard> {
               top: 5,
               left: 5,
               child: ElevatedButton(
-                  onPressed: () { 
+                  onPressed: () {
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
@@ -120,7 +123,7 @@ class _PaintBoardState extends State<PaintBoard> {
               right: 5,
               child: ElevatedButton.icon(
                 icon: const Icon(
-                  MyIcons.tick_circle, 
+                  MyIcons.tick_circle,
                   size: 27,
                 ),
                 label: const Text('Сохранить'),
@@ -149,8 +152,7 @@ class _PaintBoardState extends State<PaintBoard> {
                     primary: Colors.white,
                     onPrimary: ButtonColor.buttonColor),
                 child: const Icon(MyIcons.voice, size: 27),
-              )
-          ),
+              )),
           Positioned(
             bottom: 15,
             right: 15,
@@ -174,7 +176,7 @@ class _PaintBoardState extends State<PaintBoard> {
             right: 85,
             child: Container(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 22, vertical: 0),
+                  const EdgeInsets.symmetric(horizontal: 22),
               decoration: const BoxDecoration(
                   color: Color.fromRGBO(231, 243, 253, 0.8),
                   borderRadius: BorderRadius.all(Radius.circular(16))),
@@ -189,7 +191,8 @@ class _PaintBoardState extends State<PaintBoard> {
                     value: strokeWidth,
                     onChanged: (val) => setState(() => strokeWidth = val),
                   ),
-                  ...List.generate(colors.length, (index) => _useColor(colors[index])),
+                  ...List.generate(
+                      colors.length, (index) => _useColor(colors[index])),
                   const SizedBox(width: 5),
                   ElevatedButton(
                     onPressed: () {},
@@ -198,19 +201,19 @@ class _PaintBoardState extends State<PaintBoard> {
                           borderRadius: BorderRadius.circular(16),
                         ),
                         padding: const EdgeInsets.symmetric(
-                          vertical: 13,
-                          horizontal: 13,
+                          vertical: 14,
+                          horizontal: 14,
                         ),
                         primary: Colors.white,
                         onPrimary: ButtonColor.buttonColor),
                     child: const Icon(MyIcons.vector, size: 27),
                   ),
                 ]
-              )
-            )
+              ),
+            ),
           )
         ]
-        )
+      )
     );
   }
 

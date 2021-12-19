@@ -8,6 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Drawing App',
+      debugShowCheckedModeBanner: false,
       home: DrawingPage(),
     );
   }
