@@ -22,6 +22,7 @@ class _DrawingPageState extends State<DrawingPage> {
   StreamController<DrawnLine> currentLineStreamController = StreamController<DrawnLine>.broadcast();
 
   
+
   Future<void> clear() async {
     setState(() {
       lines = [];
@@ -95,16 +96,16 @@ class _DrawingPageState extends State<DrawingPage> {
   }
 
   void onPanStart(DragStartDetails details) {
-    final box = context.findRenderObject() as RenderBox;
-    final point = box.globalToLocal(details.globalPosition);
+    final RenderBox box = context.findRenderObject() as RenderBox;
+    final Offset point = box.globalToLocal(details.globalPosition);
     line = DrawnLine([point], selectedColor, selectedWidth);
   }
 
   void onPanUpdate(DragUpdateDetails details) {
-    final box = context.findRenderObject() as RenderBox;
-    final point = box.globalToLocal(details.globalPosition);
+    final RenderBox box = context.findRenderObject() as RenderBox;
+    final Offset point = box.globalToLocal(details.globalPosition);
 
-    final path = List<Offset>.from(line!.path)..add(point);
+    List<Offset> path = List.from(line!.path)..add(point);
     line = DrawnLine(path, selectedColor, selectedWidth);
     currentLineStreamController.add(line!);
   }
@@ -143,7 +144,7 @@ class _DrawingPageState extends State<DrawingPage> {
         child: Container(
           width: strokeWidth * 2,
           height: strokeWidth * 2,
-          decoration: BoxDecoration(color: selectedColor, borderRadius: BorderRadius.circular(50.0)),
+          decoration: BoxDecoration(color: selectedColor, borderRadius: BorderRadius.circular(50)),
         ),
       ),
     );
@@ -159,9 +160,8 @@ class _DrawingPageState extends State<DrawingPage> {
         children: [
           buildClearButton(),
           const Divider(
-            height: 40,
+            height: 10,
           ),
-
           buildColorButton(Colors.red),
           buildColorButton(Colors.blueAccent),
           buildColorButton(Colors.deepOrange),

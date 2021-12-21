@@ -1,5 +1,6 @@
 import 'package:english_application/app/app.dart';
 import 'package:english_application/theme.dart';
+import 'package:english_application/widgets/main_screen/drawing_page/drawing_page.dart';
 import 'package:english_application/widgets/main_screen/profile_page/profile_page.dart';
 import 'package:english_application/widgets/main_screen/words_page.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _HomePageState extends State<HomePage> {
     } else {
       Navigator.push<Widget>(
               context,
-              MaterialPageRoute(builder: (context) => const PaintBoard()),
+              MaterialPageRoute(builder: (context) => DrawingPage()),
             );
     }
   }
