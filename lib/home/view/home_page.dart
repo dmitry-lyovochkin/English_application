@@ -1,9 +1,6 @@
 import 'package:english_application/app/app.dart';
 import 'package:english_application/theme.dart';
-import 'package:english_application/widgets/main_screen/drawing_page/drawing_page.dart';
-import 'package:english_application/widgets/main_screen/drawing_page/painting.dart';
 import 'package:english_application/widgets/main_screen/profile_page/profile_page.dart';
-import 'package:english_application/widgets/main_screen/repeat_page/repeat_page.dart';
 import 'package:english_application/widgets/main_screen/words_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     if (selectedIndex == 0) {
       return const ProfilePageWidget();
     } else {
-      return   CanvasPainting();
+      return const PaintBoard();
     }
   }
 
