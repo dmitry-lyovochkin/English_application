@@ -11,7 +11,7 @@ class Sketcher extends CustomPainter {
     final paint = Paint()
       ..color = Colors.redAccent
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 5.0;
+      ..strokeWidth = 5;
 
     for (int i = 0; i < lines.length; ++i) {
       if (lines[i] == null) continue;

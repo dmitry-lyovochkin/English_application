@@ -18,17 +18,10 @@ class _DrawingPageState extends State<DrawingPage> {
   Color selectedColor = Colors.black;
   double selectedWidth = 5;
 
-  StreamController<List<DrawnLine>> linesStreamController = StreamController<List<DrawnLine>>.broadcast();
-  StreamController<DrawnLine> currentLineStreamController = StreamController<DrawnLine>.broadcast();
-
-  
-
-  Future<void> clear() async {
-    setState(() {
-      lines = [];
-      line = null;
-    });
-  }
+  StreamController<List<DrawnLine>> linesStreamController =
+      StreamController<List<DrawnLine>>.broadcast();
+  StreamController<DrawnLine> currentLineStreamController =
+      StreamController<DrawnLine>.broadcast();
 
   @override
   Widget build(BuildContext context) {
@@ -47,29 +40,35 @@ class _DrawingPageState extends State<DrawingPage> {
 
   Widget buildCurrentPath(BuildContext context) {
     return GestureDetector(
-      onPanStart: onPanStart,
-      onPanUpdate: onPanUpdate,
-      onPanEnd: onPanEnd,
-      child: RepaintBoundary(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.all(4),
-          color: Colors.transparent,
-          alignment: Alignment.topLeft,
-          child: StreamBuilder<DrawnLine>(
-            stream: currentLineStreamController.stream,
-            builder: (context, snapshot) {
-              return CustomPaint(
-                painter: Sketcher(
-                  lines: [line!],
-                ),
-              );
-            },
-          ),
-        ),
-      ),
-    );
+        onPanStart: onPanStart,
+        onPanUpdate: onPanUpdate,
+        onPanEnd: onPanEnd,
+        child: RepaintBoundary(
+            child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                padding: const EdgeInsets.all(4),
+                color: Colors.transparent,
+                alignment: Alignment.topLeft,
+                child: StreamBuilder<DrawnLine>(
+                    stream: currentLineStreamController.stream,
+                    builder: (context, snapshot) {
+                      if (line != null) {
+                        return CustomPaint(
+                          painter: Sketcher(
+                            lines: [line!],
+                          ),
+                        );
+                      }else {
+                        return const CustomPaint(
+                        );
+                      }
+                      }
+                
+                    )
+                    )
+                    )
+                    );
   }
 
   Widget buildAllPaths(BuildContext context) {
@@ -96,16 +95,16 @@ class _DrawingPageState extends State<DrawingPage> {
   }
 
   void onPanStart(DragStartDetails details) {
-    final RenderBox box = context.findRenderObject() as RenderBox;
-    final Offset point = box.globalToLocal(details.globalPosition);
+    final box = context.findRenderObject() as RenderBox;
+    final point = box.globalToLocal(details.globalPosition);
     line = DrawnLine([point], selectedColor, selectedWidth);
   }
 
   void onPanUpdate(DragUpdateDetails details) {
-    final RenderBox box = context.findRenderObject() as RenderBox;
-    final Offset point = box.globalToLocal(details.globalPosition);
+    final box = context.findRenderObject() as RenderBox;
+    final point = box.globalToLocal(details.globalPosition);
 
-    List<Offset> path = List.from(line!.path)..add(point);
+    final path = List<Offset>.from(line!.path)..add(point);
     line = DrawnLine(path, selectedColor, selectedWidth);
     currentLineStreamController.add(line!);
   }
@@ -144,7 +143,8 @@ class _DrawingPageState extends State<DrawingPage> {
         child: Container(
           width: strokeWidth * 2,
           height: strokeWidth * 2,
-          decoration: BoxDecoration(color: selectedColor, borderRadius: BorderRadius.circular(50)),
+          decoration: BoxDecoration(
+              color: selectedColor, borderRadius: BorderRadius.circular(50)),
         ),
       ),
     );
@@ -158,10 +158,6 @@ class _DrawingPageState extends State<DrawingPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          buildClearButton(),
-          const Divider(
-            height: 10,
-          ),
           buildColorButton(Colors.red),
           buildColorButton(Colors.blueAccent),
           buildColorButton(Colors.deepOrange),
@@ -186,19 +182,6 @@ class _DrawingPageState extends State<DrawingPage> {
             selectedColor = color;
           });
         },
-      ),
-    );
-  }
-
-  Widget buildClearButton() {
-    return GestureDetector(
-      onTap: clear,
-      child: const CircleAvatar(
-        child: Icon(
-          Icons.create,
-          size: 20,
-          color: Colors.white,
-        ),
       ),
     );
   }

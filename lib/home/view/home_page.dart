@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
     } else {
       Navigator.push<Widget>(
               context,
-              MaterialPageRoute(builder: (context) => DrawingPage()),
+              MaterialPageRoute(builder: (context) => const DrawingPage()),
             );
     }
   }
