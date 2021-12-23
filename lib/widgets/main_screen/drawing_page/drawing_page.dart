@@ -1,8 +1,13 @@
 import 'dart:async';
 
+import 'package:english_application/my_icons_icons.dart';
+import 'package:english_application/theme.dart';
+import 'package:english_application/widgets/main_screen/drawing_page/buttons.dart';
 import 'package:english_application/widgets/main_screen/drawing_page/drawn_line.dart';
 import 'package:english_application/widgets/main_screen/drawing_page/scetcher.dart';
+import 'package:english_application/widgets/main_screen/slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class DrawingPage extends StatefulWidget {
   const DrawingPage({Key? key}) : super(key: key);
@@ -16,7 +21,7 @@ class _DrawingPageState extends State<DrawingPage> {
   List<DrawnLine> lines = <DrawnLine>[];
   DrawnLine? line;
   Color selectedColor = Colors.black;
-  double selectedWidth = 5;
+  double selectedWidth = 10;
 
   StreamController<List<DrawnLine>> linesStreamController =
       StreamController<List<DrawnLine>>.broadcast();
@@ -26,13 +31,17 @@ class _DrawingPageState extends State<DrawingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow[50],
+      // backgroundColor: Colors.yellow[50],
       body: Stack(
         children: [
+          // bottomCont(),
+          const MainPage3(),
           buildAllPaths(context),
           buildCurrentPath(context),
-          buildStrokeToolbar(),
+          // buildStrokeToolbar(),
           buildColorToolbar(),
+          const ButtonsDraw(),
+          slider(),
         ],
       ),
     );
@@ -59,16 +68,10 @@ class _DrawingPageState extends State<DrawingPage> {
                             lines: [line!],
                           ),
                         );
-                      }else {
-                        return const CustomPaint(
-                        );
+                      } else {
+                        return const CustomPaint();
                       }
-                      }
-                
-                    )
-                    )
-                    )
-                    );
+                    }))));
   }
 
   Widget buildAllPaths(BuildContext context) {
@@ -111,78 +114,99 @@ class _DrawingPageState extends State<DrawingPage> {
 
   void onPanEnd(DragEndDetails details) {
     lines = List.from(lines)..add(line!);
-
     linesStreamController.add(lines);
   }
 
-  Widget buildStrokeToolbar() {
+  Widget buildColorToolbar() {
     return Positioned(
-      bottom: 100,
-      right: 10,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          buildStrokeButton(5),
-          buildStrokeButton(10),
-          buildStrokeButton(15),
-        ],
-      ),
-    );
-  }
-
-  Widget buildStrokeButton(double strokeWidth) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedWidth = strokeWidth;
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(4),
-        child: Container(
-          width: strokeWidth * 2,
-          height: strokeWidth * 2,
-          decoration: BoxDecoration(
-              color: selectedColor, borderRadius: BorderRadius.circular(50)),
+      bottom: 22,
+      right: 80,
+      child: SizedBox(
+        height: 35,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            buildColorButton(Colors.black),
+            buildColorButton(Colors.green),
+            buildColorButton(Colors.blue),
+            buildColorButton(Colors.red),
+            buildColorButton(Colors.yellow),
+            buildColorButton(Colors.pink),
+            buildColorButton(Colors.purple),
+            buildColorButton(Colors.orange),
+          ],
         ),
       ),
     );
   }
 
-  Widget buildColorToolbar() {
+  Widget buildColorButton(Color color) {
+    return FloatingActionButton(
+      mini: true,
+      backgroundColor: color,
+      onPressed: () {
+        setState(() {
+          selectedColor = color;
+        });
+      },
+    );
+  }
+
+  // Widget bottomCont() {
+  //   Positioned(
+  //     bottom: 15,
+  //     right: 85,
+  //     child: Container(
+  //       padding: const EdgeInsets.symmetric(horizontal: 22),
+  //       decoration: const BoxDecoration(
+  //           color: Color.fromRGBO(231, 243, 253, 0.8),
+  //           borderRadius: BorderRadius.all(Radius.circular(16))),
+  //       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+  //         Slider(
+  //           activeColor: const Color.fromRGBO(46, 124, 189, 0.5),
+  //           inactiveColor: const Color.fromRGBO(46, 124, 189, 0.2),
+  //           max: 30,
+  //           label: selectedWidth.round().toString(),
+  //           value: selectedWidth,
+  //           onChanged: (val) => setState(() => selectedWidth = val),
+  //         ),
+  //       ]),
+  //     ),
+  //   );
+  // }
+
+  Widget slider() {
     return Positioned(
-      top: 40,
-      right: 10,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          buildColorButton(Colors.red),
-          buildColorButton(Colors.blueAccent),
-          buildColorButton(Colors.deepOrange),
-          buildColorButton(Colors.green),
-          buildColorButton(Colors.lightBlue),
-          buildColorButton(Colors.black),
-          buildColorButton(Colors.white),
-        ],
+      bottom: 15,
+      left: 70,
+      child: Slider(
+        activeColor: const Color.fromRGBO(46, 124, 189, 0.5),
+        inactiveColor: const Color.fromRGBO(46, 124, 189, 0.2),
+        min: 3,
+        max: 30,
+        label: selectedWidth.round().toString(),
+        value: selectedWidth,
+        onChanged: (val) => setState(() => selectedWidth = val),
       ),
     );
   }
 
-  Widget buildColorButton(Color color) {
-    return Padding(
-      padding: const EdgeInsets.all(4),
-      child: FloatingActionButton(
-        mini: true,
-        backgroundColor: color,
-        child: Container(),
-        onPressed: () {
-          setState(() {
-            selectedColor = color;
-          });
-        },
-      ),
-    );
+// поворот экрана
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+  }
+
+  @override
+  dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.dispose();
   }
 }
