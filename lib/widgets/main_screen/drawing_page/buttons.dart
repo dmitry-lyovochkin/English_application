@@ -55,7 +55,7 @@ class ButtonsDraw extends StatelessWidget {
         ),
         Positioned(
           bottom: 15,
-          left: 15,
+          left: 20,
           child: ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
@@ -72,45 +72,6 @@ class ButtonsDraw extends StatelessWidget {
             child: const Icon(MyIcons.voice, size: 27),
           )
         ),
-        Positioned(
-          bottom: 15,
-          right: 15,
-          child: ElevatedButton(
-            onPressed: () {} /* => setState(() => drawnLine = []) */,
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              padding: const EdgeInsets.symmetric(
-                vertical: 14,
-                horizontal: 14,
-              ),
-              primary: Colors.white,
-              onPrimary: ButtonColor.buttonColor
-            ),
-            child: const Icon(MyIcons.vector_1_, size: 27),
-          ),
-        ),
-        // Positioned(
-        //   bottom: 15,
-        //   right: 85,
-        //   child: ElevatedButton(
-        //     onPressed: () {},
-        //     style: ElevatedButton.styleFrom(
-        //       shape: RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.circular(16),
-        //       ),
-        //       padding: const EdgeInsets.symmetric(
-        //         vertical: 14,
-        //         horizontal: 14,
-        //       ),
-        //       primary: Colors.white,
-        //       onPrimary: ButtonColor.buttonColor
-        //     ),
-        //     child: const Icon(MyIcons.vector, size: 27),
-        //   ),
-        // ),
-        
       ],
     );
   }

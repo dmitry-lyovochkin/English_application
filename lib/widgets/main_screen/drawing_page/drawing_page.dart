@@ -31,17 +31,16 @@ class _DrawingPageState extends State<DrawingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.yellow[50],
       body: Stack(
         children: [
-          // bottomCont(),
           const MainPage3(),
+          buttomCont(),
           buildAllPaths(context),
           buildCurrentPath(context),
-          // buildStrokeToolbar(),
           buildColorToolbar(),
           const ButtonsDraw(),
           slider(),
+          buildClearButton(),
         ],
       ),
     );
@@ -49,29 +48,33 @@ class _DrawingPageState extends State<DrawingPage> {
 
   Widget buildCurrentPath(BuildContext context) {
     return GestureDetector(
-        onPanStart: onPanStart,
-        onPanUpdate: onPanUpdate,
-        onPanEnd: onPanEnd,
-        child: RepaintBoundary(
-            child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                padding: const EdgeInsets.all(4),
-                color: Colors.transparent,
-                alignment: Alignment.topLeft,
-                child: StreamBuilder<DrawnLine>(
-                    stream: currentLineStreamController.stream,
-                    builder: (context, snapshot) {
-                      if (line != null) {
-                        return CustomPaint(
-                          painter: Sketcher(
-                            lines: [line!],
-                          ),
-                        );
-                      } else {
-                        return const CustomPaint();
-                      }
-                    }))));
+      onPanStart: onPanStart,
+      onPanUpdate: onPanUpdate,
+      onPanEnd: onPanEnd,
+      child: RepaintBoundary(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.all(4),
+          color: Colors.transparent,
+          alignment: Alignment.topLeft,
+          child: StreamBuilder<DrawnLine>(
+            stream: currentLineStreamController.stream,
+            builder: (context, snapshot) {
+              if (line != null) {
+                return CustomPaint(
+                  painter: Sketcher(
+                    lines: [line!],
+                  ),
+                );
+              } else {
+                return const CustomPaint();
+              }
+            }
+          )
+        )
+      )
+    );
   }
 
   Widget buildAllPaths(BuildContext context) {
@@ -119,8 +122,8 @@ class _DrawingPageState extends State<DrawingPage> {
 
   Widget buildColorToolbar() {
     return Positioned(
-      bottom: 22,
-      right: 80,
+      bottom: 25,
+      right: 87,
       child: SizedBox(
         height: 35,
         child: Row(
@@ -152,42 +155,65 @@ class _DrawingPageState extends State<DrawingPage> {
     );
   }
 
-  // Widget bottomCont() {
-  //   Positioned(
-  //     bottom: 15,
-  //     right: 85,
-  //     child: Container(
-  //       padding: const EdgeInsets.symmetric(horizontal: 22),
-  //       decoration: const BoxDecoration(
-  //           color: Color.fromRGBO(231, 243, 253, 0.8),
-  //           borderRadius: BorderRadius.all(Radius.circular(16))),
-  //       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-  //         Slider(
-  //           activeColor: const Color.fromRGBO(46, 124, 189, 0.5),
-  //           inactiveColor: const Color.fromRGBO(46, 124, 189, 0.2),
-  //           max: 30,
-  //           label: selectedWidth.round().toString(),
-  //           value: selectedWidth,
-  //           onChanged: (val) => setState(() => selectedWidth = val),
-  //         ),
-  //       ]),
-  //     ),
-  //   );
-  // }
-
   Widget slider() {
     return Positioned(
-      bottom: 15,
-      left: 70,
-      child: Slider(
-        activeColor: const Color.fromRGBO(46, 124, 189, 0.5),
-        inactiveColor: const Color.fromRGBO(46, 124, 189, 0.2),
-        min: 3,
-        max: 30,
-        label: selectedWidth.round().toString(),
-        value: selectedWidth,
-        onChanged: (val) => setState(() => selectedWidth = val),
+      bottom: 18,
+      left: 77,
+      child: SizedBox(
+        width: 155,
+        child: Slider(
+          activeColor: const Color.fromRGBO(46, 124, 189, 0.5),
+          inactiveColor: const Color.fromRGBO(46, 124, 189, 0.2),
+          min: 3,
+          max: 30,
+          label: selectedWidth.round().toString(),
+          value: selectedWidth,
+          onChanged: (val) => setState(() => selectedWidth = val),
+        ),
       ),
+    );
+  }
+
+  Future<void> clear() async {
+    setState(() {
+      lines = [];
+      line = null;
+    });
+  }
+
+  Widget buildClearButton() {
+    return Positioned(
+      bottom: 15,
+      right: 20,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            padding: const EdgeInsets.symmetric(
+              vertical: 14,
+              horizontal: 14,
+            ),
+            primary: Colors.white,
+            onPrimary: ButtonColor.buttonColor),
+        onPressed: clear,
+        child: const Icon(MyIcons.vector_1_, size: 27),
+      ),
+    );
+  }
+
+  Widget buttomCont() {
+    return Positioned(
+      bottom: 15,
+      left: 92,
+      child: Container(
+        height: 55,
+        width: 563,
+        decoration: const BoxDecoration(
+          color: Color.fromRGBO(221, 243, 253, 0.8),
+          borderRadius: BorderRadius.all(Radius.circular(16))
+        ),
+        ),
     );
   }
 

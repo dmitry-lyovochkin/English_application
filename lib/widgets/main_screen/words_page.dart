@@ -129,12 +129,12 @@ class _PaintBoardState extends State<PaintBoard> {
                 label: const Text('Сохранить'),
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    padding: const EdgeInsets.all(13),
-                    primary: ButtonColor.buttonColor,
-                    onPrimary: Colors.white),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  padding: const EdgeInsets.all(13),
+                  primary: ButtonColor.buttonColor,
+                  onPrimary: Colors.white),
               )),
           Positioned(
               bottom: 15,
