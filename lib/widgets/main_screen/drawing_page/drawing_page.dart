@@ -22,6 +22,7 @@ class _DrawingPageState extends State<DrawingPage> {
   DrawnLine? line;
   Color selectedColor = Colors.black;
   double selectedWidth = 10;
+  final opacity = 0.1;
 
   StreamController<List<DrawnLine>> linesStreamController =
       StreamController<List<DrawnLine>>.broadcast();
@@ -34,13 +35,13 @@ class _DrawingPageState extends State<DrawingPage> {
       body: Stack(
         children: [
           const MainPage3(),
-          buttomCont(),
           buildAllPaths(context),
           buildCurrentPath(context),
-          buildColorToolbar(),
           const ButtonsDraw(),
+          buttomCont(),
           slider(),
           buildClearButton(),
+          buildColorToolbar(),
         ],
       ),
     );
@@ -103,7 +104,7 @@ class _DrawingPageState extends State<DrawingPage> {
   void onPanStart(DragStartDetails details) {
     final box = context.findRenderObject() as RenderBox;
     final point = box.globalToLocal(details.globalPosition);
-    line = DrawnLine([point], selectedColor, selectedWidth);
+    line = DrawnLine([point], selectedColor.withOpacity(opacity), selectedWidth);
   }
 
   void onPanUpdate(DragUpdateDetails details) {
@@ -111,7 +112,7 @@ class _DrawingPageState extends State<DrawingPage> {
     final point = box.globalToLocal(details.globalPosition);
 
     final path = List<Offset>.from(line!.path)..add(point);
-    line = DrawnLine(path, selectedColor, selectedWidth);
+    line = DrawnLine(path, selectedColor.withOpacity(opacity), selectedWidth);
     currentLineStreamController.add(line!);
   }
 

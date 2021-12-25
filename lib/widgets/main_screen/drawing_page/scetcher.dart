@@ -2,10 +2,10 @@ import 'package:english_application/widgets/main_screen/drawing_page/drawn_line.
 import 'package:flutter/material.dart';
 
 class Sketcher extends CustomPainter {
+  Sketcher({required this.lines});
   final List<DrawnLine> lines;
 
-  Sketcher({required this.lines});
-
+  List<Offset> offsetsList = [];
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
@@ -13,14 +13,12 @@ class Sketcher extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5;
 
-    for (int i = 0; i < lines.length; ++i) {
+    for (var i = 0; i < lines.length; ++i) {
       if (lines[i] == null) continue;
-      for (int j = 0; j < lines[i].path.length - 1; ++j) {
-        if (lines[i].path[j] != null && lines[i].path[j + 1] != null) {
-          paint.color = lines[i].color;
-          paint.strokeWidth = lines[i].width;
-          canvas.drawLine(lines[i].path[j], lines[i].path[j + 1], paint);
-        }
+      for (var j = 0; j < lines[i].path.length - 1; ++j) {
+        paint.color = lines[i].color;
+        paint.strokeWidth = lines[i].width;
+        canvas.drawLine(lines[i].path[j], lines[i].path[j + 1], paint);
       }
     }
   }

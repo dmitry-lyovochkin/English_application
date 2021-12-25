@@ -102,7 +102,8 @@ class _MainPageState extends State<MainPage3> {
           icon: const Icon(MyIcons.right),
           color: ButtonColor.buttonColor,
         ),
-    ]);
+      ]
+    );
   }
 
   void previous() => controller.previousPage();
