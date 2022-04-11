@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     if (selectedIndex == 0) {
       return const ProfilePageWidget();
     } else {
-      return const PaintBoard();
+      return const MyApp();
     }
   }
 

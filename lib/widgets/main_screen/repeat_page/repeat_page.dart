@@ -26,95 +26,99 @@ class _MainPageState extends State<MainPage4> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Stack(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const FoneBcc(),
-            buildImageSlider(),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(4, 150, 4, 0),
-              child: buildButtons(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.bottom]);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
-    super.dispose();
-  }
-
-  Widget buildImageSlider() => CarouselSlider.builder(
-        carouselController: controller,
-        options: CarouselOptions(
-            height: 360,
-            initialPage: 0,
-            /* какая картинка будет отображаться */
-            viewportFraction: 1,
-            // enlargeCenterPage: true увеличит текущее фото, анимация
-            enableInfiniteScroll: false /* стоп на прокрутку */
-            ),
-        itemCount: urlImages.length,
-        itemBuilder: (content, index, realIndex) {
-          final urlImage = urlImages[index];
-          return buildImage(urlImage, index);
-        },
-      );
-
-  Widget buildImage(String urlImage, int index) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-      // padding: EdgeInsets.symmetric(horizontal: 60, vertical: 0),
-      width: double.infinity,
-      child: Image.network(
-        urlImage,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
-
-  Widget buildButtons({bool stretch = false}) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      IconButton(
-        onPressed: previous,
-        icon: const Icon(Icons.arrow_back_ios_rounded),
-        color: AppColors.mainColorApp,
-      ),
-      IconButton(
-        onPressed: next,
-        icon: const Icon(Icons.arrow_forward_ios_rounded),
-        color: AppColors.mainColorApp,
-      ),
-    ]);
-  }
-
-  void previous() => controller.previousPage();
-
-  void next() => controller.nextPage();
-}
-
-
-class FoneBcc extends StatelessWidget {
-  const FoneBcc({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(color: Colors.white),
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 34),
+    return const Scaffold(
+       body: Center(child: Text('Profgregerile', style: TextStyle(fontSize: 54)))
     );
   }
 }
+  //     body: Center(
+  //       child: Stack(
+  //         // mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           const FoneBcc(),
+  //           buildImageSlider(),
+  //           Padding(
+  //             padding: const EdgeInsets.fromLTRB(4, 150, 4, 0),
+  //             child: buildButtons(),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+//   @override
+//   void initState() {
+//     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+//         overlays: [SystemUiOverlay.bottom]);
+//     super.initState();
+//   }
+
+//   @override
+//   void dispose() {
+//     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+//         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+//     super.dispose();
+//   }
+
+//   Widget buildImageSlider() => CarouselSlider.builder(
+//         carouselController: controller,
+//         options: CarouselOptions(
+//             height: 360,
+//             initialPage: 0,
+//             /* какая картинка будет отображаться */
+//             viewportFraction: 1,
+//             // enlargeCenterPage: true увеличит текущее фото, анимация
+//             enableInfiniteScroll: false /* стоп на прокрутку */
+//             ),
+//         itemCount: urlImages.length,
+//         itemBuilder: (content, index, realIndex) {
+//           final urlImage = urlImages[index];
+//           return buildImage(urlImage, index);
+//         },
+//       );
+
+//   Widget buildImage(String urlImage, int index) {
+//     return Container(
+//       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+//       // padding: EdgeInsets.symmetric(horizontal: 60, vertical: 0),
+//       width: double.infinity,
+//       child: Image.network(
+//         urlImage,
+//         fit: BoxFit.cover,
+//       ),
+//     );
+//   }
+
+//   Widget buildButtons({bool stretch = false}) {
+//     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+//       IconButton(
+//         onPressed: previous,
+//         icon: const Icon(Icons.arrow_back_ios_rounded),
+//         color: AppColors.mainColorApp,
+//       ),
+//       IconButton(
+//         onPressed: next,
+//         icon: const Icon(Icons.arrow_forward_ios_rounded),
+//         color: AppColors.mainColorApp,
+//       ),
+//     ]);
+//   }
+
+//   void previous() => controller.previousPage();
+
+//   void next() => controller.nextPage();
+// }
+
+
+// class FoneBcc extends StatelessWidget {
+//   const FoneBcc({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: const BoxDecoration(color: Colors.white),
+//       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 34),
+//     );
+//   }
+// }
