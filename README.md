@@ -1,6 +1,6 @@
 # English application
 
-
+Commercial project for English language courses. The project is not yet completed, in the process of being written
 
 ## Technologies that are involved:
 - Dart
